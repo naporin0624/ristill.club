@@ -24,31 +24,18 @@ export const root = style({
 		)
 	`,
 	fontFamily: "'Inter', 'Segoe UI', sans-serif",
-	padding: "4rem 2rem",
-
-	"@media": {
-		"(width < 768px)": {
-			padding: "2rem 1rem",
-		},
-	},
+	padding: "0",
 });
 
 export const singleFrameLayout = style({
-	maxWidth: "1200px",
-	margin: "0 auto",
+	width: "100%",
+	height: "100vh",
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
-	minHeight: "calc(100vh - 8rem)",
-
-	"@media": {
-		"(width < 768px)": {
-			minHeight: "calc(100vh - 4rem)",
-		},
-	},
 });
 
 export const mainFrame = style({
 	width: "100%",
-	maxWidth: "900px",
+	height: "100%",
 });

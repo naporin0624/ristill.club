@@ -14,26 +14,26 @@ export const root = style({
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
-	padding: "2rem",
+	padding: "0",
 	minHeight: "100vh",
 });
 
 export const frameOuter = style({
-	width: "100%",
-	maxWidth: "900px",
-	aspectRatio: "auto",
-	backgroundColor: "#ffffff",
-	padding: "clamp(3rem, 5vw, 4rem)",
-	boxShadow: `
-		0 20px 60px -10px rgba(0, 0, 0, 0.15),
-		0 10px 30px -5px rgba(0, 0, 0, 0.08)
-	`,
+	width: "100vw",
+	height: "100vh",
+	backgroundColor: "#f8f6f3",
+	padding: "clamp(4rem, 8vw, 6rem)",
+	paddingTop: "calc(clamp(4rem, 8vw, 6rem) + 8px)",
 	position: "relative",
 
 	"@media": {
 		"(width < 768px)": {
+			padding: "3rem",
+			paddingTop: "calc(3rem + 8px)",
+		},
+		"(width < 480px)": {
 			padding: "2rem",
-			maxWidth: "95vw",
+			paddingTop: "calc(2rem + 8px)",
 		},
 	},
 
@@ -49,6 +49,35 @@ export const frameInner = style({
 
 const cornerSize = "40px";
 
+export const scrollIndicator = style({
+	position: "absolute",
+	top: "clamp(4rem, 8vw, 6rem)",
+	left: "clamp(4rem, 8vw, 6rem)",
+	right: "clamp(4rem, 8vw, 6rem)",
+	height: "4px",
+	backgroundColor: "rgba(0, 0, 0, 0.1)",
+	zIndex: 10,
+
+	"@media": {
+		"(width < 768px)": {
+			top: "3rem",
+			left: "3rem",
+			right: "3rem",
+		},
+		"(width < 480px)": {
+			top: "2rem",
+			left: "2rem",
+			right: "2rem",
+		},
+	},
+});
+
+export const scrollBar = style({
+	height: "100%",
+	backgroundColor: "#2c5aa0",
+	transition: "width 0.15s ease-out",
+});
+
 export const matting = style({
 	width: "100%",
 	height: "100%",
@@ -58,32 +87,56 @@ export const matting = style({
 	overflow: "hidden",
 	clipPath: `polygon(
 		${cornerSize} 0,
-		100% 0,
+		calc(100% - ${cornerSize}) 0,
+		100% ${cornerSize},
 		100% calc(100% - ${cornerSize}),
 		calc(100% - ${cornerSize}) 100%,
-		0 100%,
+		${cornerSize} 100%,
+		0 calc(100% - ${cornerSize}),
 		0 ${cornerSize}
 	)`,
 });
 
-export const cornerTop = style({
+export const cornerTopLeft = style({
 	position: "absolute",
 	top: 0,
 	left: 0,
 	width: cornerSize,
 	height: cornerSize,
-	backgroundColor: "#ffffff",
+	backgroundColor: "#f8f6f3",
 	clipPath: "polygon(0 0, 100% 0, 0 100%)",
 	zIndex: 3,
 });
 
-export const cornerBottom = style({
+export const cornerTopRight = style({
+	position: "absolute",
+	top: 0,
+	right: 0,
+	width: cornerSize,
+	height: cornerSize,
+	backgroundColor: "#f8f6f3",
+	clipPath: "polygon(0 0, 100% 0, 100% 100%)",
+	zIndex: 3,
+});
+
+export const cornerBottomLeft = style({
+	position: "absolute",
+	bottom: 0,
+	left: 0,
+	width: cornerSize,
+	height: cornerSize,
+	backgroundColor: "#f8f6f3",
+	clipPath: "polygon(0 0, 0 100%, 100% 100%)",
+	zIndex: 3,
+});
+
+export const cornerBottomRight = style({
 	position: "absolute",
 	bottom: 0,
 	right: 0,
 	width: cornerSize,
 	height: cornerSize,
-	backgroundColor: "#ffffff",
+	backgroundColor: "#f8f6f3",
 	clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
 	zIndex: 3,
 });
@@ -92,9 +145,10 @@ export const photoContent = style({
 	width: "100%",
 	height: "100%",
 	background: `
-		linear-gradient(180deg, 
-			rgba(255, 255, 255, 0.95) 0%, 
-			rgba(252, 252, 252, 0.95) 100%
+		linear-gradient(135deg, 
+			#ffffff 0%, 
+			#fcfcfc 50%,
+			#f9f9f9 100%
 		)
 	`,
 	display: "flex",
@@ -102,7 +156,20 @@ export const photoContent = style({
 	padding: "clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem)",
 	gap: "4rem",
 	position: "relative",
-	overflow: "auto",
+	overflowY: "auto",
+	overflowX: "hidden",
+	scrollbarWidth: "none",
+	msOverflowStyle: "none",
+	boxShadow: `
+		inset 0 2px 10px rgba(0, 0, 0, 0.05),
+		inset 0 -2px 10px rgba(0, 0, 0, 0.05)
+	`,
+
+	selectors: {
+		"&::-webkit-scrollbar": {
+			display: "none",
+		},
+	},
 
 	"@media": {
 		"(width < 768px)": {

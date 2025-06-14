@@ -2,18 +2,56 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useRef, useState, useEffect, useCallback } from "react";
 
 import * as styles from "./styles.css";
 
 export const PhotoFrame = () => {
+	const scrollContainerRef = useRef<HTMLDivElement>(null);
+	const [scrollProgress, setScrollProgress] = useState(0);
+
+	const handleScroll = useCallback(() => {
+		if (!scrollContainerRef.current) return;
+		const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
+		const maxScroll = scrollHeight - clientHeight;
+		const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
+		setScrollProgress(progress);
+	}, []);
+
+	useEffect(() => {
+		// スクロールイベントリスナーを設定
+		const scrollContainer = scrollContainerRef.current;
+		if (!scrollContainer) return;
+		
+		scrollContainer.addEventListener("scroll", handleScroll);
+		handleScroll(); // 初期値を設定
+		
+		return () => {
+			scrollContainer.removeEventListener("scroll", handleScroll);
+		};
+	}, [handleScroll]);
+
 	return (
 		<div className={styles.root}>
 			<div className={styles.frameOuter}>
+				<div className={styles.scrollIndicator}>
+					<div 
+						className={styles.scrollBar} 
+						style={{ width: `${scrollProgress}%` }}
+						role="progressbar"
+						aria-valuenow={Math.round(scrollProgress)}
+						aria-valuemin={0}
+						aria-valuemax={100}
+						aria-label="スクロール進捗"
+					/>
+				</div>
 				<div className={styles.frameInner}>
 					<div className={styles.matting}>
-						<div className={styles.cornerTop} />
-						<div className={styles.cornerBottom} />
-						<div className={styles.photoContent}>
+						<div className={styles.cornerTopLeft} />
+						<div className={styles.cornerTopRight} />
+						<div className={styles.cornerBottomLeft} />
+						<div className={styles.cornerBottomRight} />
+						<div className={styles.photoContent} ref={scrollContainerRef}>
 							{/* Hero Section */}
 							<motion.section
 								className={styles.heroSection}
