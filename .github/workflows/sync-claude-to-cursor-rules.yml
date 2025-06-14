@@ -3,13 +3,13 @@ name: Sync CLAUDE.md to .cursor/rules
 on:
   push:
     paths:
-      - 'CLAUDE.md'
+      - "CLAUDE.md"
     branches:
       - main
       - develop
   pull_request:
     paths:
-      - 'CLAUDE.md'
+      - "CLAUDE.md"
     branches:
       - main
       - develop
@@ -20,14 +20,13 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-
 
       - name: Check for changes in CLAUDE.md
         id: check-changes
@@ -42,13 +41,13 @@ jobs:
 
       - name: Update .cursor/rules using Claude Code Action
         if: steps.check-changes.outputs.changes_detected == 'true'
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           allowed_tools: Bash(pnpm:*),Bash(node:*),Bash(git:*),View,Edit,GlobTool,GrepTool,BatchTool
           direct_prompt: |
             Read the current CLAUDE.md file and update the .cursor/rules/ directory to reflect any changes in implementation guidelines.
-            
+
             Follow these requirements:
             1. Update existing .cursor/rules/*.mdc files to match CLAUDE.md content
             2. Create new .mdc files if new sections are added to CLAUDE.md
@@ -56,7 +55,7 @@ jobs:
             4. Ensure globs patterns are correctly set for each rule file
             5. Keep the existing structure of global.mdc, components.mdc, internal-components.mdc, tdd-guidelines.mdc, themes.mdc, and utils.mdc
             6. Sync any new coding conventions, naming rules, or architectural decisions
-            
+
             Key files to update:
             - .cursor/rules/global.mdc (immutable programming, naming, loops, etc.)
             - .cursor/rules/components.mdc (reusable components guidelines)
@@ -64,7 +63,7 @@ jobs:
             - .cursor/rules/themes.mdc (theme system and styling)
             - .cursor/rules/utils.mdc (utility functions and TDD)
             - .cursor/rules/tdd-guidelines.mdc (testing strategy)
-            
+
             After updating, save all changes to the respective .cursor/rules files.
 
       - name: Check if .cursor/rules files were modified
@@ -90,9 +89,9 @@ jobs:
           git commit -m "🤖 Auto-sync: Update .cursor/rules from CLAUDE.md changes
 
           Updated .cursor/rules files to reflect changes in CLAUDE.md implementation guidelines.
-          
+
           🤖 Generated with [Claude Code](https://claude.ai/code)
-          
+
           Co-Authored-By: Claude <noreply@anthropic.com>" || exit 0
           git push
 

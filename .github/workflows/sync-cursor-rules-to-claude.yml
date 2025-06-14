@@ -3,13 +3,13 @@ name: Sync .cursor/rules to CLAUDE.md
 on:
   push:
     paths:
-      - '.cursor/rules/**/*.mdc'
+      - ".cursor/rules/**/*.mdc"
     branches:
       - main
       - develop
   pull_request:
     paths:
-      - '.cursor/rules/**/*.mdc'
+      - ".cursor/rules/**/*.mdc"
     branches:
       - main
       - develop
@@ -20,14 +20,13 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-
 
       - name: Check for changes in .cursor/rules
         id: check-changes
@@ -42,13 +41,13 @@ jobs:
 
       - name: Update CLAUDE.md using Claude Code Action
         if: steps.check-changes.outputs.changes_detected == 'true'
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           allowed_tools: Bash(pnpm:*),Bash(node:*),Bash(git:*),View,Edit,GlobTool,GrepTool,BatchTool
           direct_prompt: |
             Read all files in .cursor/rules/ directory and update CLAUDE.md to reflect the current implementation guidelines and rules. 
-            
+
             Follow these requirements:
             1. Maintain the existing structure of CLAUDE.md
             2. Update project structure section to match current .cursor/rules
@@ -56,7 +55,7 @@ jobs:
             4. Ensure all new rules from .cursor/rules are properly documented
             5. Keep the language rules section intact
             6. Write the document in English as it's for Claude's reference
-            
+
             After updating, save the changes to CLAUDE.md.
 
       - name: Check if CLAUDE.md was modified
@@ -80,9 +79,9 @@ jobs:
           git commit -m "🤖 Auto-sync: Update CLAUDE.md from .cursor/rules changes
 
           Updated CLAUDE.md to reflect changes in .cursor/rules files.
-          
+
           🤖 Generated with [Claude Code](https://claude.ai/code)
-          
+
           Co-Authored-By: Claude <noreply@anthropic.com>" || exit 0
           git push
 
