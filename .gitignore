@@ -175,3 +175,4 @@ node_modules
 
 # OpenNext build output
 .open-next
+tsconfig.tsbuildinfo

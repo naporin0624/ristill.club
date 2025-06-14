@@ -32,6 +32,8 @@ const config = [
 			"**/out/**",
 			"**/coverage/**",
 			"types",
+			"**/*.open-next/**",
+			".tsbuildinfo",
 		],
 	},
 	{

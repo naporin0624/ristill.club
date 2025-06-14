@@ -1,0 +1,17 @@
+name: Cache PlayWright
+description: Cache PlayWright dependencies
+
+runs:
+  using: "composite"
+  steps:
+    - name: Cache playwright binaries
+      uses: actions/cache@v4
+      id: playwright-cache
+      with:
+        path: |
+          ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-
+
+    - run: pnpm exec playwright install --with-deps
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      shell: bash

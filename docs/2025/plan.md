@@ -5,6 +5,7 @@
 **「君の輝きを見守り続けたい」**
 
 ### 最優先事項
+
 - **感情伝達**: 技術よりも愛情が伝わることを最優先
 - **可愛さの表現**: おてぃるさんの「可愛い」を最大限に伝える
 - **愛されている実感**: 大量のコンテンツと愛情表現で特別感を創出
@@ -14,6 +15,7 @@
 ## 🌟 サイト構成（誕生日イベント風）
 
 ### Section 1: イベント開始「降臨の瞬間」
+
 **コンセプト**: 「おてぃる誕生日イベント開催中！」の祝福演出
 
 ```
@@ -26,11 +28,13 @@
 ```
 
 **UI要素**:
+
 - `BirthdayHero` - メインビジュアルコンポーネント
 - `CelebrationTitle` - 「おてぃる誕生日イベント開催中！」
 - `WelcomeMessage` - 「今日はあなたの特別な日」
 
 **演出効果**:
+
 - `GoldenParticles` - 金色の星が舞い散る
 - `AquaSparkle` - 碧眼カラーのキラキラ
 - `TitleAnimation` - 文字が順次出現（0.1秒間隔）
@@ -39,6 +43,7 @@
 ---
 
 ### Section 2: ゲスト紹介「今日の主役」
+
 **コンセプト**: おてぃるさんの魅力を「可愛い」中心に紹介
 
 ```
@@ -53,6 +58,7 @@
 ```
 
 **コンテンツ**:
+
 - VRChatの世界で輝く金髪碧眼の美少女
 - イベントキャストとしての活躍
 - 配信での可愛らしい魅力
@@ -60,6 +66,7 @@
 - 制作者から見た人物像
 
 **UI要素**:
+
 - `PersonProfile` - 人物紹介カード
 - `CharmList` - 魅力ポイント一覧
 - `QuoteCard` - 印象的な言葉・エピソード
@@ -67,6 +74,7 @@
 ---
 
 ### Section 3: みんなからのお祝い「愛の結晶」
+
 **コンセプト**: モザイクアートで「愛されている証」を表現
 
 ```
@@ -81,12 +89,14 @@
 ```
 
 **インタラクション**:
+
 - `MosaicViewer` - メインモザイク表示
 - `ImageHover` - ホバーで個別画像をプレビュー
 - `LoveCounter` - 参加人数のカウンター表示
 - `MessagePopup` - 画像提供者のメッセージ表示
 
 **演出効果**:
+
 - `MosaicReveal` - モザイクが徐々に完成
 - `HeartFloat` - ハートマークが浮き上がる
 - `GoldenBorder` - 金色の装飾フレーム
@@ -94,6 +104,7 @@
 ---
 
 ### Section 4: 1年間の軌跡「成長の物語」
+
 **コンセプト**: 2024年6月〜2025年6月の1年間を展示コーナー風に表現
 
 ```
@@ -109,12 +120,14 @@
 ```
 
 **コンテンツ構成**:
+
 - 月別タイムライン（2024年7月〜2025年7月）
 - 各月の活動・成長記録
 - 「この月にキャスト増加！」等の成長ポイント
 - 1万文字推し活文への美しい導線
 
 **UI要素**:
+
 - `GrowthTimeline` - 成長タイムライン
 - `MonthlyCard` - 月別活動カード
 - `LetterInvitation` - 特別な手紙への魅力的な招待状
@@ -123,6 +136,7 @@
 ---
 
 ### Section 5: 主催者からのメッセージ「想いの結晶」
+
 **コンセプト**: 「君の輝きを見守り続けたい」の深い表現
 
 ```
@@ -137,6 +151,7 @@
 ```
 
 **UI要素**:
+
 - `HeartMessage` - 核となるメッセージ
 - `GratitudeLetter` - 感謝の手紙風デザイン
 - `FutureWish` - 未来への願い表現
@@ -146,35 +161,38 @@
 ## 🎨 デザインシステム
 
 ### カラーパレット
+
 ```css
 :root {
-  /* メインカラー（金髪イメージ） */
-  --gold-primary: #FFD700;
-  --gold-light: #FFF8DC;
-  --gold-shadow: #B8860B;
-  
-  /* アクセントカラー（碧眼イメージ） */
-  --aqua-primary: #00CED1;
-  --aqua-light: #E0F6FF;
-  --aqua-deep: #008B8B;
-  
-  /* 背景カラー */
-  --cream-bg: #FFF8DC;
-  --white-pure: #FFFFFF;
-  
-  /* エフェクトカラー */
-  --pink-joy: #FFB6C1;
-  --rainbow: linear-gradient(45deg, #FFD700, #00CED1, #FFB6C1);
+	/* メインカラー（金髪イメージ） */
+	--gold-primary: #ffd700;
+	--gold-light: #fff8dc;
+	--gold-shadow: #b8860b;
+
+	/* アクセントカラー（碧眼イメージ） */
+	--aqua-primary: #00ced1;
+	--aqua-light: #e0f6ff;
+	--aqua-deep: #008b8b;
+
+	/* 背景カラー */
+	--cream-bg: #fff8dc;
+	--white-pure: #ffffff;
+
+	/* エフェクトカラー */
+	--pink-joy: #ffb6c1;
+	--rainbow: linear-gradient(45deg, #ffd700, #00ced1, #ffb6c1);
 }
 ```
 
 ### タイポグラフィ
+
 - **メインフォント**: 可愛らしい日本語Webフォント
 - **タイトル**: 大きく、愛情を込めたサイズ
 - **本文**: 読みやすさ重視
 - **アクセント**: 手書き風フォント
 
 ### アニメーション方針
+
 - **温かみのある動き**: 機械的でなく人間味のある演出
 - **可愛らしさ重視**: おてぃるさんの魅力を引き立てる動き
 - **感情表現**: 愛情が伝わるアニメーション
@@ -184,11 +202,13 @@
 ## 📱 レスポンシブ設計
 
 ### デスクトップ体験「特別な展示会」
+
 - 大画面を活かした華やかな演出
 - 複数コンテンツの同時表示
 - リッチなアニメーション効果
 
 ### スマートフォン体験「親密な誕生日カード」
+
 - 縦スクロールでの親密な体験
 - タッチに最適化されたインタラクション
 - 軽量化された演出
@@ -200,6 +220,7 @@
 ## 💌 特別な手紙ページ設計
 
 ### ページ構成: `/letter-to-otiru`
+
 **コンセプト**: 「フレンドからの特別な手紙」として1万文字の深い想いを表現
 
 ```
@@ -218,30 +239,32 @@
 ```
 
 ### 魅力的な導線デザイン（Timeline Section内）
+
 ```css
 .letter-invitation {
-  background: linear-gradient(135deg, #FFD700, #00CED1);
-  border-radius: 20px;
-  padding: 3rem 2rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.4s ease;
+	background: linear-gradient(135deg, #ffd700, #00ced1);
+	border-radius: 20px;
+	padding: 3rem 2rem;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	transition: all 0.4s ease;
 }
 
 .invitation-sparkles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  /* キラキラアニメーション */
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	/* キラキラアニメーション */
 }
 ```
 
 ### 導線コンテンツ
+
 ```
 💌 「おてぃるへ、フレンドからの特別な手紙」
 
@@ -257,6 +280,7 @@
 ### 手紙ページの体験設計
 
 **読書体験の演出**:
+
 - `EnvelopeOpening` - 封筒開封アニメーション
 - `LetterUnfold` - 手紙が優雅に開かれる演出
 - `ChapterTransition` - 章間の美しい切り替え
@@ -264,11 +288,14 @@
 - `GentleReturn` - メインページへの優雅な戻り導線
 
 **章構成**:
+
 1. **第1章: 「出会いの奇跡」** (2-3分)
+
    - VRChatでの運命的な出会い
    - 初めて感じた「この子は特別」という想い
 
 2. **第2章: 「成長を見守る喜び」** (4-5分)
+
    - イベントキャストとしての成長
    - 配信での魅力的な瞬間たち
    - フレンドとして感じる誇らしさ
@@ -282,38 +309,39 @@
 ## 🛠️ 技術実装
 
 ### 必要最小限のライブラリ
+
 ```json
 {
-  "framer-motion": "^10.0.0",
-  "react-intersection-observer": "^9.0.0",
-  "canvas-confetti": "^1.6.0",
-  "next/router": "^13.0.0"
+	"framer-motion": "^10.0.0",
+	"react-intersection-observer": "^9.0.0",
+	"canvas-confetti": "^1.6.0",
+	"next/router": "^13.0.0"
 }
 ```
 
 ### コンポーネント設計
+
 ```typescript
 // メインページコンポーネント
-- BirthdayHero
-- PersonProfile  
-- MosaicViewer
-- GrowthTimeline
-- HeartMessage
-- LetterInvitation // 新規追加
-
-// 手紙ページコンポーネント  
-- LetterEnvelope
-- ChapterReader
-- HeartProgress
-- GentleNavigation
-
-// 共通コンポーネント
-- GoldenButton
-- HeartParticles
-- CelebrationCard
+-BirthdayHero -
+	PersonProfile -
+	MosaicViewer -
+	GrowthTimeline -
+	HeartMessage -
+	LetterInvitation - // 新規追加
+	// 手紙ページコンポーネント
+	LetterEnvelope -
+	ChapterReader -
+	HeartProgress -
+	GentleNavigation -
+	// 共通コンポーネント
+	GoldenButton -
+	HeartParticles -
+	CelebrationCard;
 ```
 
 ### ページルーティング
+
 ```typescript
 // メインページ: /
 // 手紙ページ: /letter-to-otiru
@@ -321,6 +349,7 @@
 ```
 
 ### パフォーマンス考慮
+
 - 画像最適化（Next.js Image）
 - 遅延読み込み
 - アニメーション最適化
@@ -331,21 +360,25 @@
 ## 🎯 開発フェーズ
 
 ### Phase 1: 基盤構築 ✅
+
 - Next.jsセットアップ完了
 - 基本レイアウト作成
 - カラーパレット実装
 
 ### Phase 2: コア機能
+
 - [ ] Hero Section実装
 - [ ] About Section作成
 - [ ] 基本アニメーション
 
 ### Phase 3: メインコンテンツ
+
 - [ ] モザイクアート機能
 - [ ] タイムライン表示
 - [ ] メッセージセクション
 
 ### Phase 4: 演出強化
+
 - [ ] パーティクル効果
 - [ ] インタラクション演出
 - [ ] 最終調整
@@ -355,11 +388,13 @@
 ## 💖 期待する効果
 
 ### おてぃるさんへ
+
 - **愛されている実感**: 大量のコンテンツと愛情表現
-- **成長の実感**: 1年間の軌跡の可視化  
+- **成長の実感**: 1年間の軌跡の可視化
 - **特別感**: 完全カスタマイズされた誕生日体験
 
 ### 閲覧者へ
+
 - **関係性の深さ**: 丁寧に作り込まれた愛情の表現
 - **VRChatコミュニティの温かさ**: 仮想空間での真の友情
 - **クリエイティブな発想**: 誕生日祝いの新しい形

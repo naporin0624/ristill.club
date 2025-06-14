@@ -26,14 +26,6 @@ if (condition) {
 const value = condition 
   ? calculateValue() 
   : undefined;
-
-// Or using IIFE for complex logic
-const value = (() => {
-  if (complexCondition) {
-    return calculateComplexValue();
-  }
-  return defaultValue;
-})();
 ```
 
 ### Additional Rules
