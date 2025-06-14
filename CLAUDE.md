@@ -470,9 +470,53 @@ pnpm build
 
 ## ⚡ Performance & Quality Checks
 
-Always run after implementation:
-- `pnpm exec vitest run` - Run tests
-- Execute lint/typecheck commands if they exist
+**CRITICAL: Always run these commands after implementation**
+
+### Required Quality Commands
+```bash
+# Code linting
+pnpm lint
+
+# Type checking
+pnpm typecheck
+
+# Run all tests
+pnpm test
+
+# Production build verification
+pnpm build
+```
+
+### TDD Development Workflow
+
+**When adding new files with TDD (especially in utils/), follow this strict workflow:**
+
+1. Create test file first (`<feature>.test.ts`)
+2. Write failing tests (Red phase)
+3. Implement minimal code (Green phase)  
+4. Run specific test continuously during development:
+   ```bash
+   pnpm exec vitest <test-file> --watch
+   ```
+5. Refactor while keeping tests green
+6. Run full quality checks before commit
+
+**Example TDD workflow:**
+```bash
+# Step 1: Create test and watch it fail
+pnpm exec vitest src/utils/date/date.test.ts --watch
+
+# Step 2: Implement feature iteratively
+# - Write minimal code
+# - See test pass
+# - Refactor
+# - Repeat
+
+# Step 3: Final quality check
+pnpm lint && pnpm typecheck && pnpm test && pnpm build
+```
+
+This ensures high code quality and prevents regressions.
 
 ## 🌐 Language Rules
 
