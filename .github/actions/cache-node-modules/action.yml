@@ -16,6 +16,6 @@ runs:
       id: cache_dependency
       with:
         path: ${{ inputs.path }}
-        key: ${{ runner.os }}-node_modules-${{ hashFiles('**/pnpm-lock.yaml', '**/package-lock.json', '**/yarn.lock', '**/bun.lockb') }}
+        key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml', '**/bun.lockb') }}
         restore-keys: |
           ${{ runner.os }}-node_modules-

@@ -28,9 +28,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache node_modules
+        id: cache_dependency
         uses: ./.github/actions/cache-node-modules
         with:
-          path: node_modules
+          path: "**/node_modules"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -55,9 +56,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache node_modules
+        id: cache_dependency
         uses: ./.github/actions/cache-node-modules
         with:
-          path: node_modules
+          path: "**/node_modules"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -82,9 +84,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache node_modules
+        id: cache_dependency
         uses: ./.github/actions/cache-node-modules
         with:
-          path: node_modules
+          path: "**/node_modules"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -109,9 +112,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache node_modules
+        id: cache_dependency
         uses: ./.github/actions/cache-node-modules
         with:
-          path: node_modules
+          path: "**/node_modules"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
