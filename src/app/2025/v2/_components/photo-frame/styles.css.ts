@@ -14,99 +14,92 @@ export const root = style({
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
-	padding: "1rem",
+	padding: "2rem",
+	minHeight: "100vh",
 });
 
 export const frameOuter = style({
 	width: "100%",
-	maxWidth: "800px",
-	height: "85vh",
-	minHeight: "600px",
-	background: `
-		linear-gradient(145deg, #8b4513, #d2691e, #daa520, #cd853f, #8b4513)
-	`,
-	padding: "18px",
-	borderRadius: "8px",
+	maxWidth: "900px",
+	aspectRatio: "auto",
+	backgroundColor: "#ffffff",
+	padding: "clamp(3rem, 5vw, 4rem)",
 	boxShadow: `
-		0 0 0 2px #654321,
-		0 8px 32px rgba(139, 69, 19, 0.3),
-		inset 0 2px 0 rgba(255, 255, 255, 0.15),
-		inset 0 -2px 0 rgba(0, 0, 0, 0.15)
+		0 20px 60px -10px rgba(0, 0, 0, 0.15),
+		0 10px 30px -5px rgba(0, 0, 0, 0.08)
 	`,
 	position: "relative",
 
 	"@media": {
 		"(width < 768px)": {
-			height: "80vh",
-			minHeight: "500px",
-			padding: "15px",
+			padding: "2rem",
 			maxWidth: "95vw",
 		},
 	},
 
-	selectors: {
-		"&::before": {
-			content: '""',
-			position: "absolute",
-			top: 0,
-			left: 0,
-			right: 0,
-			bottom: 0,
-			background: `
-				linear-gradient(
-					90deg,
-					transparent,
-					rgba(255, 255, 255, 0.3),
-					transparent
-				)
-			`,
-			backgroundSize: "200% 100%",
-			animation: `${shimmer} 4s infinite`,
-			borderRadius: "8px",
-		},
-	},
 });
 
 export const frameInner = style({
 	width: "100%",
 	height: "100%",
-	background: "#654321",
-	padding: "8px",
-	borderRadius: "3px",
+	position: "relative",
+	padding: "2px",
+	background: "linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%)",
 });
+
+const cornerSize = "40px";
 
 export const matting = style({
 	width: "100%",
 	height: "100%",
-	backgroundColor: "#fefcf8",
-	padding: "35px",
-	borderRadius: "2px",
+	backgroundColor: "#fafafa",
+	padding: "0",
 	position: "relative",
+	overflow: "hidden",
+	clipPath: `polygon(
+		${cornerSize} 0,
+		100% 0,
+		100% calc(100% - ${cornerSize}),
+		calc(100% - ${cornerSize}) 100%,
+		0 100%,
+		0 ${cornerSize}
+	)`,
+});
 
-	"@media": {
-		"(width < 768px)": {
-			padding: "25px",
-		},
-	},
+export const cornerTop = style({
+	position: "absolute",
+	top: 0,
+	left: 0,
+	width: cornerSize,
+	height: cornerSize,
+	backgroundColor: "#ffffff",
+	clipPath: "polygon(0 0, 100% 0, 0 100%)",
+	zIndex: 3,
+});
+
+export const cornerBottom = style({
+	position: "absolute",
+	bottom: 0,
+	right: 0,
+	width: cornerSize,
+	height: cornerSize,
+	backgroundColor: "#ffffff",
+	clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
+	zIndex: 3,
 });
 
 export const photoContent = style({
 	width: "100%",
 	height: "100%",
 	background: `
-		radial-gradient(ellipse at center top, rgba(255, 248, 220, 0.7) 0%, transparent 50%),
-		radial-gradient(ellipse at center bottom, rgba(240, 248, 255, 0.5) 0%, transparent 50%),
 		linear-gradient(180deg, 
-			rgba(255, 253, 245, 0.85) 0%, 
-			rgba(248, 250, 255, 0.85) 50%,
-			rgba(255, 252, 245, 0.85) 100%
+			rgba(255, 255, 255, 0.95) 0%, 
+			rgba(252, 252, 252, 0.95) 100%
 		)
 	`,
-	borderRadius: "2px",
 	display: "flex",
 	flexDirection: "column",
-	padding: "3rem 2rem",
-	border: "1px solid rgba(139, 69, 19, 0.1)",
+	padding: "clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem)",
 	gap: "4rem",
 	position: "relative",
 	overflow: "auto",
@@ -114,11 +107,11 @@ export const photoContent = style({
 	"@media": {
 		"(width < 768px)": {
 			gap: "3rem",
-			padding: "2rem 1.5rem",
+			padding: "3rem 2rem",
 		},
 		"(width < 480px)": {
 			gap: "2rem",
-			padding: "1.5rem 1rem",
+			padding: "2rem 1.5rem",
 		},
 	},
 });

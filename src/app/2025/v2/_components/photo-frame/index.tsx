@@ -11,6 +11,8 @@ export const PhotoFrame = () => {
 			<div className={styles.frameOuter}>
 				<div className={styles.frameInner}>
 					<div className={styles.matting}>
+						<div className={styles.cornerTop} />
+						<div className={styles.cornerBottom} />
 						<div className={styles.photoContent}>
 							{/* Hero Section */}
 							<motion.section
