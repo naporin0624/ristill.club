@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-export const containerStyle = style({
+export const root = style({
 	display: "flex",
 	flexDirection: "column",
 	justifyContent: "center",
@@ -10,7 +10,7 @@ export const containerStyle = style({
 	backgroundColor: "#f9fafb",
 });
 
-export const titleStyle = style({
+export const title = style({
 	fontSize: "3rem",
 	fontWeight: "bold",
 	color: "#1f2937",
@@ -18,7 +18,7 @@ export const titleStyle = style({
 	textAlign: "center",
 });
 
-export const descriptionStyle = style({
+export const description = style({
 	fontSize: "1.25rem",
 	color: "#6b7280",
 	textAlign: "center",
