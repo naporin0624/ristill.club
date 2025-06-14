@@ -1,0 +1,277 @@
+---
+description: 
+globs: src/utils/**/*.ts
+alwaysApply: false
+---
+# Utils Directory Guidelines
+
+## Purpose
+The `src/utils/` directory contains pure utility functions with no UI or styling dependencies.
+
+## Strict Requirements
+1. **Functional Design**: All utilities must be pure functions
+2. **Feature-based Organization**: Group by functionality, not by type
+3. **Mandatory TDD**: Every feature must have `index.ts` and `<feature>.test.ts`
+4. **No Side Effects**: Functions should not cause side effects
+5. **Immutable Programming**: Follow all immutable programming rules
+
+## Directory Structure Requirements
+```
+utils/
+├── <feature-name>/
+│   ├── index.ts           # Main exports (REQUIRED)
+│   └── <feature>.test.ts  # TDD tests (REQUIRED)
+```
+
+## Implementation Guidelines
+
+### Pure Function Requirements
+- Functions must be stateless and deterministic
+- No dependencies on React, DOM, or external services
+- No side effects (console.log, API calls, DOM manipulation)
+- Use TypeScript for comprehensive type safety
+
+### Date/Time Handling
+- **ALWAYS use dayjs for all date/time operations**
+- **NEVER use native Date objects directly in utils**
+- Import `@adapters/date` as side effect in layout.tsx and test setup.ts
+- All date utilities should accept and return dayjs instances when possible
+- Use dayjs directly in utility functions
+
+### TDD Requirements
+- **ALWAYS write tests before implementing features**
+- Follow Red-Green-Refactor cycle:
+  1. Write failing tests first (Red)
+  2. Implement minimal code to make tests pass (Green)
+  3. Refactor while keeping tests green (Refactor)
+- Use `pnpm exec vitest run` for test execution
+
+### File Structure Examples
+
+#### ✅ Good (date utilities with dayjs)
+```typescript
+// utils/date/index.ts
+import dayjs, { type Dayjs } from 'dayjs'
+
+export const formatDate = (date: Dayjs, format: string): string => {
+  return date.format(format)
+}
+
+export const addDays = (date: Dayjs, days: number): Dayjs => {
+  return date.add(days, 'day')
+}
+
+export const isWeekend = (date: Dayjs): boolean => {
+  const dayOfWeek = date.day()
+  return dayOfWeek === 0 || dayOfWeek === 6
+}
+
+export const getDaysDifference = (startDate: Dayjs, endDate: Dayjs): number => {
+  return endDate.diff(startDate, 'day')
+}
+
+export const parseDate = (dateString: string): Dayjs => {
+  return dayjs(dateString)
+}
+
+export const isValidDate = (date: Dayjs): boolean => {
+  return date.isValid()
+}
+
+export const now = (): Dayjs => {
+  return dayjs()
+}
+```
+
+#### ✅ Good (date tests - TDD required)
+```typescript
+// utils/date/date.test.ts
+import { describe, it, expect } from 'vitest'
+import { formatDate, addDays, isWeekend, getDaysDifference, parseDate, isValidDate, now } from './index'
+import dayjs from 'dayjs'
+
+describe('date utilities', () => {
+  describe('formatDate', () => {
+    it('should format date with YYYY-MM-DD pattern', () => {
+      const date = dayjs('2025-01-15')
+      expect(formatDate(date, 'YYYY-MM-DD')).toBe('2025-01-15')
+    })
+
+    it('should format date with DD/MM/YYYY pattern', () => {
+      const date = dayjs('2025-01-15')
+      expect(formatDate(date, 'DD/MM/YYYY')).toBe('15/01/2025')
+    })
+  })
+
+  describe('addDays', () => {
+    it('should add positive days correctly', () => {
+      const date = dayjs('2025-01-15')
+      const result = addDays(date, 3)
+      expect(result.date()).toBe(18)
+      expect(result.month()).toBe(0) // January (0-indexed)
+    })
+
+    it('should subtract days when negative number provided', () => {
+      const date = dayjs('2025-01-15')
+      const result = addDays(date, -3)
+      expect(result.date()).toBe(12)
+    })
+
+    it('should handle month boundaries', () => {
+      const date = dayjs('2025-01-30')
+      const result = addDays(date, 5)
+      expect(result.month()).toBe(1) // February (0-indexed)
+      expect(result.date()).toBe(4)
+    })
+  })
+
+  describe('isWeekend', () => {
+    it('should return true for Saturday', () => {
+      const saturday = dayjs('2025-01-18') // Saturday
+      expect(isWeekend(saturday)).toBe(true)
+    })
+
+    it('should return true for Sunday', () => {
+      const sunday = dayjs('2025-01-19') // Sunday
+      expect(isWeekend(sunday)).toBe(true)
+    })
+
+    it('should return false for weekdays', () => {
+      const monday = dayjs('2025-01-20') // Monday
+      const friday = dayjs('2025-01-17') // Friday
+      expect(isWeekend(monday)).toBe(false)
+      expect(isWeekend(friday)).toBe(false)
+    })
+  })
+
+  describe('getDaysDifference', () => {
+    it('should calculate positive difference', () => {
+      const startDate = dayjs('2025-01-15')
+      const endDate = dayjs('2025-01-20')
+      expect(getDaysDifference(startDate, endDate)).toBe(5)
+    })
+
+    it('should calculate negative difference', () => {
+      const startDate = dayjs('2025-01-20')
+      const endDate = dayjs('2025-01-15')
+      expect(getDaysDifference(startDate, endDate)).toBe(-5)
+    })
+  })
+
+  describe('parseDate', () => {
+    it('should parse ISO date string correctly', () => {
+      const result = parseDate('2025-01-15')
+      expect(result.year()).toBe(2025)
+      expect(result.month()).toBe(0) // January (0-indexed)
+      expect(result.date()).toBe(15)
+    })
+  })
+
+  describe('isValidDate', () => {
+    it('should return true for valid date', () => {
+      const validDate = dayjs('2025-01-15')
+      expect(isValidDate(validDate)).toBe(true)
+    })
+
+    it('should return false for invalid date', () => {
+      const invalidDate = dayjs('invalid-date')
+      expect(isValidDate(invalidDate)).toBe(false)
+    })
+  })
+
+  describe('now', () => {
+    it('should return current date/time', () => {
+      const currentTime = now()
+      const systemTime = dayjs()
+      expect(currentTime.diff(systemTime, 'second')).toBeLessThanOrEqual(1)
+    })
+  })
+})
+```
+
+#### ✅ Good (validation utilities)
+```typescript
+// utils/validation/index.ts
+export const isEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
+export const isPhoneNumber = (phone: string): boolean => {
+  const phoneRegex = /^\+?[\d\s-()]+$/
+  return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 10
+}
+
+export const isValidUrl = (url: string): boolean => {
+  try {
+    new URL(url)
+    return true
+  } catch {
+    return false
+  }
+}
+
+export const hasMinLength = (text: string, minLength: number): boolean => {
+  return text.length >= minLength
+}
+```
+
+## Immutable Programming Rules
+All utils must follow the global immutable programming rules:
+
+### ❌ Forbidden
+```typescript
+// Using let keyword
+let result = '';
+for (const item of items) {
+  result += item; // Mutation
+}
+
+// Using forEach
+items.forEach(item => {
+  // Side effects
+  console.log(item);
+});
+
+// Non-null assertion
+const value = getValue()!;
+```
+
+### ✅ Required
+```typescript
+// Using const only
+const result = items.join('');
+
+// Using for...of for iterations
+for (const item of items) {
+  // Pure operations only
+  processItem(item);
+}
+
+// Proper null checking
+const value = getValue();
+if (value !== undefined) {
+  // Safe to use value
+}
+```
+
+## Best Practices
+- Each utility should have a single responsibility
+- Use descriptive function names that clearly indicate purpose
+- Include comprehensive TypeScript types for all parameters and return values
+- Group related utilities in the same directory
+- Write extensive tests covering edge cases
+- Follow TDD: Red → Green → Refactor cycle
+- No dependencies on external libraries unless absolutely necessary
+- Document complex logic with comments
+- Use early returns to reduce nesting
+- Prefer composition over complex conditional logic
+
+## Forbidden Practices
+1. Using `let` keyword
+2. Using non-null assertion (`!`)
+3. Using `forEach()` method
+4. Creating functions with side effects
+5. Importing React or DOM-related modules
+6. Skipping test files
+7. Creating utilities without clear single responsibility
