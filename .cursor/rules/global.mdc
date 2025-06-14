@@ -359,33 +359,72 @@ import { UserProfile } from 'src/components/user-profile'; // ❌ Use @component
 - **Style files**: Always use `.css.ts` extension
 - **Co-location**: Place style files next to their corresponding component files
 
+### Allowed Packages
+- **@vanilla-extract/css**: Core styling functionality
+- **@vanilla-extract/css-utils**: Utility functions
+- **@vanilla-extract/dynamic**: Dynamic styling support
+
+### Avoided Packages
+- **@vanilla-extract/recipes**: Do not use - prefer explicit style composition
+- **@vanilla-extract/sprinkles**: Do not use - prefer explicit style definitions
+
 ### Style Organization
 - Use `style()` for component-specific styles
-- Use `recipe()` for component variants
+- Use style composition with arrays for variants
 - Use `globalStyle()` for global styles (in layout files only)
+- Use `assignInlineVars()` from `@vanilla-extract/dynamic` for dynamic values
 
 ### Examples
 
-#### ✅ Good (vanilla extract usage)
+#### ✅ Good (vanilla extract core usage)
 ```typescript
 // styles.css.ts
 import { style } from '@vanilla-extract/css';
-import { recipe } from '@vanilla-extract/recipes';
 
-export const buttonStyles = recipe({
-  base: {
-    padding: '8px 16px',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
-  variants: {
-    variant: {
-      primary: { backgroundColor: '#0070f3', color: 'white' },
-      secondary: { backgroundColor: '#f4f4f4', color: '#333' },
-    },
-  },
+export const buttonBase = style({
+  padding: '8px 16px',
+  border: 'none',
+  borderRadius: '4px',
+  cursor: 'pointer',
+  fontSize: '14px',
+  fontWeight: '500',
+  transition: 'all 0.2s ease-in-out',
 });
+
+export const buttonPrimary = style([buttonBase, {
+  backgroundColor: '#0070f3',
+  color: 'white',
+}]);
+
+export const buttonSecondary = style([buttonBase, {
+  backgroundColor: '#f4f4f4',
+  color: '#333',
+  border: '1px solid #ddd',
+}]);
+```
+
+#### ✅ Good (dynamic styling when needed)
+```typescript
+// styles.css.ts
+import { style } from '@vanilla-extract/css';
+
+export const dynamicButton = style({
+  backgroundColor: 'var(--button-bg-color)',
+  color: 'var(--button-text-color)',
+});
+
+// Component usage
+import { assignInlineVars } from '@vanilla-extract/dynamic';
+
+<button 
+  className={dynamicButton}
+  style={assignInlineVars({
+    '--button-bg-color': isActive ? '#0070f3' : '#f4f4f4',
+    '--button-text-color': isActive ? 'white' : '#333',
+  })}
+>
+  Dynamic Button
+</button>
 ```
 
 ## Package Management
