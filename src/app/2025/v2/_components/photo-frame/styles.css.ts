@@ -11,32 +11,34 @@ const float = keyframes({
 });
 
 export const root = style({
-	display: "flex",
-	justifyContent: "center",
-	alignItems: "center",
-	padding: "0",
-	minHeight: "100vh",
+	position: "relative",
+	width: "100vw",
+	height: "100vh",
+	overflow: "hidden",
 });
 
 export const frameOuter = style({
+	position: "fixed",
+	top: 0,
+	left: 0,
 	width: "100vw",
 	height: "100vh",
 	backgroundColor: "#f8f6f3",
-	padding: "clamp(4rem, 8vw, 6rem)",
-	paddingTop: "calc(clamp(4rem, 8vw, 6rem) + 8px)",
-	position: "relative",
+	padding: "clamp(2rem, 4vw, 3rem)",
+	paddingTop: "calc(clamp(2rem, 4vw, 3rem) + 8px)",
+	zIndex: 1,
+	pointerEvents: "none",
 
 	"@media": {
 		"(width < 768px)": {
-			padding: "3rem",
-			paddingTop: "calc(3rem + 8px)",
+			padding: "1.5rem",
+			paddingTop: "calc(1.5rem + 8px)",
 		},
 		"(width < 480px)": {
-			padding: "2rem",
-			paddingTop: "calc(2rem + 8px)",
+			padding: "1rem",
+			paddingTop: "calc(1rem + 8px)",
 		},
 	},
-
 });
 
 export const frameInner = style({
@@ -44,7 +46,9 @@ export const frameInner = style({
 	height: "100%",
 	position: "relative",
 	padding: "2px",
-	background: "#f8f6f3",
+	background: "transparent",
+	border: "3px solid #f8f6f3",
+	pointerEvents: "none",
 });
 
 const cornerSize = "40px";
@@ -68,7 +72,7 @@ export const scrollBar = style({
 export const matting = style({
 	width: "100%",
 	height: "100%",
-	backgroundColor: "#fafafa",
+	backgroundColor: "transparent",
 	padding: "0",
 	position: "relative",
 	overflow: "hidden",
@@ -82,6 +86,7 @@ export const matting = style({
 		0 calc(100% - ${cornerSize}),
 		0 ${cornerSize}
 	)`,
+	pointerEvents: "none",
 });
 
 export const cornerTopLeft = style({
@@ -129,8 +134,11 @@ export const cornerBottomRight = style({
 });
 
 export const photoContent = style({
-	width: "100%",
-	height: "100%",
+	position: "absolute",
+	top: 0,
+	left: 0,
+	width: "100vw",
+	height: "100vh",
 	background: `
 		linear-gradient(135deg, 
 			#ffffff 0%, 
@@ -142,11 +150,12 @@ export const photoContent = style({
 	flexDirection: "column",
 	padding: "clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem)",
 	gap: "4rem",
-	position: "relative",
 	overflowY: "auto",
 	overflowX: "hidden",
 	scrollbarWidth: "none",
 	msOverflowStyle: "none",
+	zIndex: 0,
+	pointerEvents: "auto",
 
 	selectors: {
 		"&::-webkit-scrollbar": {
@@ -168,71 +177,84 @@ export const photoContent = style({
 
 // Hero Section
 export const heroSection = style({
-	position: "relative",
 	width: "100%",
-	height: "60vh",
-	minHeight: "400px",
-	display: "flex",
+	minHeight: "100vh",
+	padding: "2rem 0",
+});
+
+export const heroLayout = style({
+	display: "grid",
+	gridTemplateColumns: "400px 1fr",
+	gap: "4rem",
 	alignItems: "center",
-	justifyContent: "center",
-	overflow: "hidden",
+	minHeight: "80vh",
+
+	"@media": {
+		"(width < 1024px)": {
+			gridTemplateColumns: "1fr",
+			gap: "3rem",
+			textAlign: "center",
+		},
+	},
 });
 
 export const heroImageContainer = style({
-	position: "absolute",
-	top: 0,
-	left: 0,
-	width: "100%",
-	height: "100%",
-	zIndex: 1,
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
 });
 
 export const heroImage = style({
 	width: "100%",
-	height: "100%",
-	objectFit: "cover",
-	objectPosition: "center",
+	maxWidth: "400px",
+	height: "auto",
+	borderRadius: "16px",
+	boxShadow: "0 20px 60px rgba(0, 0, 0, 0.15)",
 });
 
-export const heroTextOverlay = style({
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	zIndex: 2,
-	textAlign: "center",
-	background: "rgba(255, 255, 255, 0.9)",
-	padding: "2rem",
-	borderRadius: "12px",
-	backdropFilter: "blur(8px)",
-	boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+export const heroContent = style({
+	display: "flex",
+	flexDirection: "column",
+	gap: "1.5rem",
+	justifyContent: "center",
 });
 
 export const heroTitle = style({
-	fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+	fontSize: "clamp(2rem, 5vw, 4rem)",
 	fontWeight: "700",
 	letterSpacing: "0.1em",
 	color: "#c9a96b",
 	fontFamily: "var(--font-playfair, 'Playfair Display'), serif",
-	margin: "0 0 0.5rem 0",
+	margin: 0,
+	textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
 });
 
 export const heroName = style({
-	fontSize: "clamp(1.8rem, 5vw, 3rem)",
+	fontSize: "clamp(2.5rem, 6vw, 5rem)",
 	fontWeight: "500",
 	color: "#2c5aa0",
 	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
-	margin: "0 0 0.5rem 0",
+	margin: 0,
+	textShadow: "1px 1px 2px rgba(0, 0, 0, 0.1)",
 });
 
 export const heroDate = style({
-	fontSize: "clamp(1rem, 2.5vw, 1.3rem)",
+	fontSize: "clamp(1.2rem, 3vw, 1.8rem)",
 	fontWeight: "300",
 	letterSpacing: "0.15em",
 	color: "#8b7355",
 	fontFamily: "var(--font-inter, 'Inter'), sans-serif",
 	margin: 0,
 	opacity: 0.8,
+});
+
+export const heroDescription = style({
+	fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
+	lineHeight: 1.6,
+	color: "#34495e",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+	margin: 0,
+	opacity: 0.9,
 });
 
 
@@ -477,63 +499,47 @@ export const letterCard = style({
 });
 
 
-// Profile Styles
-export const profileLayout = style({
+// Gallery Styles
+export const gallerySection = style({
+	width: "100%",
+	padding: "4rem 0",
+});
+
+export const galleryGrid = style({
 	display: "grid",
-	gridTemplateColumns: "300px 1fr",
+	gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
 	gap: "3rem",
-	alignItems: "start",
+	justifyItems: "center",
 
 	"@media": {
 		"(width < 768px)": {
-			gridTemplateColumns: "1fr",
 			gap: "2rem",
-			textAlign: "center",
+			gridTemplateColumns: "1fr",
 		},
 	},
 });
 
-export const profileImageContainer = style({
-	width: "100%",
+export const galleryItem = style({
 	display: "flex",
 	justifyContent: "center",
+	alignItems: "center",
 });
 
-export const profileImage = style({
+export const galleryImage = style({
 	width: "100%",
 	maxWidth: "300px",
 	height: "auto",
-	borderRadius: "12px",
-	boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
+	borderRadius: "16px",
+	boxShadow: "0 12px 40px rgba(0, 0, 0, 0.15)",
+	transition: "transform 0.3s ease",
+
+	selectors: {
+		"&:hover": {
+			transform: "scale(1.05)",
+		},
+	},
 });
 
-export const profileContent = style({
-	display: "flex",
-	flexDirection: "column",
-	gap: "1rem",
-});
-
-export const profileCard = style({
-	background: "rgba(255, 255, 255, 0.8)",
-	padding: "2rem",
-	borderRadius: "8px",
-});
-
-export const profileName = style({
-	fontSize: "clamp(1.3rem, 3vw, 1.8rem)",
-	fontWeight: "500",
-	color: "#2c5aa0",
-	margin: "0 0 1rem 0",
-	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
-});
-
-export const profileDescription = style({
-	fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
-	lineHeight: 1.7,
-	color: "#34495e",
-	margin: 0,
-	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
-});
 
 // Mosaic Styles
 export const mosaicContainer = style({

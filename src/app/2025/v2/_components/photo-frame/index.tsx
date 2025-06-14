@@ -54,45 +54,58 @@ export const PhotoFrame = () => {
 						<main className={styles.photoContent} role="main" aria-label="メインコンテンツ" ref={scrollContainerRef}>
 							{/* Hero Section */}
 							<section className={styles.heroSection}>
-								<div className={styles.heroImageContainer}>
-									<Image
-										src="/assets/otiru_milltina.png"
-										alt="おてぃるのメインビジュアル"
-										width={800}
-										height={450}
-										className={styles.heroImage}
-										priority
-									/>
-								</div>
-								<div className={styles.heroTextOverlay}>
-									<h1 className={styles.heroTitle}>HAPPY BIRTHDAY</h1>
-									<h2 className={styles.heroName}>おてぃる</h2>
-									<time className={styles.heroDate} dateTime="2025-01-15">2025.01.15</time>
+								<div className={styles.heroLayout}>
+									<div className={styles.heroImageContainer}>
+										<Image
+											src="/assets/otiru_vertical.png"
+											alt="おてぃるのメインビジュアル"
+											width={400}
+											height={711}
+											className={styles.heroImage}
+											priority
+										/>
+									</div>
+									<div className={styles.heroContent}>
+										<h1 className={styles.heroTitle}>HAPPY BIRTHDAY</h1>
+										<h2 className={styles.heroName}>おてぃる</h2>
+										<time className={styles.heroDate} dateTime="2025-01-15">2025.01.15</time>
+										<p className={styles.heroDescription}>
+											VRChatの世界で輝く金髪碧眼の美少女
+										</p>
+									</div>
 								</div>
 							</section>
 
-							{/* Profile Section */}
-							<section className={styles.profileSection}>
-								<div className={styles.profileLayout}>
-									<div className={styles.profileImageContainer}>
+							{/* Additional Images Section */}
+							<section className={styles.gallerySection}>
+								<h3 className={styles.sectionTitle}>Gallery</h3>
+								<div className={styles.galleryGrid}>
+									<div className={styles.galleryItem}>
 										<Image
-											src="/assets/otiru_vertical.png"
-											alt="おてぃるのプロフィール画像"
+											src="/assets/otiru_devil.png"
+											alt="おてぃる DEVILコスチューム"
 											width={300}
 											height={533}
-											className={styles.profileImage}
+											className={styles.galleryImage}
 										/>
 									</div>
-									<div className={styles.profileContent}>
-										<h3 className={styles.sectionTitle} id="profile-heading">今日の主役</h3>
-										<div className={styles.profileCard}>
-											<h4 className={styles.profileName}>おてぃる</h4>
-											<p className={styles.profileDescription}>
-												VRChatの世界で輝く金髪碧眼の美少女。
-												イベントキャストとしての活躍、配信での可愛らしい魅力、
-												フレンドから愛される理由がある素晴らしい存在。
-											</p>
-										</div>
+									<div className={styles.galleryItem}>
+										<Image
+											src="/assets/chikoku_vertical.png"
+											alt="ちこくアバター"
+											width={300}
+											height={533}
+											className={styles.galleryImage}
+										/>
+									</div>
+									<div className={styles.galleryItem}>
+										<Image
+											src="/assets/futago_cafe_poster.png"
+											alt="双子カフェポスター"
+											width={300}
+											height={533}
+											className={styles.galleryImage}
+										/>
 									</div>
 								</div>
 							</section>
