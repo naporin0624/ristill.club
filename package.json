@@ -64,5 +64,13 @@
 	"dependencies": {
 		"dayjs": "^1.11.13",
 		"motion": "^12.18.1"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild",
+			"sharp",
+			"unrs-resolver",
+			"workerd"
+		]
 	}
 }
