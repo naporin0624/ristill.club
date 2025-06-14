@@ -33,8 +33,10 @@
 		"baseUrl": ".",
 		"paths": {
 			"@components/*": ["./src/components/*"],
-			"@theme/*": ["./src/theme/*"],
-			"@assets/*": ["./src/assets/*"]
+			"@themes/*": ["./src/themes/*"],
+			"@assets/*": ["./src/assets/*"],
+			"@utils/*": ["./src/utils/*"],
+			"@adapters/*": ["./src/adapters/*"]
 		},
 		"incremental": true,
 		"esModuleInterop": true,
