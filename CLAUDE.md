@@ -99,6 +99,475 @@ for (const [index, item] of array.entries()) {
 }
 ```
 
+### Vanilla Extract Import and Export Conventions
+
+**✅ Correct Import Pattern**
+
+```typescript
+// Always use namespace import with 'styles' alias
+import * as styles from "./styles.css";
+
+// Usage in component
+<div className={styles.container}>
+```
+
+**❌ Incorrect Named Imports**
+
+```typescript
+// Don't use named imports
+import { containerStyles, buttonStyles } from "./styles.css";
+```
+
+**✅ Export Naming (No redundant 'styles' suffix)**
+
+```typescript
+// styles.css.ts
+import { style } from "@vanilla-extract/css";
+
+// ✅ Good - Clean naming
+export const root = style({
+	padding: "1rem",
+});
+
+export const button = style({
+	border: "none",
+});
+
+// ❌ Bad - Redundant naming
+export const rootStyles = style({
+	padding: "1rem",
+});
+
+export const buttonStyles = style({
+	border: "none",
+});
+```
+
+**✅ Root Element and Container Naming Conventions**
+
+```typescript
+// styles.css.ts
+import { style } from "@vanilla-extract/css";
+
+// ✅ Good - Root element naming
+export const root = style({
+	// Main container/wrapper for the component
+	minHeight: "100vh",
+	padding: "2rem",
+});
+
+export const headerRoot = style({
+	// Header container
+	display: "flex",
+	alignItems: "center",
+});
+
+export const contentRoot = style({
+	// Content wrapper
+	maxWidth: "1200px",
+	margin: "0 auto",
+});
+
+// ❌ Bad - Inconsistent container naming
+export const section = style({
+	/* ... */
+});
+export const container = style({
+	/* ... */
+});
+export const wrapper = style({
+	/* ... */
+});
+export const headerContainer = style({
+	/* ... */
+});
+export const contentWrapper = style({
+	/* ... */
+});
+```
+
+**Naming Rules:**
+
+- **Root element**: Always use `root` for the main/top-level style in each component
+- **Sub-containers**: Use `xxxRoot` pattern (e.g., `headerRoot`, `contentRoot`, `sidebarRoot`)
+- **Avoid**: `container`, `wrapper`, `xxxContainer`, `xxxWrapper`
+- **Consistency**: All layout/wrapper elements should follow the `xxxRoot` pattern
+
+### Vanilla Extract Selectors Restrictions
+
+**CRITICAL: Vanilla Extract has strict limitations on selectors usage**
+
+**❌ Forbidden selector patterns:**
+
+```typescript
+// Don't use child selectors in selectors object
+export const card = style({
+	selectors: {
+		"& h3": { fontSize: "1.5rem" }, // ERROR: Invalid selector
+		"& p": { color: "#333" }, // ERROR: Invalid selector
+		"& .child-class": { margin: "1rem" }, // ERROR: Invalid selector
+	},
+});
+```
+
+**✅ Correct approach - Individual styles:**
+
+```typescript
+// Create separate styles for each element
+export const card = style({
+	padding: "1rem",
+	background: "white",
+});
+
+export const cardTitle = style({
+	fontSize: "1.5rem",
+	color: "#333",
+	marginBottom: "1rem",
+});
+
+export const cardText = style({
+	color: "#666",
+	lineHeight: 1.6,
+});
+
+// Usage in component
+<div className={styles.card}>
+	<h3 className={styles.cardTitle}>Title</h3>
+	<p className={styles.cardText}>Text</p>
+</div>
+```
+
+**✅ Allowed selector patterns:**
+
+```typescript
+export const button = style({
+	selectors: {
+		"&:hover": { backgroundColor: "#blue" }, // ✅ Pseudo-selectors OK
+		"&:focus": { outline: "2px solid #blue" }, // ✅ Pseudo-selectors OK
+		"&[disabled]": { opacity: 0.5 }, // ✅ Attribute selectors OK
+	},
+});
+```
+
+**Guidelines:**
+
+- Always create individual style exports for nested elements
+- Use semantic naming: `cardTitle`, `cardText`, `cardButton`
+- Apply styles directly to elements in JSX, not through parent selectors
+- Use pseudo-selectors (`:hover`, `:focus`) and attribute selectors (`[disabled]`) in selectors object only
+
+### Component Granularity and Style Naming
+
+**CRITICAL: When style names become 3+ words, component needs refactoring**
+
+**❌ Bad - Component too large:**
+
+```typescript
+// styles.css.ts with complex naming indicates oversized component
+export const messageWallTitle = style({
+	/* ... */
+});
+export const messageWallContainer = style({
+	/* ... */
+});
+export const messageWallItemIcon = style({
+	/* ... */
+});
+export const messageWallItemText = style({
+	/* ... */
+});
+export const messageWallItemTimestamp = style({
+	/* ... */
+});
+```
+
+**✅ Good - Break into subcomponents:**
+
+```
+components/message-form/
+├── index.tsx                    # Main MessageForm component
+├── styles.css.ts               # Main component styles only
+├── message-form.test.tsx       # Main component tests
+├── message-wall/               # Subcomponent directory
+│   ├── index.tsx              # MessageWall component
+│   ├── styles.css.ts          # MessageWall specific styles
+│   └── message-wall.test.tsx  # MessageWall tests
+└── message-item/              # Subcomponent directory
+    ├── index.tsx              # MessageItem component
+    ├── styles.css.ts          # MessageItem specific styles
+    └── message-item.test.tsx  # MessageItem tests
+```
+
+**Refactored styles:**
+
+```typescript
+// components/message-form/styles.css.ts
+export const root = style({
+	/* ... */
+});
+export const form = style({
+	/* ... */
+});
+export const input = style({
+	/* ... */
+});
+
+// components/message-form/message-wall/styles.css.ts
+export const root = style({
+	/* ... */
+});
+export const title = style({
+	/* ... */
+});
+export const list = style({
+	/* ... */
+});
+
+// components/message-form/message-item/styles.css.ts
+export const root = style({
+	/* ... */
+});
+export const icon = style({
+	/* ... */
+});
+export const text = style({
+	/* ... */
+});
+export const timestamp = style({
+	/* ... */
+});
+```
+
+**Component Structure Rules:**
+
+1. **3+ word style names** = Component needs breaking down
+2. **Subcomponent directory structure**: `components/parent/child/`
+3. **Required files in each subcomponent**:
+   - `index.tsx` - Component implementation
+   - `styles.css.ts` - Component-specific styles
+   - `<component-name>.test.tsx` - Component tests
+4. **Style naming**: Each subcomponent starts fresh with `root`, `title`, etc.
+5. **Import pattern**: Parent imports subcomponents from their directories
+
+**IMPORTANT: These same constraints apply to ALL CSS files:**
+
+**Universal CSS File Rules:**
+
+- `styles.css.ts` (component styles)
+- `layout.css.ts` (layout styles)
+- `page.css.ts` (page-specific styles)
+- Any `*.css.ts` file in the project
+
+**All CSS files must follow:**
+
+1. **Root element naming**: Use `root` for main/top-level style
+2. **No child selectors**: No `"& h3"`, `"& p"`, `"& .class"` in selectors object
+3. **Individual exports**: Create separate exports for each styled element
+4. **3+ word limit**: Break into subcomponents when style names exceed 2 words
+5. **Consistent imports**: Always use `import * as styles from "./styles.css"`
+
+**Examples for different file types:**
+
+```typescript
+// layout.css.ts
+export const root = style({
+	/* main layout */
+});
+export const header = style({
+	/* header styles */
+});
+export const main = style({
+	/* main content */
+});
+export const footer = style({
+	/* footer styles */
+});
+
+// page.css.ts
+export const root = style({
+	/* page container */
+});
+export const hero = style({
+	/* hero section */
+});
+export const content = style({
+	/* content area */
+});
+
+// styles.css.ts (component)
+export const root = style({
+	/* component root */
+});
+export const title = style({
+	/* component title */
+});
+export const button = style({
+	/* component button */
+});
+```
+
+**Violation examples requiring refactoring:**
+
+```typescript
+// ❌ Bad - Any CSS file with these patterns needs refactoring
+export const headerNavigationMenuItem = style({
+	/* 4 words - too complex */
+});
+export const footerSocialMediaIcon = style({
+	/* 4 words - too complex */
+});
+export const pageHeroCallToActionButton = style({
+	/* 5 words - too complex */
+});
+
+// ❌ Bad - Child selectors in any CSS file
+export const card = style({
+	selectors: {
+		"& h2": {
+			/* Invalid in ANY CSS file */
+		},
+		"& .icon": {
+			/* Invalid in ANY CSS file */
+		},
+	},
+});
+```
+
+**Example refactoring:**
+
+```typescript
+// Before: Large component
+const MessageForm = () => (
+  <div className={styles.root}>
+    <div className={styles.messageWall}>
+      <h3 className={styles.messageWallTitle}>Messages</h3>
+      <div className={styles.messageWallItemContainer}>
+        <span className={styles.messageWallItemIcon}>💕</span>
+        <span className={styles.messageWallItemText}>Message</span>
+      </div>
+    </div>
+  </div>
+);
+
+// After: Broken into subcomponents
+const MessageForm = () => (
+  <div className={styles.root}>
+    <MessageWall />
+  </div>
+);
+
+// message-wall/index.tsx
+const MessageWall = () => (
+  <div className={styles.root}>
+    <h3 className={styles.title}>Messages</h3>
+    <MessageItem />
+  </div>
+);
+
+// message-item/index.tsx
+const MessageItem = () => (
+  <div className={styles.root}>
+    <span className={styles.icon}>💕</span>
+    <span className={styles.text}>Message</span>
+  </div>
+);
+```
+
+### useEffect Usage Restrictions
+
+**CRITICAL: useEffect usage is strictly limited in this project**
+
+**✅ Allowed useEffect usage (with mandatory comment)**
+
+```typescript
+// useEffect should ONLY be used for actual side effects
+useEffect(() => {
+	// REQUIRED COMMENT: Why this side effect is necessary
+	// Example: "Setting up WebSocket connection for real-time updates"
+	const socket = new WebSocket(url);
+
+	return () => {
+		socket.close();
+	};
+}, []);
+```
+
+**❌ Forbidden useEffect patterns**
+
+```typescript
+// Don't use useEffect for state initialization
+useEffect(() => {
+	setData(calculateInitialData());
+}, []);
+
+// Instead use useState with lazy initialization
+const [data] = useState(() => calculateInitialData());
+
+// Don't use useEffect for derived state
+useEffect(() => {
+	setFilteredItems(items.filter((item) => item.active));
+}, [items]);
+
+// Instead use useMemo or direct calculation
+const filteredItems = useMemo(() => items.filter((item) => item.active), [items]);
+```
+
+**When to use useEffect (with required comment explaining why):**
+
+- DOM manipulation that cannot be achieved through React patterns
+- Setting up external subscriptions (WebSocket, EventSource, etc.)
+- Cleanup of external resources
+- Integration with non-React libraries that require imperative APIs
+
+### Server vs Client Components
+
+**CRITICAL: Server Components should be used by default**
+
+**✅ Server Component (Default - No "use client" directive needed)**
+
+```typescript
+// No "use client" directive = Server Component by default
+export const StaticProfile = ({ user }: { user: User }) => {
+	return (
+		<div>
+			<h1>{user.name}</h1>
+			<p>{user.bio}</p>
+		</div>
+	);
+};
+```
+
+**✅ Client Component (Only when necessary with mandatory comment)**
+
+```typescript
+// REQUIRED COMMENT: Why this must be a Client Component
+// This component uses motion animations which require client-side JavaScript
+"use client";
+
+import { motion } from "motion/react";
+
+export const AnimatedButton = () => {
+	return <motion.button whileHover={{ scale: 1.05 }}>Click me</motion.button>;
+};
+```
+
+**When Client Components are required (with mandatory comment explaining why):**
+
+- Interactive state management (useState, useReducer)
+- Browser APIs (localStorage, geolocation, etc.)
+- Event handlers that require JavaScript
+- Animation libraries (motion/framer-motion)
+- Third-party libraries that require client-side execution
+- useEffect for side effects
+
+**Guidelines:**
+
+- Start with Server Components by default
+- Only add "use client" when you have a specific technical reason
+- Always comment why the component must be client-side
+- Keep Client Components as small as possible
+- Consider splitting components: Server Component wrapper with Client Component for interactive parts
+
 ## 🎨 Naming Conventions
 
 ### Files & Directories
@@ -420,6 +889,471 @@ export const dynamicButton = style({
 >
   Button
 </button>
+```
+
+### globalStyle Usage Restrictions
+
+**CRITICAL: globalStyle usage is strictly limited and requires justification**
+
+**❌ Forbidden - General styling:**
+
+```typescript
+// DO NOT use globalStyle for regular component styling
+import { globalStyle } from "@vanilla-extract/css";
+
+globalStyle(".my-component", {
+	padding: "1rem",
+	backgroundColor: "white",
+}); // This should be a regular style() export
+```
+
+**✅ Allowed - Only for unavoidable global requirements (with mandatory comment):**
+
+```typescript
+import { globalStyle } from "@vanilla-extract/css";
+
+// REQUIRED COMMENT: Using globalStyle because third-party library classes cannot be targeted otherwise
+// This is the only way to override react-modal's default styles that are applied globally
+globalStyle(".ReactModal__Content", {
+	border: "none !important",
+	borderRadius: "12px !important",
+});
+
+// REQUIRED COMMENT: Using globalStyle to reset browser defaults that affect layout calculations
+// This ensures consistent box-sizing across all elements for responsive design
+globalStyle("*, *::before, *::after", {
+	boxSizing: "border-box",
+});
+```
+
+**When globalStyle is allowed:**
+
+- Overriding third-party library styles that cannot be targeted through component props
+- Essential global resets that affect layout calculations
+- Browser compatibility fixes that must be applied globally
+
+**Guidelines:**
+
+- Always include a detailed comment explaining why globalStyle is unavoidable
+- Prefer component-specific styles with style() whenever possible
+- Use specific selectors rather than broad global rules
+- Avoid globalStyle for regular component styling
+
+### Media Query Range Syntax
+
+**CRITICAL: Always use modern media query range syntax**
+
+**✅ Good - Modern range syntax:**
+
+```typescript
+// styles.css.ts
+export const button = style({
+	padding: "1rem",
+	"@media": {
+		"(width >= 768px)": {
+			padding: "1.5rem",
+		},
+		"(768px <= width < 1024px)": {
+			fontSize: "1.1rem",
+		},
+		"(width >= 1024px)": {
+			fontSize: "1.2rem",
+		},
+	},
+});
+```
+
+**❌ Bad - Legacy syntax:**
+
+```typescript
+// DO NOT use legacy min-width/max-width syntax
+export const button = style({
+	"@media": {
+		"(min-width: 768px)": {
+			// Legacy syntax - avoid
+		},
+		"(max-width: 1023px)": {
+			// Legacy syntax - avoid
+		},
+	},
+});
+```
+
+**Range syntax benefits:**
+
+- More intuitive: `(width >= 768px)` is clearer than `(min-width: 768px)`
+- Better range definitions: `(768px <= width < 1024px)` eliminates overlap
+- Future-proof: Modern browsers support this syntax
+- Less error-prone: Clear boundaries prevent media query conflicts
+
+**Common patterns:**
+
+```typescript
+// Mobile-first approach
+export const responsiveCard = style({
+	padding: "1rem",
+	"@media": {
+		"(width >= 640px)": {
+			padding: "1.5rem",
+		},
+		"(width >= 768px)": {
+			padding: "2rem",
+			display: "grid",
+			gridTemplateColumns: "1fr 1fr",
+		},
+		"(width >= 1024px)": {
+			padding: "3rem",
+			gridTemplateColumns: "1fr 2fr 1fr",
+		},
+	},
+});
+
+// Specific range targeting
+export const tabletOnly = style({
+	display: "none",
+	"@media": {
+		"(768px <= width < 1024px)": {
+			display: "block",
+		},
+	},
+});
+```
+
+### TypeScript Type Safety
+
+**CRITICAL: The `any` type is strictly forbidden**
+
+**❌ Forbidden:**
+
+```typescript
+// NEVER use any type
+const transition = { duration: 1 } as any;
+const props: any = { ... };
+function handler(event: any) { ... }
+```
+
+**✅ Alternatives:**
+
+```typescript
+// Use proper typing or type assertions with specific types
+import type { Transition } from "motion/react";
+
+const transition: Transition = { duration: 1 };
+
+// For complex motion transitions, use specific type assertions
+const motionTransition = {
+  duration: 1,
+  delay: 0.2
+} as Transition;
+
+// For event handlers, use proper React types
+function handler(event: React.MouseEvent<HTMLButtonElement>) { ... }
+
+// For unknown external data, use unknown and type guards
+function processData(data: unknown) {
+  if (typeof data === 'object' && data !== null) {
+    // Type narrowing with guards
+  }
+}
+```
+
+**Type safety best practices:**
+
+- Always define proper interfaces and types
+- Use type assertions only with specific types, never `any`
+- Implement type guards for unknown data
+- Use generic types for reusable components
+- Prefer `unknown` over `any` for truly unknown data
+
+### TypeScript `satisfies` vs Type Assertions
+
+**CRITICAL: Prefer `satisfies` over `as` type assertions**
+
+**✅ Good - Use satisfies for type safety (general cases):**
+
+```typescript
+// Object literals with satisfies get better type checking
+const themeConfig = {
+	colors: {
+		primary: "#0070f3",
+		secondary: "#f4f4f4",
+	},
+	spacing: {
+		small: "0.5rem",
+		medium: "1rem",
+	},
+} satisfies ThemeConfig;
+
+// CSS properties with satisfies
+const buttonStyles = {
+	padding: "12px 24px",
+	borderRadius: "8px",
+	cursor: "pointer",
+} satisfies CSSProperties;
+```
+
+**✅ Motion Transition Proper Usage:**
+
+motion/reactライブラリでtransition propsを使用する際は、`default`プロパティでラップすることで型エラーを回避：
+
+```typescript
+// ✅ Correct approach - use default property wrapper
+import { motion } from "motion/react";
+
+<motion.div
+  transition={{ default: { duration: 1, delay: 0.2 } }}
+  // TypeScript型エラーなし、正常動作
+>
+
+// ✅ Complex transitions with default wrapper
+<motion.div
+  transition={{ default: {
+    duration: 3,
+    delay: Math.random() * 2,
+    repeat: Infinity,
+    repeatDelay: Math.random() * 3,
+  }}}
+>
+
+// ❌ Incorrect - direct object without default wrapper
+<motion.div
+  transition={{ duration: 1, delay: 0.2 }}
+  // TypeScript型エラーが発生
+>
+```
+
+**重要事項:**
+
+- 全てのtransition propsは`default`プロパティでラップする
+- この方法でTypeScriptエラーを完全に回避可能
+- 実行時の動作も正常で、アニメーション品質に影響なし
+
+**❌ Bad - Type assertions lose type safety:**
+
+```typescript
+// Type assertions (as) lose original type information
+const transition = {
+	duration: 1,
+	delay: 0.2,
+} as Transition; // TypeScript can't catch property typos
+
+// No IntelliSense for properties
+const config = {
+	colors: { primary: "#0070f3" },
+	spacng: "1rem", // Typo not caught!
+} as ThemeConfig;
+```
+
+**Benefits of satisfies:**
+
+- **Type preservation**: Original object type is maintained
+- **Better IntelliSense**: IDE can provide accurate autocomplete
+- **Error catching**: TypeScript catches property name typos
+- **Type narrowing**: More precise type inference
+
+**When to use each:**
+
+```typescript
+// Use satisfies for object literals and configurations
+const buttonStyles = {
+	padding: "1rem",
+	borderRadius: "0.5rem",
+} satisfies CSSProperties;
+
+// Use type assertions only when TypeScript can't infer the correct type
+const element = document.getElementById("button") as HTMLButtonElement;
+
+// Use satisfies for complex nested objects
+const apiConfig = {
+	endpoints: {
+		users: "/api/users",
+		posts: "/api/posts",
+	},
+	methods: ["GET", "POST", "PUT"],
+	timeout: 5000,
+} satisfies APIConfiguration;
+```
+
+**Motion.js specific usage:**
+
+```typescript
+import type { Transition, AnimationProps } from "motion/react";
+
+// Motion transitions with satisfies
+const slideIn = {
+	initial: { x: -100, opacity: 0 },
+	animate: { x: 0, opacity: 1 },
+	transition: {
+		duration: 0.5,
+		ease: "easeOut",
+	} satisfies Transition,
+} satisfies AnimationProps;
+
+// Complex animation sequences
+const staggeredFade = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			duration: 0.6,
+			staggerChildren: 0.1,
+		} satisfies Transition,
+	},
+} satisfies Variants;
+```
+
+### ESLint Event Handler Rules
+
+**CRITICAL: react/jsx-no-bind rule compliance**
+
+**❌ Forbidden - Arrow functions and bind in JSX:**
+
+```typescript
+// Don't use arrow functions directly in JSX
+<button onClick={() => handleClick()}>Click</button>
+
+// Don't use .bind() in JSX
+<button onClick={handleClick.bind(this, id)}>Click</button>
+
+// Don't use arrow functions with parameters in JSX
+<button onClick={() => handleClickWithId(id)}>Click</button>
+```
+
+**✅ Solution 1 - useCallback for parameterless functions:**
+
+```typescript
+import { useCallback } from "react";
+
+const MyComponent = () => {
+  const handleClick = useCallback(() => {
+    // Handle click logic
+    console.log("Clicked");
+  }, []);
+
+  return <button onClick={handleClick}>Click</button>;
+};
+```
+
+**✅ Solution 2 - Extract component for functions with parameters:**
+
+```typescript
+// ❌ Bad - Inline arrow function with parameter
+const ItemList = ({ items }: { items: Item[] }) => (
+  <div>
+    {items.map((item) => (
+      <button key={item.id} onClick={() => handleItemClick(item.id)}>
+        {item.name}
+      </button>
+    ))}
+  </div>
+);
+
+// ✅ Good - Extract ListItem component
+const ItemList = ({ items }: { items: Item[] }) => (
+  <div>
+    {items.map((item) => (
+      <ListItem key={item.id} item={item} onItemClick={handleItemClick} />
+    ))}
+  </div>
+);
+
+const ListItem = ({
+  item,
+  onItemClick
+}: {
+  item: Item;
+  onItemClick: (id: string) => void;
+}) => {
+  const handleClick = useCallback(() => {
+    onItemClick(item.id);
+  }, [item.id, onItemClick]);
+
+  return <button onClick={handleClick}>{item.name}</button>;
+};
+```
+
+**✅ Solution 3 - Data attributes for simple cases:**
+
+```typescript
+// Alternative approach using data attributes
+const ItemList = ({ items }: { items: Item[] }) => {
+  const handleItemClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    const itemId = event.currentTarget.dataset.itemId;
+    if (itemId) {
+      // Handle click with itemId
+    }
+  }, []);
+
+  return (
+    <div>
+      {items.map((item) => (
+        <button
+          key={item.id}
+          data-item-id={item.id}
+          onClick={handleItemClick}
+        >
+          {item.name}
+        </button>
+      ))}
+    </div>
+  );
+};
+```
+
+**Guidelines:**
+
+1. **Always use useCallback** for event handlers to prevent unnecessary re-renders
+2. **Extract components** when you need to pass parameters to event handlers
+3. **Use data attributes** for simple parameter passing scenarios
+4. **Prefer component extraction** over complex data attribute patterns
+5. **Include dependencies** in useCallback dependency array
+
+**Component extraction pattern:**
+
+```typescript
+// Parent component passes callback
+const ParentComponent = () => {
+  const handleAction = useCallback((id: string, action: string) => {
+    // Handle the action
+  }, []);
+
+  return (
+    <div>
+      {items.map((item) => (
+        <ChildComponent
+          key={item.id}
+          item={item}
+          onAction={handleAction}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Child component wraps callback with useCallback
+const ChildComponent = ({
+  item,
+  onAction
+}: {
+  item: Item;
+  onAction: (id: string, action: string) => void;
+}) => {
+  const handleEdit = useCallback(() => {
+    onAction(item.id, 'edit');
+  }, [item.id, onAction]);
+
+  const handleDelete = useCallback(() => {
+    onAction(item.id, 'delete');
+  }, [item.id, onAction]);
+
+  return (
+    <div>
+      <button onClick={handleEdit}>Edit</button>
+      <button onClick={handleDelete}>Delete</button>
+    </div>
+  );
+};
 ```
 
 ## 🧪 Testing Strategy (TDD)
