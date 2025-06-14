@@ -33,18 +33,18 @@ export const PhotoFrame = () => {
 
 	return (
 		<div className={styles.root}>
+			<div className={styles.scrollIndicator}>
+				<div 
+					className={styles.scrollBar} 
+					style={{ width: `${scrollProgress}%` }}
+					role="progressbar"
+					aria-valuenow={Math.round(scrollProgress)}
+					aria-valuemin={0}
+					aria-valuemax={100}
+					aria-label="スクロール進捗"
+				/>
+			</div>
 			<div className={styles.frameOuter}>
-				<div className={styles.scrollIndicator}>
-					<div 
-						className={styles.scrollBar} 
-						style={{ width: `${scrollProgress}%` }}
-						role="progressbar"
-						aria-valuenow={Math.round(scrollProgress)}
-						aria-valuemin={0}
-						aria-valuemax={100}
-						aria-label="スクロール進捗"
-					/>
-				</div>
 				<div className={styles.frameInner}>
 					<div className={styles.matting}>
 						<div className={styles.cornerTopLeft} />

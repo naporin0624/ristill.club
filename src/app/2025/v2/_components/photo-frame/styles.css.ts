@@ -44,32 +44,19 @@ export const frameInner = style({
 	height: "100%",
 	position: "relative",
 	padding: "2px",
-	background: "linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%)",
+	background: "#f8f6f3",
 });
 
 const cornerSize = "40px";
 
 export const scrollIndicator = style({
-	position: "absolute",
-	top: "clamp(4rem, 8vw, 6rem)",
-	left: "clamp(4rem, 8vw, 6rem)",
-	right: "clamp(4rem, 8vw, 6rem)",
+	position: "fixed",
+	top: 0,
+	left: 0,
+	width: "100%",
 	height: "4px",
 	backgroundColor: "rgba(0, 0, 0, 0.1)",
-	zIndex: 10,
-
-	"@media": {
-		"(width < 768px)": {
-			top: "3rem",
-			left: "3rem",
-			right: "3rem",
-		},
-		"(width < 480px)": {
-			top: "2rem",
-			left: "2rem",
-			right: "2rem",
-		},
-	},
+	zIndex: 100,
 });
 
 export const scrollBar = style({
@@ -160,10 +147,6 @@ export const photoContent = style({
 	overflowX: "hidden",
 	scrollbarWidth: "none",
 	msOverflowStyle: "none",
-	boxShadow: `
-		inset 0 2px 10px rgba(0, 0, 0, 0.05),
-		inset 0 -2px 10px rgba(0, 0, 0, 0.05)
-	`,
 
 	selectors: {
 		"&::-webkit-scrollbar": {
