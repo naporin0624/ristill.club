@@ -22,11 +22,15 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      - name: Setup Node.js with pnpm cache
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
+
+      - name: Cache node_modules
+        uses: ./.github/actions/cache-node-modules
+        with:
+          path: node_modules
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -45,11 +49,15 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      - name: Setup Node.js with pnpm cache
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
+
+      - name: Cache node_modules
+        uses: ./.github/actions/cache-node-modules
+        with:
+          path: node_modules
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -68,11 +76,15 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      - name: Setup Node.js with pnpm cache
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
+
+      - name: Cache node_modules
+        uses: ./.github/actions/cache-node-modules
+        with:
+          path: node_modules
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -91,11 +103,15 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      - name: Setup Node.js with pnpm cache
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
+
+      - name: Cache node_modules
+        uses: ./.github/actions/cache-node-modules
+        with:
+          path: node_modules
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
