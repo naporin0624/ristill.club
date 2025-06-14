@@ -31,7 +31,7 @@ jobs:
         run: pnpm lint
 
       - name: Run type checking
-        run: pnpm typecheck
+        run: pnpm exec tsc --noEmit
 
       - name: Run tests
         run: pnpm test
@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Code Quality Check with Claude
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           allowed_tools: Bash(pnpm:*),Bash(node:*),Bash(git:*),View,Edit,GlobTool,GrepTool,BatchTool
