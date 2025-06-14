@@ -140,11 +140,15 @@ export const photoContent = style({
 	width: "100vw",
 	height: "100vh",
 	background: `
+		radial-gradient(ellipse at center, rgba(26, 188, 156, 0.05) 0%, transparent 70%),
 		linear-gradient(135deg, 
-			#ffffff 0%, 
-			#fcfcfc 50%,
-			#f9f9f9 100%
-		)
+			rgba(52, 152, 219, 0.02) 0%, 
+			rgba(41, 128, 185, 0.03) 25%,
+			rgba(52, 152, 219, 0.02) 50%,
+			rgba(26, 188, 156, 0.02) 75%,
+			rgba(52, 152, 219, 0.02) 100%
+		),
+		#f8fafe
 	`,
 	display: "flex",
 	flexDirection: "column",
@@ -208,8 +212,25 @@ export const heroImage = style({
 	width: "100%",
 	maxWidth: "400px",
 	height: "auto",
-	borderRadius: "16px",
-	boxShadow: "0 20px 60px rgba(0, 0, 0, 0.15)",
+	borderRadius: "2rem",
+	boxShadow: `
+		0 25px 50px -12px rgba(0, 0, 0, 0.25),
+		0 0 0 1px rgba(255, 255, 255, 0.8),
+		inset 0 1px 0 rgba(255, 255, 255, 0.9)
+	`,
+	transform: "perspective(1000px) rotateY(-2deg) rotateX(2deg)",
+	transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+
+	selectors: {
+		"&:hover": {
+			transform: "perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02)",
+			boxShadow: `
+				0 32px 64px -12px rgba(0, 0, 0, 0.35),
+				0 0 0 1px rgba(255, 255, 255, 0.9),
+				inset 0 1px 0 rgba(255, 255, 255, 1)
+			`,
+		},
+	},
 });
 
 export const heroContent = style({
@@ -288,24 +309,25 @@ export const messageSection = style({
 });
 
 export const sectionTitle = style({
-	fontSize: "clamp(1.2rem, 2.8vw, 1.6rem)",
-	fontWeight: "500",
+	fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)",
+	fontWeight: "600",
 	background: `
 		linear-gradient(135deg, 
-			#8b4513 0%, 
-			#d2691e 25%, 
-			#daa520 50%, 
-			#2980b9 75%, 
-			#1abc9c 100%
+			#2980b9 0%, 
+			#3498db 25%, 
+			#1abc9c 50%, 
+			#16a085 75%, 
+			#2980b9 100%
 		)
 	`,
 	backgroundClip: "text",
 	WebkitBackgroundClip: "text",
 	color: "transparent",
-	margin: "0 0 2rem 0",
+	margin: "0 0 3rem 0",
 	textAlign: "center",
 	letterSpacing: "0.02em",
-	fontFamily: "'Inter', 'Segoe UI', sans-serif",
+	fontFamily: "var(--font-playfair, 'Playfair Display'), serif",
+	textShadow: "0 2px 4px rgba(41, 128, 185, 0.1)",
 });
 
 // Memory styles
@@ -486,14 +508,26 @@ export const timelineArrow = style({
 // Message styles
 export const letterCard = style({
 	width: "100%",
-	padding: "2rem 1.5rem",
-	backgroundColor: "rgba(252, 251, 248, 0.8)",
-	border: "1px solid rgba(139, 69, 19, 0.15)",
-	borderRadius: "4px",
+	padding: "3rem 2rem",
+	background: `
+		linear-gradient(145deg, 
+			rgba(255, 255, 255, 0.9) 0%, 
+			rgba(248, 250, 252, 0.8) 100%
+		)
+	`,
+	border: "1px solid rgba(52, 152, 219, 0.1)",
+	borderRadius: "2rem",
+	boxShadow: `
+		0 20px 40px -12px rgba(0, 0, 0, 0.1),
+		0 0 0 1px rgba(255, 255, 255, 0.7),
+		inset 0 1px 0 rgba(255, 255, 255, 0.9)
+	`,
+	backdropFilter: "blur(8px)",
 
 	"@media": {
 		"(width < 768px)": {
-			padding: "1.5rem 1rem",
+			padding: "2rem 1.5rem",
+			borderRadius: "1.5rem",
 		},
 	},
 });
@@ -529,13 +563,23 @@ export const galleryImage = style({
 	width: "100%",
 	maxWidth: "300px",
 	height: "auto",
-	borderRadius: "16px",
-	boxShadow: "0 12px 40px rgba(0, 0, 0, 0.15)",
-	transition: "transform 0.3s ease",
+	borderRadius: "1.5rem",
+	boxShadow: `
+		0 20px 40px -8px rgba(0, 0, 0, 0.2),
+		0 0 0 1px rgba(255, 255, 255, 0.7),
+		inset 0 1px 0 rgba(255, 255, 255, 0.8)
+	`,
+	transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+	transform: "translateY(0px)",
 
 	selectors: {
 		"&:hover": {
-			transform: "scale(1.05)",
+			transform: "translateY(-8px) scale(1.03)",
+			boxShadow: `
+				0 25px 50px -8px rgba(0, 0, 0, 0.3),
+				0 0 0 1px rgba(255, 255, 255, 0.9),
+				inset 0 1px 0 rgba(255, 255, 255, 1)
+			`,
 		},
 	},
 });
@@ -552,10 +596,26 @@ export const mosaicContainer = style({
 
 export const mosaicImage = style({
 	width: "100%",
-	maxWidth: "800px",
+	maxWidth: "900px",
 	height: "auto",
-	borderRadius: "12px",
-	boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
+	borderRadius: "2rem",
+	boxShadow: `
+		0 30px 60px -12px rgba(0, 0, 0, 0.25),
+		0 0 0 1px rgba(255, 255, 255, 0.8),
+		inset 0 2px 4px rgba(255, 255, 255, 0.9)
+	`,
+	transition: "all 0.6s ease",
+
+	selectors: {
+		"&:hover": {
+			boxShadow: `
+				0 40px 80px -12px rgba(0, 0, 0, 0.35),
+				0 0 0 1px rgba(255, 255, 255, 0.9),
+				inset 0 2px 4px rgba(255, 255, 255, 1)
+			`,
+			transform: "scale(1.02)",
+		},
+	},
 });
 
 export const mosaicDescription = style({
@@ -584,12 +644,36 @@ export const growthTimeline = style({
 });
 
 export const growthItem = style({
-	background: "rgba(255, 255, 255, 0.8)",
-	padding: "1.5rem",
-	borderRadius: "8px",
+	background: `
+		linear-gradient(145deg, 
+			rgba(255, 255, 255, 0.9) 0%, 
+			rgba(248, 250, 252, 0.8) 100%
+		)
+	`,
+	padding: "2rem 1.5rem",
+	borderRadius: "1.5rem",
 	width: "100%",
 	maxWidth: "400px",
 	textAlign: "center",
+	border: "1px solid rgba(52, 152, 219, 0.1)",
+	boxShadow: `
+		0 12px 24px -6px rgba(0, 0, 0, 0.1),
+		0 0 0 1px rgba(255, 255, 255, 0.7),
+		inset 0 1px 0 rgba(255, 255, 255, 0.8)
+	`,
+	backdropFilter: "blur(4px)",
+	transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+
+	selectors: {
+		"&:hover": {
+			transform: "translateY(-4px)",
+			boxShadow: `
+				0 16px 32px -6px rgba(0, 0, 0, 0.15),
+				0 0 0 1px rgba(255, 255, 255, 0.8),
+				inset 0 1px 0 rgba(255, 255, 255, 0.9)
+			`,
+		},
+	},
 });
 
 export const growthDate = style({
@@ -617,11 +701,30 @@ export const growthDesc = style({
 
 // Letter Styles
 export const letterInvitation = style({
-	background: "linear-gradient(135deg, rgba(201, 169, 107, 0.1), rgba(41, 128, 185, 0.1))",
-	padding: "2rem",
-	borderRadius: "12px",
+	background: `
+		linear-gradient(145deg, 
+			rgba(52, 152, 219, 0.05) 0%, 
+			rgba(26, 188, 156, 0.08) 50%,
+			rgba(52, 152, 219, 0.05) 100%
+		)
+	`,
+	padding: "3rem 2rem",
+	borderRadius: "2rem",
 	textAlign: "center",
-	border: "1px solid rgba(201, 169, 107, 0.2)",
+	border: "1px solid rgba(52, 152, 219, 0.15)",
+	boxShadow: `
+		0 16px 32px -8px rgba(0, 0, 0, 0.1),
+		0 0 0 1px rgba(255, 255, 255, 0.6),
+		inset 0 1px 0 rgba(255, 255, 255, 0.8)
+	`,
+	backdropFilter: "blur(4px)",
+
+	"@media": {
+		"(width < 768px)": {
+			padding: "2rem 1.5rem",
+			borderRadius: "1.5rem",
+		},
+	},
 });
 
 export const letterTitle = style({
@@ -641,21 +744,47 @@ export const letterDescription = style({
 });
 
 export const letterButton = style({
-	background: "linear-gradient(135deg, #c9a96b, #2980b9)",
+	background: `
+		linear-gradient(135deg, 
+			#3498db 0%, 
+			#2980b9 50%, 
+			#1abc9c 100%
+		)
+	`,
 	color: "white",
 	border: "none",
-	padding: "0.8rem 1.5rem",
-	borderRadius: "8px",
-	fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
-	fontWeight: "500",
+	padding: "1rem 2rem",
+	borderRadius: "1rem",
+	fontSize: "clamp(1rem, 2.2vw, 1.2rem)",
+	fontWeight: "600",
 	cursor: "pointer",
-	transition: "all 0.3s ease",
-	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+	transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+	fontFamily: "var(--font-playfair, 'Playfair Display'), serif",
+	letterSpacing: "0.02em",
+	boxShadow: `
+		0 8px 16px -4px rgba(52, 152, 219, 0.4),
+		0 0 0 1px rgba(255, 255, 255, 0.2),
+		inset 0 1px 0 rgba(255, 255, 255, 0.3)
+	`,
 
 	selectors: {
 		"&:hover": {
-			transform: "translateY(-2px)",
-			boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+			transform: "translateY(-3px) scale(1.02)",
+			boxShadow: `
+				0 12px 24px -4px rgba(52, 152, 219, 0.5),
+				0 0 0 1px rgba(255, 255, 255, 0.3),
+				inset 0 1px 0 rgba(255, 255, 255, 0.4)
+			`,
+			background: `
+				linear-gradient(135deg, 
+					#5dade2 0%, 
+					#3498db 50%, 
+					#48c9b0 100%
+				)
+			`,
+		},
+		"&:active": {
+			transform: "translateY(-1px) scale(1.01)",
 		},
 	},
 });

@@ -115,10 +115,10 @@ export const PhotoFrame = () => {
 								<h3 className={styles.sectionTitle} id="mosaic-heading">みんなでつくったモザイクアート</h3>
 								<div className={styles.mosaicContainer}>
 									<Image
-										src="/assets/yoko_mosaic_db.png"
+										src="/assets/tate_mosaic_db_4500.png"
 										alt="みんなで作ったモザイクアート"
-										width={800}
-										height={450}
+										width={600}
+										height={1068}
 										className={styles.mosaicImage}
 									/>
 									<p className={styles.mosaicDescription}>
