@@ -2,29 +2,63 @@ import { style } from "@vanilla-extract/css";
 
 export const root = style({
 	minHeight: "100vh",
-	padding: "5rem 2rem",
-	background: "linear-gradient(135deg, #e0f6ff, #fff8dc)",
+	padding: "6rem 3rem",
+	background: "#fefdf8",
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
 	justifyContent: "center",
 	position: "relative",
-	overflow: "hidden",
+	"@media": {
+		"(width >= 1024px)": {
+			padding: "8rem 4rem",
+		},
+		"(width < 768px)": {
+			padding: "4rem 2rem",
+		},
+	},
 });
 
 export const title = style({
-	fontSize: "3rem",
-	fontWeight: "bold",
+	fontSize: "2.5rem",
+	fontWeight: "300",
 	textAlign: "center",
-	marginBottom: "2rem",
-	background: "linear-gradient(45deg, #00ced1, #ffd700)",
-	backgroundClip: "text",
-	WebkitBackgroundClip: "text",
-	WebkitTextFillColor: "transparent",
-	textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
+	marginBottom: "5rem",
+	color: "#8b7355",
+	fontFamily: "serif",
+	letterSpacing: "0.1em",
+	lineHeight: "1.4",
 	"@media": {
-		"(max-width: 768px)": {
+		"(width >= 1024px)": {
+			fontSize: "3rem",
+			marginBottom: "6rem",
+		},
+		"(width < 768px)": {
 			fontSize: "2rem",
+			marginBottom: "4rem",
+		},
+	},
+});
+
+export const storyText = style({
+	textAlign: "center",
+	fontSize: "1.2rem",
+	color: "#6b5b47",
+	fontStyle: "italic",
+	marginBottom: "4rem",
+	padding: "0 2rem",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	lineHeight: "1.6",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.3rem",
+			marginBottom: "5rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.1rem",
+			padding: "0 1rem",
+			marginBottom: "3rem",
 		},
 	},
 });
@@ -32,19 +66,22 @@ export const title = style({
 export const mosaicGrid = style({
 	display: "grid",
 	gridTemplateColumns: "repeat(10, 1fr)",
-	gap: "4px",
-	maxWidth: "600px",
+	gap: "2px",
+	maxWidth: "500px",
 	width: "100%",
 	aspectRatio: "1",
-	padding: "1rem",
-	background: "rgba(255, 255, 255, 0.9)",
-	borderRadius: "20px",
-	boxShadow: "0 15px 40px rgba(0, 0, 0, 0.1)",
-	border: "3px solid #ffd700",
+	padding: "2rem",
+	background: "rgba(255, 255, 255, 0.7)",
+	border: "1px solid rgba(180, 160, 120, 0.3)",
 	"@media": {
-		"(max-width: 768px)": {
+		"(width >= 1024px)": {
+			maxWidth: "600px",
+			padding: "2.5rem",
+		},
+		"(width < 768px)": {
 			gridTemplateColumns: "repeat(8, 1fr)",
-			maxWidth: "400px",
+			maxWidth: "350px",
+			padding: "1.5rem",
 		},
 	},
 });
@@ -54,119 +91,88 @@ export const mosaicItem = style({
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "center",
-	borderRadius: "4px",
-	fontSize: "0.8rem",
-	cursor: "pointer",
-	position: "relative",
-	transition: "all 0.3s ease",
-	":hover": {
-		transform: "scale(1.2)",
-		zIndex: 10,
-		boxShadow: "0 5px 15px rgba(0, 0, 0, 0.2)",
+	fontSize: "0.7rem",
+	opacity: "0.8",
+	"@media": {
+		"(width < 768px)": {
+			fontSize: "0.6rem",
+		},
 	},
 });
 
 export const counter = style({
-	fontSize: "1.5rem",
-	fontWeight: "bold",
-	color: "#008b8b",
+	fontSize: "1.4rem",
+	fontWeight: "400",
+	color: "#8b7355",
 	textAlign: "center",
-	marginBottom: "2rem",
-	background: "rgba(255, 255, 255, 0.8)",
-	padding: "1rem 2rem",
-	borderRadius: "25px",
-	boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
-	border: "2px solid #00ced1",
-});
-
-export const message = style({
-	position: "absolute",
-	bottom: "120%",
-	left: "50%",
-	transform: "translateX(-50%)",
-	background: "rgba(0, 0, 0, 0.8)",
-	color: "white",
-	padding: "0.5rem 1rem",
-	borderRadius: "8px",
-	fontSize: "0.7rem",
-	whiteSpace: "nowrap",
-	zIndex: 20,
-	pointerEvents: "none",
-	"::after": {
-		content: '""',
-		position: "absolute",
-		top: "100%",
-		left: "50%",
-		transform: "translateX(-50%)",
-		border: "4px solid transparent",
-		borderTopColor: "rgba(0, 0, 0, 0.8)",
-	},
-});
-
-export const heartFloat = style({
-	position: "absolute",
-	fontSize: "1.5rem",
-	pointerEvents: "none",
-	zIndex: 1,
-	color: "#ff69b4",
-});
-
-export const loveParticle = style({
-	position: "absolute",
-	fontSize: "1.2rem",
-	pointerEvents: "none",
-	zIndex: 2,
-});
-
-export const storyText = style({
-	textAlign: "center",
-	fontSize: "1.2rem",
-	color: "#666",
-	fontStyle: "italic",
-	marginBottom: "2rem",
-	padding: "0 2rem",
+	marginTop: "3rem",
+	marginBottom: "4rem",
+	background: "rgba(212, 175, 55, 0.1)",
+	padding: "2rem 3rem",
+	border: "1px solid rgba(212, 175, 55, 0.3)",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
+	lineHeight: "1.6",
 	"@media": {
-		"(max-width: 768px)": {
-			fontSize: "1rem",
-			padding: "0 1rem",
+		"(width >= 1024px)": {
+			fontSize: "1.5rem",
+			padding: "2.5rem 4rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.2rem",
+			padding: "1.5rem 2rem",
+			marginTop: "2rem",
+			marginBottom: "3rem",
 		},
 	},
 });
 
 export const collectionStory = style({
 	textAlign: "center",
-	maxWidth: "600px",
-	background: "rgba(255, 255, 255, 0.9)",
-	borderRadius: "20px",
-	padding: "2rem",
-	boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
-	border: "2px solid rgba(255, 215, 0, 0.3)",
+	maxWidth: "700px",
+	background: "rgba(255, 255, 255, 0.5)",
+	padding: "4rem 3rem",
+	border: "1px solid rgba(180, 160, 120, 0.2)",
 	"@media": {
-		"(max-width: 768px)": {
-			padding: "1.5rem",
+		"(width >= 1024px)": {
+			maxWidth: "800px",
+			padding: "5rem 4rem",
+		},
+		"(width < 768px)": {
+			padding: "3rem 2rem",
 		},
 	},
 });
 
 export const collectionTitle = style({
-	fontSize: "1.5rem",
-	color: "#008b8b",
-	marginBottom: "1rem",
-	fontWeight: "bold",
+	fontSize: "1.8rem",
+	color: "#8b7355",
+	marginBottom: "2rem",
+	fontWeight: "400",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
 	"@media": {
-		"(max-width: 768px)": {
-			fontSize: "1.3rem",
+		"(width >= 1024px)": {
+			fontSize: "2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.6rem",
 		},
 	},
 });
 
 export const collectionText = style({
-	fontSize: "1rem",
-	color: "#555",
-	lineHeight: 1.7,
+	fontSize: "1.1rem",
+	color: "#6b5b47",
+	lineHeight: "1.8",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
 	"@media": {
-		"(max-width: 768px)": {
-			fontSize: "0.9rem",
+		"(width >= 1024px)": {
+			fontSize: "1.2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1rem",
 		},
 	},
 });

@@ -2,120 +2,214 @@ import { style } from "@vanilla-extract/css";
 
 export const root = style({
 	minHeight: "100vh",
-	padding: "5rem 2rem",
-	background: "linear-gradient(135deg, #fff8dc, #ffffff)",
+	padding: "6rem 3rem",
+	background: "#fefdf8",
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
 	justifyContent: "center",
+	"@media": {
+		"(width >= 1024px)": {
+			padding: "8rem 4rem",
+		},
+		"(width < 768px)": {
+			padding: "4rem 2rem",
+		},
+	},
 });
 
 export const title = style({
-	fontSize: "3rem",
-	fontWeight: "bold",
+	fontSize: "2.5rem",
+	fontWeight: "300",
 	textAlign: "center",
-	marginBottom: "3rem",
-	background: "linear-gradient(45deg, #ffd700, #00ced1)",
-	backgroundClip: "text",
-	WebkitBackgroundClip: "text",
-	WebkitTextFillColor: "transparent",
-	textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
+	marginBottom: "5rem",
+	color: "#8b7355",
+	fontFamily: "serif",
+	letterSpacing: "0.1em",
+	lineHeight: "1.4",
 	"@media": {
-		"(max-width: 768px)": {
+		"(width >= 1024px)": {
+			fontSize: "3rem",
+			marginBottom: "6rem",
+		},
+		"(width < 768px)": {
 			fontSize: "2rem",
+			marginBottom: "4rem",
 		},
 	},
 });
 
 export const content = style({
-	display: "grid",
-	gridTemplateColumns: "1fr 1fr",
-	gap: "3rem",
-	maxWidth: "1200px",
+	display: "flex",
+	flexDirection: "column",
+	gap: "4rem",
+	maxWidth: "800px",
 	width: "100%",
 	"@media": {
-		"(max-width: 768px)": {
-			gridTemplateColumns: "1fr",
-			gap: "2rem",
+		"(width >= 1024px)": {
+			gap: "5rem",
+			maxWidth: "900px",
+		},
+		"(width < 768px)": {
+			gap: "3rem",
 		},
 	},
 });
 
 export const card = style({
-	background: "rgba(255, 255, 255, 0.9)",
-	borderRadius: "20px",
-	padding: "2rem",
-	boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
-	border: "2px solid #ffd700",
+	background: "rgba(255, 255, 255, 0.6)",
+	padding: "3rem",
+	border: "1px solid rgba(180, 160, 120, 0.2)",
 	textAlign: "center",
+	"@media": {
+		"(width >= 1024px)": {
+			padding: "4rem",
+		},
+		"(width < 768px)": {
+			padding: "2.5rem",
+		},
+	},
 });
 
 export const cardTitle = style({
-	fontSize: "1.5rem",
-	color: "#00ced1",
-	marginBottom: "1rem",
+	fontSize: "1.8rem",
+	color: "#8b7355",
+	marginBottom: "2rem",
+	fontWeight: "400",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.6rem",
+		},
+	},
 });
 
 export const cardText = style({
 	fontSize: "1.1rem",
-	color: "#333",
-	lineHeight: 1.6,
-	marginBottom: "2rem",
+	color: "#6b5b47",
+	lineHeight: "1.8",
+	marginBottom: "3rem",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1rem",
+		},
+	},
 });
 
 export const avatarPlaceholder = style({
-	fontSize: "5rem",
-	opacity: 0.3,
+	fontSize: "3rem",
+	opacity: 0.4,
+	color: "#d4af37",
 });
 
 export const charmList = style({
-	background: "rgba(224, 246, 255, 0.8)",
-	borderRadius: "20px",
-	padding: "2rem",
-	boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
-	border: "2px solid #00ced1",
+	background: "rgba(255, 255, 255, 0.4)",
+	padding: "3rem",
+	border: "1px solid rgba(180, 160, 120, 0.2)",
+	"@media": {
+		"(width >= 1024px)": {
+			padding: "4rem",
+		},
+		"(width < 768px)": {
+			padding: "2.5rem",
+		},
+	},
 });
 
 export const listTitle = style({
-	fontSize: "1.5rem",
-	color: "#008b8b",
-	marginBottom: "1.5rem",
+	fontSize: "1.8rem",
+	color: "#8b7355",
+	marginBottom: "2.5rem",
 	textAlign: "center",
+	fontWeight: "400",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.6rem",
+		},
+	},
 });
 
 export const charmItem = style({
-	padding: "0.8rem 1rem",
-	marginBottom: "0.8rem",
-	background: "rgba(255, 255, 255, 0.7)",
-	borderRadius: "12px",
+	padding: "1.5rem 2rem",
+	marginBottom: "1.5rem",
+	background: "rgba(255, 255, 255, 0.6)",
 	fontSize: "1rem",
-	color: "#333",
-	border: "1px solid rgba(255, 215, 0, 0.3)",
-	transition: "all 0.3s ease",
-	":hover": {
-		transform: "translateX(10px)",
-		backgroundColor: "rgba(255, 215, 0, 0.1)",
-		borderColor: "#ffd700",
+	color: "#6b5b47",
+	border: "1px solid rgba(212, 175, 55, 0.2)",
+	lineHeight: "1.6",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.1rem",
+			padding: "1.8rem 2.5rem",
+		},
+		"(width < 768px)": {
+			fontSize: "0.95rem",
+			padding: "1.2rem 1.5rem",
+		},
 	},
 });
 
 export const quoteCard = style({
-	background: "linear-gradient(135deg, #ffb6c1, #ffd700)",
-	borderRadius: "15px",
-	padding: "1.5rem",
-	marginTop: "2rem",
+	background: "rgba(212, 175, 55, 0.1)",
+	padding: "3rem",
+	marginTop: "3rem",
 	textAlign: "center",
-	color: "white",
-	textShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)",
+	border: "1px solid rgba(212, 175, 55, 0.3)",
+	"@media": {
+		"(width >= 1024px)": {
+			padding: "4rem",
+		},
+		"(width < 768px)": {
+			padding: "2.5rem",
+		},
+	},
 });
 
 export const quoteText = style({
-	fontSize: "1.2rem",
+	fontSize: "1.3rem",
 	fontStyle: "italic",
-	marginBottom: "0.5rem",
+	marginBottom: "1.5rem",
+	color: "#8b7355",
+	lineHeight: "1.6",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.4rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.2rem",
+		},
+	},
 });
 
 export const quoteAuthor = style({
-	fontSize: "0.9rem",
-	opacity: 0.9,
+	fontSize: "1rem",
+	color: "#a0956b",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.1rem",
+		},
+		"(width < 768px)": {
+			fontSize: "0.9rem",
+		},
+	},
 });

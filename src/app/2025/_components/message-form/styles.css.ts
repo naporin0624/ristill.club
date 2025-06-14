@@ -2,123 +2,141 @@ import { style } from "@vanilla-extract/css";
 
 export const root = style({
 	minHeight: "100vh",
-	padding: "5rem 2rem",
-	background: "linear-gradient(135deg, #fff8dc, #ffb6c1, #e0f6ff)",
+	padding: "6rem 3rem",
+	background: "#fefdf8",
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
 	justifyContent: "center",
 	position: "relative",
-	overflow: "hidden",
-});
-
-export const sparkle = style({
-	position: "absolute",
-	fontSize: "1.5rem",
-	pointerEvents: "none",
-	zIndex: 1,
-	color: "#ffd700",
+	"@media": {
+		"(width >= 1024px)": {
+			padding: "8rem 4rem",
+		},
+		"(width < 768px)": {
+			padding: "4rem 2rem",
+		},
+	},
 });
 
 export const title = style({
-	fontSize: "3rem",
-	fontWeight: "bold",
+	fontSize: "2.5rem",
+	fontWeight: "300",
 	textAlign: "center",
-	marginBottom: "3rem",
-	background: "linear-gradient(45deg, #ff69b4, #ffd700, #00ced1)",
-	backgroundClip: "text",
-	WebkitBackgroundClip: "text",
-	WebkitTextFillColor: "transparent",
-	textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
+	marginBottom: "5rem",
+	color: "#8b7355",
+	fontFamily: "serif",
+	letterSpacing: "0.1em",
+	lineHeight: "1.4",
 	"@media": {
-		"(max-width: 768px)": {
+		"(width >= 1024px)": {
+			fontSize: "3rem",
+			marginBottom: "6rem",
+		},
+		"(width < 768px)": {
 			fontSize: "2rem",
+			marginBottom: "4rem",
 		},
 	},
 });
 
 export const formRoot = style({
-	maxWidth: "600px",
+	maxWidth: "700px",
 	width: "100%",
-	background: "rgba(255, 255, 255, 0.95)",
-	borderRadius: "25px",
-	padding: "2.5rem",
-	boxShadow: "0 20px 50px rgba(0, 0, 0, 0.1)",
-	border: "3px solid transparent",
-	backgroundImage: "linear-gradient(white, white), linear-gradient(45deg, #ffd700, #ff69b4, #00ced1)",
-	backgroundOrigin: "border-box",
-	backgroundClip: "content-box, border-box",
-	marginBottom: "2rem",
+	background: "rgba(255, 255, 255, 0.6)",
+	padding: "4rem 3rem",
+	border: "1px solid rgba(180, 160, 120, 0.2)",
+	marginBottom: "4rem",
 	"@media": {
-		"(max-width: 768px)": {
-			padding: "2rem 1.5rem",
+		"(width >= 1024px)": {
+			maxWidth: "800px",
+			padding: "5rem 4rem",
+		},
+		"(width < 768px)": {
+			padding: "3rem 2rem",
 		},
 	},
 });
 
 export const inputRoot = style({
 	position: "relative",
-	marginBottom: "1.5rem",
+	marginBottom: "3rem",
 });
 
 export const textarea = style({
 	width: "100%",
-	padding: "1.5rem",
-	borderRadius: "15px",
-	border: "2px solid #e0f6ff",
+	padding: "2rem",
+	border: "1px solid rgba(180, 160, 120, 0.3)",
 	fontSize: "1.1rem",
-	lineHeight: 1.6,
+	lineHeight: "1.8",
 	resize: "none",
 	outline: "none",
-	fontFamily: "inherit",
-	transition: "all 0.3s ease",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	backgroundColor: "rgba(255, 255, 255, 0.8)",
+	color: "#6b5b47",
 	":focus": {
-		borderColor: "#00ced1",
-		boxShadow: "0 0 0 3px rgba(0, 206, 209, 0.1)",
+		borderColor: "rgba(212, 175, 55, 0.5)",
 	},
 	"::placeholder": {
-		color: "#999",
+		color: "#a0956b",
 		fontStyle: "italic",
+	},
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.2rem",
+			padding: "2.5rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1rem",
+			padding: "1.5rem",
+		},
 	},
 });
 
 export const charCount = style({
 	position: "absolute",
-	bottom: "0.5rem",
-	right: "1rem",
-	fontSize: "0.8rem",
-	color: "#666",
-	background: "rgba(255, 255, 255, 0.8)",
-	padding: "0.2rem 0.5rem",
-	borderRadius: "10px",
+	bottom: "1rem",
+	right: "1.5rem",
+	fontSize: "0.9rem",
+	color: "#a0956b",
+	background: "rgba(255, 255, 255, 0.9)",
+	padding: "0.5rem 1rem",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
 });
 
 export const submitButton = style({
 	width: "100%",
-	padding: "1.2rem 2rem",
-	background: "linear-gradient(45deg, #ff69b4, #ffd700)",
-	color: "white",
-	border: "none",
-	borderRadius: "20px",
+	padding: "2rem 3rem",
+	background: "rgba(212, 175, 55, 0.1)",
+	color: "#8b7355",
+	border: "1px solid rgba(212, 175, 55, 0.3)",
 	fontSize: "1.2rem",
-	fontWeight: "bold",
+	fontWeight: "400",
 	cursor: "pointer",
-	textShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)",
-	boxShadow: "0 8px 25px rgba(255, 105, 180, 0.3)",
-	transition: "all 0.3s ease",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "center",
-	gap: "0.5rem",
+	gap: "1rem",
 	":hover": {
-		transform: "translateY(-2px)",
-		boxShadow: "0 12px 35px rgba(255, 105, 180, 0.4)",
+		background: "rgba(212, 175, 55, 0.2)",
 	},
 	":disabled": {
 		opacity: 0.6,
 		cursor: "not-allowed",
-		transform: "none",
-		boxShadow: "0 8px 25px rgba(255, 105, 180, 0.3)",
+	},
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.3rem",
+			padding: "2.5rem 4rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.1rem",
+			padding: "1.5rem 2rem",
+		},
 	},
 });
 
@@ -129,40 +147,57 @@ export const loadingSpinner = style({
 export const counterRoot = style({
 	textAlign: "center",
 	fontSize: "1.3rem",
-	fontWeight: "bold",
-	color: "#008b8b",
-	background: "rgba(255, 255, 255, 0.9)",
-	padding: "1rem 2rem",
-	borderRadius: "20px",
-	boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
-	border: "2px solid #00ced1",
-	marginBottom: "3rem",
+	fontWeight: "400",
+	color: "#8b7355",
+	background: "rgba(212, 175, 55, 0.1)",
+	padding: "2rem 3rem",
+	border: "1px solid rgba(212, 175, 55, 0.3)",
+	marginBottom: "4rem",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.4rem",
+			padding: "2.5rem 4rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.2rem",
+			padding: "1.5rem 2rem",
+		},
+	},
 });
 
 export const messageWall = style({
 	maxWidth: "800px",
 	width: "100%",
-	background: "rgba(255, 255, 255, 0.9)",
-	borderRadius: "20px",
-	padding: "2.5rem",
-	boxShadow: "0 15px 40px rgba(0, 0, 0, 0.1)",
-	border: "2px solid #ffb6c1",
+	background: "rgba(255, 255, 255, 0.5)",
+	padding: "4rem 3rem",
+	border: "1px solid rgba(180, 160, 120, 0.2)",
 	"@media": {
-		"(max-width: 768px)": {
-			padding: "2rem 1.5rem",
+		"(width >= 1024px)": {
+			maxWidth: "900px",
+			padding: "5rem 4rem",
+		},
+		"(width < 768px)": {
+			padding: "3rem 2rem",
 		},
 	},
 });
 
 export const messageWallTitle = style({
 	fontSize: "1.8rem",
-	fontWeight: "bold",
-	color: "#ff69b4",
+	fontWeight: "400",
+	color: "#8b7355",
 	textAlign: "center",
-	marginBottom: "2rem",
+	marginBottom: "3rem",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
 	"@media": {
-		"(max-width: 768px)": {
-			fontSize: "1.5rem",
+		"(width >= 1024px)": {
+			fontSize: "2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.6rem",
 		},
 	},
 });
@@ -170,37 +205,59 @@ export const messageWallTitle = style({
 export const messageList = style({
 	display: "flex",
 	flexDirection: "column",
-	gap: "1rem",
-	maxHeight: "400px",
+	gap: "2rem",
+	maxHeight: "500px",
 	overflowY: "auto",
-	padding: "0.5rem",
+	padding: "1rem 0",
+	"@media": {
+		"(width >= 1024px)": {
+			gap: "2.5rem",
+		},
+		"(width < 768px)": {
+			gap: "1.5rem",
+		},
+	},
 });
 
 export const messageItem = style({
 	display: "flex",
 	alignItems: "flex-start",
-	gap: "1rem",
-	padding: "1rem 1.5rem",
-	background: "linear-gradient(135deg, #fff8dc, #e0f6ff)",
-	borderRadius: "15px",
-	border: "1px solid rgba(255, 215, 0, 0.3)",
-	transition: "all 0.3s ease",
-	":hover": {
-		transform: "translateX(5px)",
-		backgroundColor: "rgba(255, 215, 0, 0.1)",
-		borderColor: "#ffd700",
+	gap: "1.5rem",
+	padding: "2rem",
+	background: "rgba(255, 255, 255, 0.7)",
+	border: "1px solid rgba(212, 175, 55, 0.2)",
+	"@media": {
+		"(width >= 1024px)": {
+			padding: "2.5rem",
+			gap: "2rem",
+		},
+		"(width < 768px)": {
+			padding: "1.5rem",
+			gap: "1rem",
+		},
 	},
 });
 
 export const messageIcon = style({
 	fontSize: "1.2rem",
 	flexShrink: 0,
-	marginTop: "0.1rem",
+	marginTop: "0.2rem",
+	opacity: 0.7,
 });
 
 export const messageText = style({
-	fontSize: "1rem",
-	lineHeight: 1.6,
-	color: "#333",
+	fontSize: "1.1rem",
+	lineHeight: "1.8",
+	color: "#6b5b47",
 	wordBreak: "break-word",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1rem",
+		},
+	},
 });

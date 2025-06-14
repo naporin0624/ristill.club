@@ -1,4 +1,4 @@
-// This component uses motion animations with viewport intersection tracking which require client-side JavaScript
+// This component uses minimal animations for literary atmosphere which require client-side JavaScript
 "use client";
 
 import { motion } from "motion/react";
@@ -17,33 +17,31 @@ export const PersonProfile = () => {
 	return (
 		<section className={styles.root}>
 			<motion.div
-				initial={{ opacity: 0, y: 50 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				transition={{ default: { duration: 0.8 } }}
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ default: { duration: 2 } }}
 				viewport={{ once: true }}
 			>
-				<h2 className={styles.title}>🌟 今日の主役はこんな人 🌟</h2>
+				<h2 className={styles.title}>今日の主役はこんな人</h2>
 			</motion.div>
 
 			<div className={styles.content}>
 				<motion.div
 					className={styles.card}
-					initial={{ opacity: 0, x: -50 }}
-					whileInView={{ opacity: 1, x: 0 }}
-					transition={{ default: { duration: 0.8, delay: 0.2 } }}
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
+					transition={{ default: { duration: 2, delay: 0.5 } }}
 					viewport={{ once: true }}
 				>
-					<div>
-						<h3 className={styles.cardTitle}>おてぃるさんプロフィール</h3>
-						<p className={styles.cardText}>VRChatの世界で多くの人に愛される、特別な存在</p>
-						<div className={styles.avatarPlaceholder}>👤</div>
-					</div>
+					<h3 className={styles.cardTitle}>おてぃるさんプロフィール</h3>
+					<p className={styles.cardText}>VRChatの世界で多くの人に愛される、特別な存在</p>
+					<div className={styles.avatarPlaceholder}>👤</div>
 				</motion.div>
 
 				<motion.div
-					initial={{ opacity: 0, x: 50 }}
-					whileInView={{ opacity: 1, x: 0 }}
-					transition={{ default: { duration: 0.8, delay: 0.4 } }}
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
+					transition={{ default: { duration: 2, delay: 1 } }}
 					viewport={{ once: true }}
 				>
 					<div className={styles.charmList}>
@@ -52,9 +50,9 @@ export const PersonProfile = () => {
 							<motion.div
 								key={charm.id}
 								className={styles.charmItem}
-								initial={{ opacity: 0, y: 20 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								transition={{ default: { duration: 0.5, delay: 0.6 + index * 0.1 } }}
+								initial={{ opacity: 0 }}
+								whileInView={{ opacity: 1 }}
+								transition={{ default: { duration: 1.5, delay: 1.5 + index * 0.2 } }}
 								viewport={{ once: true }}
 							>
 								💫 {charm.text}
@@ -64,9 +62,9 @@ export const PersonProfile = () => {
 
 					<motion.div
 						className={styles.quoteCard}
-						initial={{ opacity: 0, scale: 0.9 }}
-						whileInView={{ opacity: 1, scale: 1 }}
-						transition={{ default: { duration: 0.6, delay: 1.2 } }}
+						initial={{ opacity: 0 }}
+						whileInView={{ opacity: 1 }}
+						transition={{ default: { duration: 2, delay: 3 } }}
 						viewport={{ once: true }}
 					>
 						<p className={styles.quoteText}>「君の輝きは、いつも私たちの心を照らしてくれる」</p>

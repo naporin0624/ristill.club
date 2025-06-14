@@ -2,37 +2,40 @@ import { style } from "@vanilla-extract/css";
 
 export const root = style({
 	minHeight: "100vh",
-	padding: "5rem 2rem",
-	background: "linear-gradient(135deg, #ffb6c1, #fff8dc, #e0f6ff)",
+	padding: "6rem 3rem",
+	background: "#fefdf8",
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
 	justifyContent: "center",
 	position: "relative",
-	overflow: "hidden",
-});
-
-export const floatingHeart = style({
-	position: "absolute",
-	fontSize: "2rem",
-	pointerEvents: "none",
-	zIndex: 1,
-	color: "#ff69b4",
+	"@media": {
+		"(width >= 1024px)": {
+			padding: "8rem 4rem",
+		},
+		"(width < 768px)": {
+			padding: "4rem 2rem",
+		},
+	},
 });
 
 export const title = style({
-	fontSize: "3rem",
-	fontWeight: "bold",
+	fontSize: "2.5rem",
+	fontWeight: "300",
 	textAlign: "center",
-	marginBottom: "3rem",
-	background: "linear-gradient(45deg, #ff69b4, #ffd700)",
-	backgroundClip: "text",
-	WebkitBackgroundClip: "text",
-	WebkitTextFillColor: "transparent",
-	textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
+	marginBottom: "5rem",
+	color: "#8b7355",
+	fontFamily: "serif",
+	letterSpacing: "0.1em",
+	lineHeight: "1.4",
 	"@media": {
-		"(max-width: 768px)": {
+		"(width >= 1024px)": {
+			fontSize: "3rem",
+			marginBottom: "6rem",
+		},
+		"(width < 768px)": {
 			fontSize: "2rem",
+			marginBottom: "4rem",
 		},
 	},
 });
@@ -40,145 +43,214 @@ export const title = style({
 export const messageRoot = style({
 	maxWidth: "800px",
 	width: "100%",
-	background: "rgba(255, 255, 255, 0.95)",
-	borderRadius: "25px",
-	padding: "3rem",
-	boxShadow: "0 20px 50px rgba(0, 0, 0, 0.1)",
-	border: "3px solid transparent",
-	backgroundImage: "linear-gradient(white, white), linear-gradient(45deg, #ff69b4, #ffd700, #00ced1)",
-	backgroundOrigin: "border-box",
-	backgroundClip: "content-box, border-box",
+	background: "rgba(255, 255, 255, 0.6)",
+	padding: "5rem 4rem",
+	border: "1px solid rgba(180, 160, 120, 0.2)",
 	"@media": {
-		"(max-width: 768px)": {
-			padding: "2rem 1.5rem",
+		"(width >= 1024px)": {
+			maxWidth: "900px",
+			padding: "6rem 5rem",
+		},
+		"(width < 768px)": {
+			padding: "3rem 2rem",
 		},
 	},
 });
 
 export const coreMessage = style({
 	textAlign: "center",
-	marginBottom: "2rem",
+	marginBottom: "4rem",
+	"@media": {
+		"(width >= 1024px)": {
+			marginBottom: "5rem",
+		},
+		"(width < 768px)": {
+			marginBottom: "3rem",
+		},
+	},
 });
 
 export const coreMessageTitle = style({
-	fontSize: "2.2rem",
-	fontWeight: "bold",
-	color: "#008b8b",
-	marginBottom: "1rem",
-	textShadow: "1px 1px 2px rgba(0, 0, 0, 0.1)",
+	fontSize: "2rem",
+	fontWeight: "400",
+	color: "#8b7355",
+	marginBottom: "2rem",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
+	lineHeight: "1.4",
 	"@media": {
-		"(max-width: 768px)": {
-			fontSize: "1.6rem",
+		"(width >= 1024px)": {
+			fontSize: "2.3rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.7rem",
 		},
 	},
 });
 
 export const heartDecoration = style({
-	fontSize: "2rem",
-	letterSpacing: "1rem",
-	opacity: 0.8,
+	fontSize: "1.5rem",
+	letterSpacing: "2rem",
+	opacity: 0.6,
+	color: "#d4af37",
 });
 
 export const letterContent = style({
-	lineHeight: 1.8,
-	fontSize: "1.1rem",
-	color: "#444",
-	marginBottom: "2rem",
+	lineHeight: "1.8",
+	fontSize: "1.2rem",
+	color: "#6b5b47",
+	marginBottom: "3rem",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
 	"@media": {
-		"(max-width: 768px)": {
-			fontSize: "1rem",
+		"(width >= 1024px)": {
+			fontSize: "1.3rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.1rem",
 		},
 	},
 });
 
 export const letterParagraph = style({
-	marginBottom: "1.5rem",
+	marginBottom: "2.5rem",
 	textAlign: "center",
+	"@media": {
+		"(width >= 1024px)": {
+			marginBottom: "3rem",
+		},
+		"(width < 768px)": {
+			marginBottom: "2rem",
+		},
+	},
 });
 
 export const expandButton = style({
-	background: "linear-gradient(45deg, #ff69b4, #ffd700)",
-	color: "white",
-	border: "none",
-	padding: "1rem 2rem",
-	borderRadius: "25px",
+	background: "rgba(212, 175, 55, 0.1)",
+	color: "#8b7355",
+	border: "1px solid rgba(212, 175, 55, 0.3)",
+	padding: "1.5rem 3rem",
 	fontSize: "1.1rem",
-	fontWeight: "bold",
+	fontWeight: "400",
 	cursor: "pointer",
-	margin: "1rem auto",
+	margin: "2rem auto",
 	display: "block",
-	textShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)",
-	boxShadow: "0 5px 15px rgba(0, 0, 0, 0.2)",
-	transition: "all 0.3s ease",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
 	":hover": {
-		transform: "translateY(-2px)",
-		boxShadow: "0 8px 20px rgba(0, 0, 0, 0.3)",
+		background: "rgba(212, 175, 55, 0.2)",
+	},
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.2rem",
+			padding: "2rem 4rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1rem",
+			padding: "1.2rem 2rem",
+		},
 	},
 });
 
 export const signature = style({
 	textAlign: "center",
-	marginTop: "2rem",
-	paddingTop: "2rem",
-	borderTop: "2px solid rgba(255, 215, 0, 0.3)",
+	marginTop: "4rem",
+	paddingTop: "3rem",
+	borderTop: "1px solid rgba(212, 175, 55, 0.3)",
+	"@media": {
+		"(width >= 1024px)": {
+			marginTop: "5rem",
+			paddingTop: "4rem",
+		},
+		"(width < 768px)": {
+			marginTop: "3rem",
+			paddingTop: "2rem",
+		},
+	},
 });
 
 export const signatureParagraph = style({
 	fontSize: "1.1rem",
-	color: "#666",
-	marginBottom: "0.5rem",
+	color: "#6b5b47",
+	marginBottom: "1rem",
 	fontStyle: "italic",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1rem",
+		},
+	},
 });
 
 export const signatureDecoration = style({
-	fontSize: "1.5rem",
-	marginTop: "1rem",
-	letterSpacing: "1rem",
-	opacity: 0.7,
+	fontSize: "1.3rem",
+	marginTop: "2rem",
+	letterSpacing: "2rem",
+	opacity: 0.6,
+	color: "#d4af37",
 });
 
 export const futureWish = style({
-	background: "linear-gradient(135deg, #e0f6ff, #fff8dc)",
-	borderRadius: "20px",
-	padding: "2rem",
-	marginTop: "2rem",
+	background: "rgba(212, 175, 55, 0.05)",
+	padding: "4rem 3rem",
+	marginTop: "4rem",
 	textAlign: "center",
-	border: "2px solid rgba(0, 206, 209, 0.3)",
+	border: "1px solid rgba(212, 175, 55, 0.2)",
 	"@media": {
-		"(max-width: 768px)": {
-			padding: "1.5rem",
+		"(width >= 1024px)": {
+			padding: "5rem 4rem",
+			marginTop: "5rem",
+		},
+		"(width < 768px)": {
+			padding: "3rem 2rem",
+			marginTop: "3rem",
 		},
 	},
 });
 
 export const futureWishTitle = style({
-	fontSize: "1.5rem",
-	color: "#008b8b",
-	marginBottom: "1rem",
-	fontWeight: "bold",
+	fontSize: "1.6rem",
+	color: "#8b7355",
+	marginBottom: "2rem",
+	fontWeight: "400",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
 	"@media": {
-		"(max-width: 768px)": {
-			fontSize: "1.3rem",
+		"(width >= 1024px)": {
+			fontSize: "1.8rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.4rem",
 		},
 	},
 });
 
 export const futureWishParagraph = style({
 	fontSize: "1.1rem",
-	color: "#555",
-	lineHeight: 1.7,
-	marginBottom: "1rem",
+	color: "#6b5b47",
+	lineHeight: "1.8",
+	marginBottom: "2rem",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
 	"@media": {
-		"(max-width: 768px)": {
+		"(width >= 1024px)": {
+			fontSize: "1.2rem",
+		},
+		"(width < 768px)": {
 			fontSize: "1rem",
 		},
 	},
 });
 
 export const wishDecoration = style({
-	fontSize: "1.8rem",
-	fontWeight: "bold",
-	color: "#ff69b4",
-	textShadow: "1px 1px 2px rgba(0, 0, 0, 0.1)",
-	marginTop: "1rem",
+	fontSize: "1.4rem",
+	fontWeight: "400",
+	color: "#8b7355",
+	marginTop: "2rem",
+	fontFamily: "serif",
+	letterSpacing: "0.1em",
 });

@@ -1,4 +1,4 @@
-// This component uses motion animations, interactive button state, and useState which require client-side JavaScript
+// This component uses minimal animations and button state management which require client-side JavaScript
 "use client";
 
 import { motion } from "motion/react";
@@ -13,61 +13,34 @@ export const HeartMessage = () => {
 		setShowFullMessage(!showFullMessage);
 	}, [showFullMessage]);
 
-	const floatingHearts = Array.from({ length: 30 }, (_, i) => ({ id: `heart-${i}` }));
-
 	return (
 		<section className={styles.root}>
-			{/* Floating Hearts Background */}
-			{floatingHearts.map((heart) => (
-				<motion.div
-					key={heart.id}
-					className={styles.floatingHeart}
-					initial={{ opacity: 0, scale: 0 }}
-					animate={{
-						opacity: [0, 0.7, 0],
-						scale: [0, 1, 0],
-						y: [0, -200],
-						x: [0, Math.random() * 400 - 200],
-					}}
-					transition={{
-						default: {
-							duration: 6,
-							delay: Math.random() * 8,
-							repeat: Number.POSITIVE_INFINITY,
-							repeatDelay: Math.random() * 5,
-						},
-					}}
-				>
-					💖
-				</motion.div>
-			))}
-
 			<motion.div
-				initial={{ opacity: 0, y: 50 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				transition={{ default: { duration: 0.8 } }}
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ default: { duration: 2 } }}
 				viewport={{ once: true }}
 			>
-				<h2 className={styles.title}>💌 フレンドからの想い 💌</h2>
+				<h2 className={styles.title}>フレンドからの想い</h2>
 			</motion.div>
 
 			<motion.div
 				className={styles.messageRoot}
-				initial={{ opacity: 0, scale: 0.9 }}
-				whileInView={{ opacity: 1, scale: 1 }}
-				transition={{ default: { duration: 1, delay: 0.3 } }}
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ default: { duration: 2, delay: 0.5 } }}
 				viewport={{ once: true }}
 			>
-				<motion.div className={styles.coreMessage} whileHover={{ scale: 1.02 }}>
+				<div className={styles.coreMessage}>
 					<h3 className={styles.coreMessageTitle}>「君の輝きを見守り続けたい」</h3>
 					<div className={styles.heartDecoration}>💝 💖 💝</div>
-				</motion.div>
+				</div>
 
 				<motion.div
 					className={styles.letterContent}
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					transition={{ default: { duration: 0.8, delay: 0.6 } }}
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
+					transition={{ default: { duration: 2, delay: 1 } }}
 					viewport={{ once: true }}
 				>
 					<p className={styles.letterParagraph}>
@@ -85,19 +58,14 @@ export const HeartMessage = () => {
 					</p>
 
 					{!showFullMessage ? (
-						<motion.button
-							className={styles.expandButton}
-							onClick={handleMessageToggle}
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-						>
+						<button className={styles.expandButton} onClick={handleMessageToggle}>
 							💕 もっと読む 💕
-						</motion.button>
+						</button>
 					) : (
 						<motion.div
 							initial={{ opacity: 0, height: 0 }}
 							animate={{ opacity: 1, height: "auto" }}
-							transition={{ default: { duration: 0.8 } }}
+							transition={{ default: { duration: 1 } }}
 						>
 							<p className={styles.letterParagraph}>
 								配信での君の笑顔、イベントでの輝き、
@@ -128,7 +96,7 @@ export const HeartMessage = () => {
 					className={styles.signature}
 					initial={{ opacity: 0 }}
 					whileInView={{ opacity: 1 }}
-					transition={{ default: { duration: 1, delay: 1.2 } }}
+					transition={{ default: { duration: 2, delay: 1.5 } }}
 					viewport={{ once: true }}
 				>
 					<p className={styles.signatureParagraph}>愛を込めて</p>
@@ -138,9 +106,9 @@ export const HeartMessage = () => {
 
 				<motion.div
 					className={styles.futureWish}
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					transition={{ default: { duration: 0.8, delay: 1.5 } }}
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
+					transition={{ default: { duration: 2, delay: 2 } }}
 					viewport={{ once: true }}
 				>
 					<h4 className={styles.futureWishTitle}>これからの願い</h4>

@@ -1,4 +1,4 @@
-// This component uses motion animations, form state management, and interactive effects which require client-side JavaScript
+// This component uses minimal animations and form state management which require client-side JavaScript
 "use client";
 
 import { motion } from "motion/react";
@@ -38,50 +38,23 @@ export const MessageForm = () => {
 		setMessage(e.currentTarget.value);
 	}, []);
 
-	const particleElements = Array.from({ length: 12 }, (_, i) => ({ id: `particle-${i}` }));
-
 	return (
 		<section className={styles.root}>
-			{/* Background Sparkles */}
-			{particleElements.map((particle) => (
-				<motion.div
-					key={particle.id}
-					className={styles.sparkle}
-					initial={{ opacity: 0, scale: 0 }}
-					animate={{
-						opacity: [0, 1, 0],
-						scale: [0, 1, 0],
-						y: [0, -150],
-						x: [0, Math.random() * 300 - 150],
-					}}
-					transition={{
-						default: {
-							duration: 4,
-							delay: Math.random() * 3,
-							repeat: Number.POSITIVE_INFINITY,
-							repeatDelay: Math.random() * 2,
-						},
-					}}
-				>
-					✨
-				</motion.div>
-			))}
-
 			<motion.div
-				initial={{ opacity: 0, y: 50 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				transition={{ default: { duration: 0.8 } }}
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ default: { duration: 2 } }}
 				viewport={{ once: true }}
 			>
-				<h2 className={styles.title}>💝 おてぃるに想いを届けよう 💝</h2>
+				<h2 className={styles.title}>おてぃるに想いを届けよう</h2>
 			</motion.div>
 
 			<motion.form
 				className={styles.formRoot}
 				onSubmit={handleSubmit}
-				initial={{ opacity: 0, scale: 0.95 }}
-				whileInView={{ opacity: 1, scale: 1 }}
-				transition={{ default: { duration: 0.6, delay: 0.2 } }}
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ default: { duration: 2, delay: 0.5 } }}
 				viewport={{ once: true }}
 			>
 				<div className={styles.inputRoot}>
@@ -96,13 +69,7 @@ export const MessageForm = () => {
 					<div className={styles.charCount}>{message.length}/200</div>
 				</div>
 
-				<motion.button
-					type="submit"
-					className={styles.submitButton}
-					disabled={!message.trim() || isSubmitting}
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
-				>
+				<button type="submit" className={styles.submitButton} disabled={!message.trim() || isSubmitting}>
 					{isSubmitting ? (
 						<>
 							<motion.div
@@ -117,14 +84,14 @@ export const MessageForm = () => {
 					) : (
 						<>💌 想いを送る</>
 					)}
-				</motion.button>
+				</button>
 			</motion.form>
 
 			<motion.div
 				className={styles.counterRoot}
 				initial={{ opacity: 0 }}
 				whileInView={{ opacity: 1 }}
-				transition={{ default: { duration: 0.6, delay: 0.4 } }}
+				transition={{ default: { duration: 2, delay: 1 } }}
 				viewport={{ once: true }}
 			>
 				<p>💌 既に届いた想い: {submittedMessages.length}件</p>
@@ -134,7 +101,7 @@ export const MessageForm = () => {
 				className={styles.messageWall}
 				initial={{ opacity: 0 }}
 				whileInView={{ opacity: 1 }}
-				transition={{ default: { duration: 0.8, delay: 0.6 } }}
+				transition={{ default: { duration: 2, delay: 1.5 } }}
 				viewport={{ once: true }}
 			>
 				<h3 className={styles.messageWallTitle}>みんなからの想い</h3>
@@ -143,9 +110,9 @@ export const MessageForm = () => {
 						<motion.div
 							key={msg.id}
 							className={styles.messageItem}
-							initial={{ opacity: 0, y: 20, scale: 0.95 }}
-							animate={{ opacity: 1, y: 0, scale: 1 }}
-							transition={{ default: { duration: 0.5, delay: index * 0.1 } }}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ default: { duration: 1, delay: 2 + index * 0.1 } }}
 						>
 							<span className={styles.messageIcon}>💕</span>
 							<span className={styles.messageText}>{msg.text}</span>

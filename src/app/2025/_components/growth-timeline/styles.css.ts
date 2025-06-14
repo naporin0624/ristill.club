@@ -1,46 +1,54 @@
-import { style, keyframes } from "@vanilla-extract/css";
-
-const gradientFlow = keyframes({
-	"0%": { backgroundPosition: "0% 50%" },
-	"50%": { backgroundPosition: "100% 50%" },
-	"100%": { backgroundPosition: "0% 50%" },
-});
-
-const sparkle = keyframes({
-	"0%, 100%": { transform: "scale(1) rotate(0deg)", opacity: 0.7 },
-	"50%": { transform: "scale(1.2) rotate(180deg)", opacity: 1 },
-});
+import { style } from "@vanilla-extract/css";
 
 export const root = style({
 	minHeight: "100vh",
-	padding: "5rem 2rem",
-	background: "linear-gradient(135deg, #fff8dc, #e0f6ff, #ffb6c1)",
-	backgroundSize: "400% 400%",
-	animation: `${gradientFlow} 15s ease infinite`,
+	padding: "6rem 3rem",
+	background: "#fefdf8",
+	"@media": {
+		"(width >= 1024px)": {
+			padding: "8rem 4rem",
+		},
+		"(width < 768px)": {
+			padding: "4rem 2rem",
+		},
+	},
 });
 
 export const title = style({
-	fontSize: "3rem",
-	fontWeight: "bold",
+	fontSize: "2.5rem",
+	fontWeight: "300",
 	textAlign: "center",
-	marginBottom: "4rem",
-	background: "linear-gradient(45deg, #008b8b, #ffd700, #ff69b4)",
-	backgroundClip: "text",
-	WebkitBackgroundClip: "text",
-	WebkitTextFillColor: "transparent",
-	textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
+	marginBottom: "5rem",
+	color: "#8b7355",
+	fontFamily: "serif",
+	letterSpacing: "0.1em",
+	lineHeight: "1.4",
 	"@media": {
-		"(max-width: 768px)": {
+		"(width >= 1024px)": {
+			fontSize: "3rem",
+			marginBottom: "6rem",
+		},
+		"(width < 768px)": {
 			fontSize: "2rem",
+			marginBottom: "4rem",
 		},
 	},
 });
 
 export const timeline = style({
 	position: "relative",
-	maxWidth: "1000px",
-	margin: "0 auto 4rem",
-	padding: "2rem 0",
+	maxWidth: "900px",
+	margin: "0 auto 6rem",
+	padding: "3rem 0",
+	"@media": {
+		"(width >= 1024px)": {
+			maxWidth: "1000px",
+			padding: "4rem 0",
+		},
+		"(width < 768px)": {
+			padding: "2rem 0",
+		},
+	},
 });
 
 export const line = style({
@@ -48,187 +56,272 @@ export const line = style({
 	left: "50%",
 	top: 0,
 	bottom: 0,
-	width: "4px",
-	background: "linear-gradient(180deg, #ffd700, #00ced1, #ff69b4)",
+	width: "1px",
+	background: "rgba(180, 160, 120, 0.3)",
 	transform: "translateX(-50%)",
 	"@media": {
-		"(max-width: 768px)": {
-			left: "20px",
+		"(width < 768px)": {
+			left: "30px",
 		},
 	},
 });
 
 export const item = style({
 	position: "relative",
-	marginBottom: "3rem",
+	marginBottom: "4rem",
 	display: "flex",
 	alignItems: "center",
+	cursor: "pointer",
 	selectors: {
 		"&:nth-child(even)": {
 			flexDirection: "row-reverse",
 		},
 	},
 	"@media": {
-		"(max-width: 768px)": {
+		"(width >= 1024px)": {
+			marginBottom: "5rem",
+		},
+		"(width < 768px)": {
 			flexDirection: "row",
-			paddingLeft: "60px",
+			paddingLeft: "80px",
+			marginBottom: "3rem",
 		},
 	},
 });
 
 export const date = style({
-	background: "linear-gradient(45deg, #ffd700, #00ced1)",
-	color: "white",
-	padding: "0.5rem 1rem",
-	borderRadius: "20px",
-	fontWeight: "bold",
+	background: "rgba(212, 175, 55, 0.1)",
+	color: "#8b7355",
+	padding: "1rem 1.5rem",
+	fontWeight: "400",
 	fontSize: "0.9rem",
 	textAlign: "center",
-	minWidth: "120px",
+	minWidth: "140px",
 	position: "absolute",
 	left: "50%",
 	transform: "translateX(-50%)",
 	zIndex: 10,
-	boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
+	border: "1px solid rgba(212, 175, 55, 0.3)",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
 	"@media": {
-		"(max-width: 768px)": {
-			left: "20px",
-			transform: "translateX(-50%)",
+		"(width >= 1024px)": {
+			fontSize: "1rem",
+			padding: "1.2rem 2rem",
+		},
+		"(width < 768px)": {
+			left: "30px",
+			fontSize: "0.8rem",
+			padding: "0.8rem 1rem",
+			minWidth: "120px",
 		},
 	},
 });
 
 export const card = style({
-	background: "rgba(255, 255, 255, 0.95)",
-	borderRadius: "20px",
-	padding: "2rem",
-	margin: "0 3rem",
+	background: "rgba(255, 255, 255, 0.6)",
+	padding: "3rem",
+	margin: "0 4rem",
 	width: "400px",
-	boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
-	border: "2px solid transparent",
-	backgroundImage: "linear-gradient(white, white), linear-gradient(45deg, #ffd700, #00ced1, #ff69b4)",
-	backgroundOrigin: "border-box",
-	backgroundClip: "content-box, border-box",
-	cursor: "pointer",
-	transition: "all 0.3s ease",
+	border: "1px solid rgba(180, 160, 120, 0.2)",
 	":hover": {
-		transform: "translateY(-5px)",
-		boxShadow: "0 15px 40px rgba(0, 0, 0, 0.15)",
+		background: "rgba(255, 255, 255, 0.8)",
 	},
 	"@media": {
-		"(max-width: 768px)": {
-			width: "calc(100vw - 120px)",
+		"(width >= 1024px)": {
+			width: "450px",
+			padding: "4rem",
+			margin: "0 5rem",
+		},
+		"(width < 768px)": {
+			width: "calc(100vw - 140px)",
 			margin: "0 1rem",
+			padding: "2rem",
 		},
 	},
 });
 
 export const cardTitle = style({
-	fontSize: "1.3rem",
-	color: "#008b8b",
-	marginBottom: "0.8rem",
+	fontSize: "1.5rem",
+	color: "#8b7355",
+	marginBottom: "1.5rem",
+	fontWeight: "400",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.6rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.3rem",
+		},
+	},
 });
 
 export const cardText = style({
-	color: "#333",
-	lineHeight: 1.6,
-	marginBottom: "1rem",
+	color: "#6b5b47",
+	lineHeight: "1.8",
+	marginBottom: "2rem",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	fontSize: "1rem",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.1rem",
+		},
+		"(width < 768px)": {
+			fontSize: "0.95rem",
+		},
+	},
 });
 
 export const achievement = style({
-	background: "linear-gradient(45deg, #ffb6c1, #ffd700)",
-	color: "white",
-	padding: "0.5rem 1rem",
-	borderRadius: "15px",
+	background: "rgba(212, 175, 55, 0.1)",
+	color: "#8b7355",
+	padding: "1rem 1.5rem",
 	fontSize: "0.9rem",
-	fontWeight: "bold",
+	fontWeight: "400",
 	textAlign: "center",
+	border: "1px solid rgba(212, 175, 55, 0.3)",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1rem",
+			padding: "1.2rem 2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "0.85rem",
+			padding: "0.8rem 1.2rem",
+		},
+	},
 });
 
 export const extraDetails = style({
-	marginTop: "1rem",
-	padding: "1rem",
-	background: "rgba(255, 215, 0, 0.1)",
-	borderRadius: "10px",
-	borderLeft: "4px solid #ffd700",
+	marginTop: "2rem",
+	padding: "2rem",
+	background: "rgba(212, 175, 55, 0.05)",
+	borderLeft: "2px solid rgba(212, 175, 55, 0.3)",
 	fontSize: "0.9rem",
-	color: "#666",
+	color: "#6b5b47",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	lineHeight: "1.6",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1rem",
+			padding: "2.5rem",
+		},
+		"(width < 768px)": {
+			fontSize: "0.85rem",
+			padding: "1.5rem",
+		},
+	},
 });
 
 export const letterInvitation = style({
-	background: "linear-gradient(135deg, #ffd700, #00ced1)",
-	borderRadius: "25px",
-	padding: "3rem 2rem",
+	background: "rgba(212, 175, 55, 0.1)",
+	padding: "5rem 4rem",
 	textAlign: "center",
 	position: "relative",
-	overflow: "hidden",
 	cursor: "pointer",
 	maxWidth: "800px",
 	margin: "0 auto",
-	color: "white",
-	textShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)",
-	boxShadow: "0 20px 50px rgba(0, 0, 0, 0.15)",
-	transition: "all 0.4s ease",
+	color: "#8b7355",
+	border: "1px solid rgba(212, 175, 55, 0.3)",
 	":hover": {
-		transform: "translateY(-3px)",
-		boxShadow: "0 25px 60px rgba(0, 0, 0, 0.2)",
+		background: "rgba(212, 175, 55, 0.15)",
 	},
 	"@media": {
-		"(max-width: 768px)": {
-			padding: "2rem 1rem",
+		"(width >= 1024px)": {
+			maxWidth: "900px",
+			padding: "6rem 5rem",
+		},
+		"(width < 768px)": {
+			padding: "3rem 2rem",
 		},
 	},
 });
 
 export const invitationTitle = style({
 	fontSize: "1.8rem",
-	marginBottom: "1.5rem",
-	fontWeight: "bold",
+	marginBottom: "2rem",
+	fontWeight: "400",
+	fontFamily: "serif",
+	letterSpacing: "0.05em",
 	"@media": {
-		"(max-width: 768px)": {
-			fontSize: "1.4rem",
+		"(width >= 1024px)": {
+			fontSize: "2rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.5rem",
 		},
 	},
 });
 
 export const invitationText = style({
 	fontSize: "1.2rem",
-	lineHeight: 1.6,
-	marginBottom: "2rem",
+	lineHeight: "1.8",
+	marginBottom: "3rem",
 	fontStyle: "italic",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
 	"@media": {
-		"(max-width: 768px)": {
-			fontSize: "1rem",
+		"(width >= 1024px)": {
+			fontSize: "1.3rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1.1rem",
 		},
 	},
 });
 
 export const invitationSparkles = style({
 	position: "absolute",
-	top: "1rem",
-	right: "1rem",
-	fontSize: "2rem",
-	animation: `${sparkle} 2s ease-in-out infinite`,
+	top: "2rem",
+	right: "2rem",
+	fontSize: "1.5rem",
+	opacity: 0.6,
 });
 
 export const letterButton = style({
-	background: "rgba(255, 255, 255, 0.9)",
-	color: "#008b8b",
-	padding: "1rem 2rem",
-	borderRadius: "25px",
+	background: "rgba(255, 255, 255, 0.8)",
+	color: "#8b7355",
+	padding: "1.5rem 3rem",
 	fontSize: "1.1rem",
-	fontWeight: "bold",
-	margin: "1rem 0",
+	fontWeight: "400",
+	margin: "2rem 0",
 	display: "inline-block",
-	transition: "all 0.3s ease",
+	border: "1px solid rgba(180, 160, 120, 0.3)",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
 	":hover": {
-		background: "white",
-		transform: "scale(1.05)",
+		background: "rgba(255, 255, 255, 1)",
+	},
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.2rem",
+			padding: "2rem 4rem",
+		},
+		"(width < 768px)": {
+			fontSize: "1rem",
+			padding: "1.2rem 2rem",
+		},
 	},
 });
 
 export const letterDescription = style({
 	fontSize: "1rem",
-	opacity: 0.9,
-	lineHeight: 1.8,
+	lineHeight: "1.8",
+	fontFamily: "serif",
+	letterSpacing: "0.02em",
+	color: "#6b5b47",
+	"@media": {
+		"(width >= 1024px)": {
+			fontSize: "1.1rem",
+		},
+		"(width < 768px)": {
+			fontSize: "0.9rem",
+		},
+	},
 });

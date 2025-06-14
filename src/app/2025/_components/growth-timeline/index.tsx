@@ -1,4 +1,4 @@
-// This component uses motion animations, interactive click states, and useState which require client-side JavaScript
+// This component uses minimal animations and click state management which require client-side JavaScript
 "use client";
 
 import { motion } from "motion/react";
@@ -105,12 +105,12 @@ export const GrowthTimeline = () => {
 	return (
 		<section className={styles.root}>
 			<motion.div
-				initial={{ opacity: 0, y: 50 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				transition={{ default: { duration: 0.8 } }}
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ default: { duration: 2 } }}
 				viewport={{ once: true }}
 			>
-				<h2 className={styles.title}>📸 この1年で見せてくれた輝き 📸</h2>
+				<h2 className={styles.title}>この1年で見せてくれた輝き</h2>
 			</motion.div>
 
 			<div className={styles.timeline}>
@@ -120,15 +120,15 @@ export const GrowthTimeline = () => {
 					<motion.div
 						key={item.id}
 						className={styles.item}
-						initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-						whileInView={{ opacity: 1, x: 0 }}
-						transition={{ default: { duration: 0.6, delay: index * 0.1 } }}
+						initial={{ opacity: 0 }}
+						whileInView={{ opacity: 1 }}
+						transition={{ default: { duration: 1.5, delay: index * 0.1 } }}
 						viewport={{ once: true }}
 						onClick={createHandleTimelineClick(index)}
 					>
 						<div className={styles.date}>{item.month}</div>
 
-						<motion.div className={styles.card} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+						<div className={styles.card}>
 							<h3 className={styles.cardTitle}>{item.title}</h3>
 							<p className={styles.cardText}>{item.description}</p>
 							<div className={styles.achievement}>🌟 {item.achievement}</div>
@@ -143,18 +143,17 @@ export const GrowthTimeline = () => {
 									<p>この月の特別な思い出がたくさん詰まっています</p>
 								</motion.div>
 							)}
-						</motion.div>
+						</div>
 					</motion.div>
 				))}
 			</div>
 
 			<motion.div
 				className={styles.letterInvitation}
-				initial={{ opacity: 0, scale: 0.9 }}
-				whileInView={{ opacity: 1, scale: 1 }}
-				transition={{ default: { duration: 0.8, delay: 0.5 } }}
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ default: { duration: 2, delay: 0.5 } }}
 				viewport={{ once: true }}
-				whileHover={{ scale: 1.02 }}
 			>
 				<div className={styles.invitationSparkles}>✨</div>
 				<h3 className={styles.invitationTitle}>💌 「おてぃるへ、フレンドからの特別な手紙」</h3>
