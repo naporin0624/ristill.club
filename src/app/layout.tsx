@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import React from "react";
 
 import { globalStyles } from "./layout.css";
+import "@adapters/date";
 
 import type { Metadata } from "next";
 
