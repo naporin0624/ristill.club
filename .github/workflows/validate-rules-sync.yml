@@ -25,47 +25,35 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
-
-      - name: Check synchronization status
+      - name: Check synchronization status using Claude Code Action
         id: check-sync
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          allowed_tools: Bash(pnpm:*),Bash(node:*),Bash(git:*),View,Edit,GlobTool,GrepTool,BatchTool
+          direct_prompt: |
+            Compare the content of CLAUDE.md with all files in .cursor/rules/ directory and generate a synchronization report.
+
+            Check for:
+            1. Missing rules in CLAUDE.md that exist in .cursor/rules
+            2. Missing rules in .cursor/rules that exist in CLAUDE.md
+            3. Inconsistencies between the two sources
+            4. Outdated information in either location
+
+            Generate a markdown report with:
+            - Sync status (synchronized/out-of-sync)
+            - List of discrepancies found
+            - Recommendations for fixes
+            - Priority level (high/medium/low) for each issue
+
+            Save the report to sync_report.md file.
+            If everything is synchronized, write "SYNCHRONIZED" at the beginning of the report.
+
+      - name: Check sync status from report
+        id: check-status
         run: |
-          # Install Claude Code CLI if not available
-          if ! command -v claude-code &> /dev/null; then
-            npm install -g @anthropic-ai/claude-code
-          fi
-
-          # Use Claude Code to validate sync status
-          claude-code --non-interactive << 'EOF' > sync_report.md
-          Compare the content of CLAUDE.md with all files in .cursor/rules/ directory and generate a synchronization report.
-
-          Check for:
-          1. Missing rules in CLAUDE.md that exist in .cursor/rules
-          2. Missing rules in .cursor/rules that exist in CLAUDE.md
-          3. Inconsistencies between the two sources
-          4. Outdated information in either location
-
-          Generate a markdown report with:
-          - Sync status (synchronized/out-of-sync)
-          - List of discrepancies found
-          - Recommendations for fixes
-          - Priority level (high/medium/low) for each issue
-
-          If everything is synchronized, simply output "SYNCHRONIZED" and a brief confirmation.
-          EOF
-
-          # Check if synchronization issues were found
-          if grep -q "SYNCHRONIZED" sync_report.md && ! grep -q "out-of-sync\|discrepancies\|missing" sync_report.md; then
+          if [ -f sync_report.md ] && grep -q "SYNCHRONIZED" sync_report.md && ! grep -q "out-of-sync\|discrepancies\|missing" sync_report.md; then
             echo "sync_status=synchronized" >> $GITHUB_OUTPUT
             echo "Rules are synchronized"
           else
@@ -74,7 +62,7 @@ jobs:
           fi
 
       - name: Create issue for sync problems
-        if: steps.check-sync.outputs.sync_status == 'out-of-sync'
+        if: steps.check-status.outputs.sync_status == 'out-of-sync'
         uses: actions/github-script@v7
         with:
           script: |
@@ -148,7 +136,7 @@ jobs:
 
       - name: Set workflow status
         run: |
-          if [ "${{ steps.check-sync.outputs.sync_status }}" == "out-of-sync" ]; then
+          if [ "${{ steps.check-status.outputs.sync_status }}" == "out-of-sync" ]; then
             echo "❌ Synchronization issues detected. Check the created issue for details."
             exit 1
           else

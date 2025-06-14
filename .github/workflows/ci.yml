@@ -1,0 +1,126 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run linting
+        run: pnpm lint
+
+      - name: Run type checking
+        run: pnpm typecheck
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Build project
+        run: pnpm build
+
+  code-quality:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Code Quality Check with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          allowed_tools: Bash(pnpm:*),Bash(node:*),Bash(git:*),View,Edit,GlobTool,GrepTool,BatchTool
+          direct_prompt: |
+            Review the changes in this pull request and provide code quality feedback.
+            
+            Check for:
+            1. Adherence to the coding conventions defined in CLAUDE.md
+            2. Proper implementation of immutable programming patterns
+            3. Correct usage of TypeScript path aliases
+            4. Proper TDD implementation for utils functions
+            5. Vanilla Extract styling best practices
+            6. Consistent naming conventions (kebab-case for files, camelCase for functions)
+            7. Forbidden patterns (let, !, forEach usage)
+            
+            If any issues are found, provide specific recommendations for improvement.
+            If code quality is good, provide a brief confirmation.
+            
+            Focus on the changed files only, not the entire codebase.
+
+      - name: Comment PR with code quality results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            // The Claude Code Action should have generated some output
+            // This is a placeholder for when the action provides output
+            const qualityReport = "Code quality check completed via Claude Code Action";
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🤖 Code Quality Review
+
+${qualityReport}
+
+---
+*Automated review by Claude Code Action*`
+            });
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build project
+        run: pnpm build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ristill-anniversary-2025
+          directory: out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

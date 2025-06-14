@@ -28,15 +28,6 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
 
       - name: Check for changes in .cursor/rules
         id: check-changes
@@ -49,30 +40,24 @@ jobs:
             echo "No changes detected in .cursor/rules files"
           fi
 
-      - name: Update CLAUDE.md using Claude Code
+      - name: Update CLAUDE.md using Claude Code Action
         if: steps.check-changes.outputs.changes_detected == 'true'
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: |
-          # Install Claude Code CLI if not available
-          if ! command -v claude-code &> /dev/null; then
-            npm install -g @anthropic-ai/claude-code
-          fi
-          
-          # Use Claude Code to update CLAUDE.md based on .cursor/rules changes
-          claude-code --non-interactive << 'EOF'
-          Read all files in .cursor/rules/ directory and update CLAUDE.md to reflect the current implementation guidelines and rules. 
-          
-          Follow these requirements:
-          1. Maintain the existing structure of CLAUDE.md
-          2. Update project structure section to match current .cursor/rules
-          3. Sync coding conventions and guidelines
-          4. Ensure all new rules from .cursor/rules are properly documented
-          5. Keep the language rules section intact
-          6. Write the document in English as it's for Claude's reference
-          
-          After updating, save the changes to CLAUDE.md.
-          EOF
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          allowed_tools: Bash(pnpm:*),Bash(node:*),Bash(git:*),View,Edit,GlobTool,GrepTool,BatchTool
+          direct_prompt: |
+            Read all files in .cursor/rules/ directory and update CLAUDE.md to reflect the current implementation guidelines and rules. 
+            
+            Follow these requirements:
+            1. Maintain the existing structure of CLAUDE.md
+            2. Update project structure section to match current .cursor/rules
+            3. Sync coding conventions and guidelines
+            4. Ensure all new rules from .cursor/rules are properly documented
+            5. Keep the language rules section intact
+            6. Write the document in English as it's for Claude's reference
+            
+            After updating, save the changes to CLAUDE.md.
 
       - name: Check if CLAUDE.md was modified
         id: check-claude-changes

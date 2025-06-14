@@ -28,15 +28,6 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
 
       - name: Check for changes in CLAUDE.md
         id: check-changes
@@ -49,38 +40,32 @@ jobs:
             echo "No changes detected in CLAUDE.md"
           fi
 
-      - name: Update .cursor/rules using Claude Code
+      - name: Update .cursor/rules using Claude Code Action
         if: steps.check-changes.outputs.changes_detected == 'true'
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: |
-          # Install Claude Code CLI if not available
-          if ! command -v claude-code &> /dev/null; then
-            npm install -g @anthropic-ai/claude-code
-          fi
-          
-          # Use Claude Code to update .cursor/rules based on CLAUDE.md changes
-          claude-code --non-interactive << 'EOF'
-          Read the current CLAUDE.md file and update the .cursor/rules/ directory to reflect any changes in implementation guidelines.
-          
-          Follow these requirements:
-          1. Update existing .cursor/rules/*.mdc files to match CLAUDE.md content
-          2. Create new .mdc files if new sections are added to CLAUDE.md
-          3. Maintain the .cursor/rules file format with proper frontmatter
-          4. Ensure globs patterns are correctly set for each rule file
-          5. Keep the existing structure of global.mdc, components.mdc, internal-components.mdc, tdd-guidelines.mdc, themes.mdc, and utils.mdc
-          6. Sync any new coding conventions, naming rules, or architectural decisions
-          
-          Key files to update:
-          - .cursor/rules/global.mdc (immutable programming, naming, loops, etc.)
-          - .cursor/rules/components.mdc (reusable components guidelines)
-          - .cursor/rules/internal-components.mdc (page-specific components)
-          - .cursor/rules/themes.mdc (theme system and styling)
-          - .cursor/rules/utils.mdc (utility functions and TDD)
-          - .cursor/rules/tdd-guidelines.mdc (testing strategy)
-          
-          After updating, save all changes to the respective .cursor/rules files.
-          EOF
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          allowed_tools: Bash(pnpm:*),Bash(node:*),Bash(git:*),View,Edit,GlobTool,GrepTool,BatchTool
+          direct_prompt: |
+            Read the current CLAUDE.md file and update the .cursor/rules/ directory to reflect any changes in implementation guidelines.
+            
+            Follow these requirements:
+            1. Update existing .cursor/rules/*.mdc files to match CLAUDE.md content
+            2. Create new .mdc files if new sections are added to CLAUDE.md
+            3. Maintain the .cursor/rules file format with proper frontmatter
+            4. Ensure globs patterns are correctly set for each rule file
+            5. Keep the existing structure of global.mdc, components.mdc, internal-components.mdc, tdd-guidelines.mdc, themes.mdc, and utils.mdc
+            6. Sync any new coding conventions, naming rules, or architectural decisions
+            
+            Key files to update:
+            - .cursor/rules/global.mdc (immutable programming, naming, loops, etc.)
+            - .cursor/rules/components.mdc (reusable components guidelines)
+            - .cursor/rules/internal-components.mdc (page-specific components)
+            - .cursor/rules/themes.mdc (theme system and styling)
+            - .cursor/rules/utils.mdc (utility functions and TDD)
+            - .cursor/rules/tdd-guidelines.mdc (testing strategy)
+            
+            After updating, save all changes to the respective .cursor/rules files.
 
       - name: Check if .cursor/rules files were modified
         id: check-cursor-changes
