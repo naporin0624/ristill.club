@@ -186,7 +186,7 @@ const config = [
 			"react/react-in-jsx-scope": "off",
 			"react-hooks/rules-of-hooks": "error",
 			"react-hooks/exhaustive-deps": "error",
-			"react/jsx-no-bind": "warn",
+			"react/jsx-no-bind": "error",
 			"react/jsx-no-leaked-render": "error",
 			"react/jsx-key": ["error", { checkFragmentShorthand: false }],
 			"react/no-object-type-as-default-prop": "error",
