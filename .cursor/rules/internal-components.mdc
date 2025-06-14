@@ -1,0 +1,196 @@
+---
+description: 
+globs: src/app/**/_components/**/*.ts,src/app/**/_components/**/*.tsx
+alwaysApply: false
+---
+# インターナルコンポーネント規約 (_components)
+
+## ディレクトリ構造
+```
+src/app/
+├── page.tsx
+├── styles.css.ts
+├── _components/
+│   ├── hero-section/
+│   │   ├── index.tsx
+│   │   ├── styles.css.ts
+│   │   └── hero-section.test.tsx
+│   ├── event-list/
+│   │   ├── index.tsx
+│   │   ├── styles.css.ts
+│   │   └── event-list.test.tsx
+│   └── feature-highlights/
+│       ├── index.tsx
+│       ├── styles.css.ts
+│       └── feature-highlights.test.tsx
+├── event-details/
+│   ├── page.tsx
+│   ├── styles.css.ts
+│   └── _components/
+│       ├── event-info-section/
+│       │   ├── index.tsx
+│       │   ├── styles.css.ts
+│       │   └── event-info-section.test.tsx
+│       └── ticket-booking-form/
+│           ├── index.tsx
+│           ├── styles.css.ts
+│           └── ticket-booking-form.test.tsx
+```
+
+## 規約
+- **ページ固有のコンポーネントのみ**配置
+- **page.tsx** と同じ階層に **_components** ディレクトリを作成
+- 各コンポーネントは独自のディレクトリを持つ（kebab-case必須）
+- ファイル構成は `src/components` と同じ
+
+## ファイル規約
+- **index.tsx**: メインコンポーネント実装
+- **styles.css.ts**: Vanilla Extract スタイル定義
+- **[component-name].test.tsx**: テスト実装（kebab-case）
+- **ディレクトリ名**: kebab-case必須
+
+## Import/Export 規約
+- **相対パス使用**: 同一ページ内なので相対パスでインポート
+- **@components エイリアス**: 再利用可能コンポーネントのインポートに使用
+- **Named export**: コンポーネントは named export を使用
+
+## コンポーネント実装例
+```typescript
+// src/app/_components/hero-section/index.tsx
+import { Button } from '@components/button'
+import { heroStyles, titleStyles, subtitleStyles, buttonContainerStyles } from './styles.css'
+
+export const HeroSection = () => {
+  return (
+    <section className={heroStyles}>
+      <h1 className={titleStyles}>RISTILL ANNIVERSARY 2025</h1>
+      <p className={subtitleStyles}>
+        最高のイベント体験をお届けします
+      </p>
+      <div className={buttonContainerStyles}>
+        <Button variant="primary">イベント詳細</Button>
+        <Button variant="secondary">チケット予約</Button>
+      </div>
+    </section>
+  )
+}
+```
+
+## スタイル実装例
+```typescript
+// src/app/_components/hero-section/styles.css.ts
+import { style } from '@vanilla-extract/css'
+
+export const heroStyles = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '100vh',
+  padding: '4rem 2rem',
+  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  color: 'white',
+  textAlign: 'center',
+})
+
+export const titleStyles = style({
+  fontSize: '4rem',
+  fontWeight: 'bold',
+  marginBottom: '1rem',
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+  
+  '@media': {
+    '(max-width: 768px)': {
+      fontSize: '2.5rem',
+    },
+  },
+})
+
+export const subtitleStyles = style({
+  fontSize: '1.5rem',
+  maxWidth: '600px',
+  lineHeight: 1.6,
+  marginBottom: '2rem',
+  opacity: 0.9,
+})
+
+export const buttonContainerStyles = style({
+  display: 'flex',
+  gap: '1rem',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+})
+```
+
+## テスト実装例
+```typescript
+// src/app/_components/hero-section/hero-section.test.tsx
+import { render, screen } from '@testing-library/react'
+import { HeroSection } from './index'
+
+// 再利用可能コンポーネントをモック
+vi.mock('@components/button', () => ({
+  Button: ({ children, variant }: { children: React.ReactNode; variant?: string }) => (
+    <button data-testid={`button-${variant ?? 'primary'}`}>{children}</button>
+  ),
+}))
+
+describe('HeroSection', () => {
+  it('renders hero section with title and subtitle', () => {
+    render(<HeroSection />)
+    
+    expect(screen.getByText('RISTILL ANNIVERSARY 2025')).toBeInTheDocument()
+    expect(screen.getByText('最高のイベント体験をお届けします')).toBeInTheDocument()
+  })
+
+  it('renders action buttons', () => {
+    render(<HeroSection />)
+    
+    expect(screen.getByText('イベント詳細')).toBeInTheDocument()
+    expect(screen.getByText('チケット予約')).toBeInTheDocument()
+  })
+
+  it('renders buttons with correct variants', () => {
+    render(<HeroSection />)
+    
+    expect(screen.getByTestId('button-primary')).toBeInTheDocument()
+    expect(screen.getByTestId('button-secondary')).toBeInTheDocument()
+  })
+})
+```
+
+## ページでの使用例
+```typescript
+// src/app/page.tsx
+import { HeroSection } from './_components/hero-section'
+import { EventList } from './_components/event-list'
+import { FeatureHighlights } from './_components/feature-highlights'
+
+export default function HomePage() {
+  return (
+    <main>
+      <HeroSection />
+      <EventList />
+      <FeatureHighlights />
+    </main>
+  )
+}
+```
+
+## 移行ガイドライン
+再利用性が判明したコンポーネントは `src/components` に移動
+```typescript
+// 移動前: src/app/_components/user-card/
+// 移動後: src/components/user-card/
+
+// インポートも更新
+// 移動前: import { UserCard } from './_components/user-card'
+// 移動後: import { UserCard } from '@components/user-card'
+```
+
+## 注意事項
+- **ページ固有性**: 特定のページでのみ使用されるコンポーネントを配置
+- **テスト必須**: すべてのコンポーネントにVitest テストを実装
+- **kebab-case**: ディレクトリ名とテストファイル名は必ずkebab-case
+- **モック使用**: 外部コンポーネント依存がある場合は適切にモック
+- **再利用検討**: 複数ページで使用する可能性があれば `src/components` への移動を検討

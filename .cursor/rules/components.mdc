@@ -1,0 +1,158 @@
+---
+description: 
+globs: src/components/**/*.tsx,src/components/**/*.ts
+alwaysApply: false
+---
+# コンポーネント規約 (src/components)
+
+## ディレクトリ構造
+```
+src/components/
+├── button/
+│   ├── index.tsx
+│   ├── styles.css.ts
+│   └── button.test.tsx
+├── user-profile/
+│   ├── index.tsx
+│   ├── styles.css.ts
+│   └── user-profile.test.tsx
+├── event-card/
+│   ├── index.tsx
+│   ├── styles.css.ts
+│   └── event-card.test.tsx
+└── navigation-bar/
+    ├── index.tsx
+    ├── styles.css.ts
+    └── navigation-bar.test.tsx
+```
+
+## ファイル規約
+- **index.tsx**: メインコンポーネント実装
+- **styles.css.ts**: Vanilla Extract スタイル定義  
+- **[component-name].test.tsx**: テスト実装（kebab-case）
+- **ディレクトリ名**: kebab-case必須
+
+## Import/Export 規約
+- **エイリアス使用**: `@components/[component-name]` でインポート
+- **デフォルトエクスポート**: コンポーネントは named export を使用
+- **相対パス禁止**: 親ディレクトリへの相対パスは使用不可
+
+## コンポーネント実装例
+```typescript
+// src/components/button/index.tsx
+import type { ReactNode } from 'react'
+import { buttonStyles } from './styles.css'
+
+type ButtonProps = {
+  children: ReactNode
+  variant?: 'primary' | 'secondary'
+  onClick?: () => void
+  disabled?: boolean
+}
+
+export const Button = ({ 
+  children, 
+  variant = 'primary', 
+  onClick, 
+  disabled = false 
+}: ButtonProps) => {
+  return (
+    <button 
+      className={buttonStyles({ variant })}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  )
+}
+```
+
+## スタイル実装例
+```typescript
+// src/components/button/styles.css.ts
+import { recipe } from '@vanilla-extract/recipes'
+
+export const buttonStyles = recipe({
+  base: {
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '16px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease-in-out',
+  },
+  variants: {
+    variant: {
+      primary: {
+        backgroundColor: '#0070f3',
+        color: 'white',
+      },
+      secondary: {
+        backgroundColor: '#f4f4f4',
+        color: '#333',
+        border: '1px solid #ddd',
+      },
+    },
+  },
+  defaultVariants: {
+    variant: 'primary',
+  },
+})
+```
+
+## テスト実装例
+```typescript
+// src/components/button/button.test.tsx
+import { render, screen, fireEvent } from '@testing-library/react'
+import { Button } from './index'
+
+describe('Button', () => {
+  it('renders button with text', () => {
+    render(<Button>Click me</Button>)
+    expect(screen.getByText('Click me')).toBeInTheDocument()
+  })
+
+  it('calls onClick when clicked', () => {
+    const handleClick = vi.fn()
+    render(<Button onClick={handleClick}>Click me</Button>)
+    
+    fireEvent.click(screen.getByRole('button'))
+    expect(handleClick).toHaveBeenCalledOnce()
+  })
+
+  it('applies variant styles correctly', () => {
+    render(<Button variant="secondary">Secondary</Button>)
+    const button = screen.getByRole('button')
+    expect(button).toHaveAttribute('class')
+  })
+})
+```
+
+## 使用例
+```typescript
+// 他のコンポーネントからの使用
+import { Button } from '@components/button'
+import { UserProfile } from '@components/user-profile'
+import { EventCard } from '@components/event-card'
+
+const HomePage = () => {
+  return (
+    <div>
+      <Button variant="primary">メインアクション</Button>
+      <Button variant="secondary">サブアクション</Button>
+      <UserProfile user={currentUser} />
+      <EventCard event={featuredEvent} />
+    </div>
+  )
+}
+```
+
+## 注意事項
+- **再利用可能性**: ページに依存しない汎用的なコンポーネントのみ配置
+- **プロップス型定義**: 必須、TypeScriptの型安全性を活用
+- **アクセシビリティ**: ARIA属性やキーボード操作を考慮
+- **テスト必須**: すべてのコンポーネントにVitest テストを実装
+- **kebab-case**: ディレクトリ名とテストファイル名は必ずkebab-case
+- **エイリアス使用**: `@components/*` エイリアスを必ず使用

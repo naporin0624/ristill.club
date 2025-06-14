@@ -1,0 +1,77 @@
+---
+description: 
+globs: *.ts,*.tsx
+alwaysApply: false
+---
+# TDD Guidelines and Project Structure
+
+## Test-Driven Development (TDD) Process
+
+### 1. Red Phase - Write Failing Tests
+- Create test files in `__tests__/` directories
+- Write tests that describe the expected behavior
+- Tests should fail initially (Red)
+
+### 2. Green Phase - Implement Minimal Code
+- Write the minimal code to make tests pass
+- Focus on functionality, not optimization
+- Tests should pass (Green)
+
+### 3. Refactor Phase - Improve Code Quality
+- Refactor while keeping tests green
+- Apply immutable programming principles
+- Break down complex observables into smaller pieces
+
+## Validation Patterns
+
+### Zod Schema Validation
+```typescript
+const CreateEventInstanceBody = z.object({
+  autoInvalidateMinutes: z.number().int().min(1).nullable().optional(),
+  remindMinutes: z.number().int().min(1).nullable().optional(),
+});
+```
+
+## Database Testing with better-sqlite3
+
+### Setup
+- Use synchronous operations in tests
+- Mock database connections appropriately
+- Refer to better-sqlite3 vitest error fixes documentation
+
+### Example Test Structure
+```typescript
+describe('Service Tests', () => {
+  beforeEach(() => {
+    // Setup test database
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    // Cleanup
+    vi.useRealTimers();
+    vi.resetAllMocks();
+  });
+
+  it('should handle database operations', () => {
+    // Test implementation
+  });
+});
+```
+
+## Immutable Programming in Tests
+
+### ❌ Mutable Test Data
+```typescript
+let testData = { users: [] };
+testData.users.push(newUser); // Mutation
+```
+
+### ✅ Immutable Test Data
+```typescript
+const testData = { users: [] };
+const updatedData = {
+  ...testData,
+  users: [...testData.users, newUser]
+};
+```

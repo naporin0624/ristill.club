@@ -1,0 +1,30 @@
+# ビルド出力
+.next/
+dist/
+build/
+out/
+
+# 依存関係
+node_modules/
+
+# キャッシュ
+.cache/
+.vercel/
+
+# その他
+coverage/
+*.min.js
+*.bundle.js
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+.DS_Store
+.tsbuildinfo
+
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.webp
+*.ico
