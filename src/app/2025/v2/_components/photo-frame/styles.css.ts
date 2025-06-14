@@ -474,15 +474,6 @@ export const letterCard = style({
 	},
 });
 
-export const letterTitle = style({
-	fontSize: "clamp(1rem, 2.5vw, 1.3rem)",
-	fontWeight: "500",
-	letterSpacing: "0.01em",
-	color: "#2c3e50",
-	margin: "0 0 1.5rem 0",
-	textAlign: "center",
-	fontFamily: "'Inter', 'Segoe UI', sans-serif",
-});
 
 // Profile Styles
 export const profileCard = style({
