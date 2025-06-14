@@ -166,70 +166,72 @@ export const photoContent = style({
 	},
 });
 
-// Hero Section - Typography MV Style
+// Hero Section
 export const heroSection = style({
-	textAlign: "center",
-	padding: "4rem 0",
-	minHeight: "50vh",
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-	position: "relative",
-});
-
-export const typographyContainer = style({
 	position: "relative",
 	width: "100%",
-	height: "100%",
+	height: "60vh",
+	minHeight: "400px",
 	display: "flex",
-	flexDirection: "column",
 	alignItems: "center",
 	justifyContent: "center",
-	gap: "1rem",
+	overflow: "hidden",
 });
 
-export const titleLayer1 = style({
-	fontSize: "clamp(3rem, 8vw, 6rem)",
+export const heroImageContainer = style({
+	position: "absolute",
+	top: 0,
+	left: 0,
+	width: "100%",
+	height: "100%",
+	zIndex: 1,
+});
+
+export const heroImage = style({
+	width: "100%",
+	height: "100%",
+	objectFit: "cover",
+	objectPosition: "center",
+});
+
+export const heroTextOverlay = style({
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+	zIndex: 2,
+	textAlign: "center",
+	background: "rgba(255, 255, 255, 0.9)",
+	padding: "2rem",
+	borderRadius: "12px",
+	backdropFilter: "blur(8px)",
+	boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+});
+
+export const heroTitle = style({
+	fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
 	fontWeight: "700",
 	letterSpacing: "0.1em",
 	color: "#c9a96b",
 	fontFamily: "var(--font-playfair, 'Playfair Display'), serif",
-	textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
-	position: "relative",
-	zIndex: 2,
+	margin: "0 0 0.5rem 0",
 });
 
-export const titleLayer2 = style({
-	fontSize: "clamp(2.5rem, 7vw, 5rem)",
-	fontWeight: "400",
-	letterSpacing: "0.15em",
-	color: "#2980b9",
-	fontFamily: "var(--font-playfair, 'Playfair Display'), serif",
-	textShadow: "1px 1px 3px rgba(0, 0, 0, 0.1)",
-	marginTop: "-1rem",
-	position: "relative",
-	zIndex: 3,
-});
-
-export const nameDisplay = style({
-	fontSize: "clamp(2rem, 6vw, 4rem)",
+export const heroName = style({
+	fontSize: "clamp(1.8rem, 5vw, 3rem)",
 	fontWeight: "500",
-	letterSpacing: "0.1em",
 	color: "#2c5aa0",
 	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
-	marginTop: "2rem",
-	position: "relative",
-	zIndex: 4,
-	textShadow: "1px 1px 2px rgba(0, 0, 0, 0.05)",
+	margin: "0 0 0.5rem 0",
 });
 
-export const dateDisplay = style({
-	fontSize: "clamp(1rem, 2.5vw, 1.5rem)",
+export const heroDate = style({
+	fontSize: "clamp(1rem, 2.5vw, 1.3rem)",
 	fontWeight: "300",
-	letterSpacing: "0.2em",
+	letterSpacing: "0.15em",
 	color: "#8b7355",
 	fontFamily: "var(--font-inter, 'Inter'), sans-serif",
-	marginTop: "1rem",
+	margin: 0,
 	opacity: 0.8,
 });
 
@@ -476,11 +478,45 @@ export const letterCard = style({
 
 
 // Profile Styles
+export const profileLayout = style({
+	display: "grid",
+	gridTemplateColumns: "300px 1fr",
+	gap: "3rem",
+	alignItems: "start",
+
+	"@media": {
+		"(width < 768px)": {
+			gridTemplateColumns: "1fr",
+			gap: "2rem",
+			textAlign: "center",
+		},
+	},
+});
+
+export const profileImageContainer = style({
+	width: "100%",
+	display: "flex",
+	justifyContent: "center",
+});
+
+export const profileImage = style({
+	width: "100%",
+	maxWidth: "300px",
+	height: "auto",
+	borderRadius: "12px",
+	boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
+});
+
+export const profileContent = style({
+	display: "flex",
+	flexDirection: "column",
+	gap: "1rem",
+});
+
 export const profileCard = style({
 	background: "rgba(255, 255, 255, 0.8)",
 	padding: "2rem",
 	borderRadius: "8px",
-	textAlign: "center",
 });
 
 export const profileName = style({
@@ -503,19 +539,17 @@ export const profileDescription = style({
 export const mosaicContainer = style({
 	width: "100%",
 	display: "flex",
-	justifyContent: "center",
+	flexDirection: "column",
+	alignItems: "center",
+	gap: "1.5rem",
 });
 
-export const mosaicPlaceholder = style({
+export const mosaicImage = style({
 	width: "100%",
-	maxWidth: "400px",
-	height: "300px",
-	background: "rgba(255, 255, 255, 0.8)",
-	borderRadius: "8px",
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-	padding: "2rem",
+	maxWidth: "800px",
+	height: "auto",
+	borderRadius: "12px",
+	boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
 });
 
 export const mosaicDescription = style({

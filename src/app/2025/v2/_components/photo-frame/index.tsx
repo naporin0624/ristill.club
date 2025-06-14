@@ -1,8 +1,8 @@
-// This component uses motion animations which require client-side JavaScript
+// This component uses basic interactions which require client-side JavaScript
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 import * as styles from "./styles.css";
 
@@ -52,94 +52,71 @@ export const PhotoFrame = () => {
 						<div className={styles.cornerBottomLeft} aria-hidden="true" />
 						<div className={styles.cornerBottomRight} aria-hidden="true" />
 						<main className={styles.photoContent} role="main" aria-label="メインコンテンツ" ref={scrollContainerRef}>
-							{/* Hero Section - Typography MV Style */}
-							<motion.section
-								className={styles.heroSection}
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ default: { duration: 1.5 } }}
-							>
-								{/* Dynamic Typography Animation */}
-								<div className={styles.typographyContainer}>
-									<motion.div
-										className={styles.titleLayer1}
-										initial={{ scale: 0.5, opacity: 0, rotateX: -90 }}
-										animate={{ scale: 1, opacity: 1, rotateX: 0 }}
-										transition={{ default: { duration: 1.2, delay: 0.3, ease: "easeOut" } }}
-									>
-										HAPPY
-									</motion.div>
-									<motion.div
-										className={styles.titleLayer2}
-										initial={{ x: -200, opacity: 0 }}
-										animate={{ x: 0, opacity: 1 }}
-										transition={{ default: { duration: 1, delay: 0.8, ease: "easeOut" } }}
-									>
-										BIRTHDAY
-									</motion.div>
-									<motion.div
-										className={styles.nameDisplay}
-										initial={{ scale: 2, opacity: 0 }}
-										animate={{ scale: 1, opacity: 1 }}
-										transition={{ default: { duration: 1.5, delay: 1.5, ease: "easeOut" } }}
-									>
-										おてぃる
-									</motion.div>
-									<motion.time
-										className={styles.dateDisplay}
-										dateTime="2025-01-15"
-										initial={{ y: 50, opacity: 0 }}
-										animate={{ y: 0, opacity: 1 }}
-										transition={{ default: { duration: 0.8, delay: 2.5 } }}
-									>
-										2025.01.15
-									</motion.time>
+							{/* Hero Section */}
+							<section className={styles.heroSection}>
+								<div className={styles.heroImageContainer}>
+									<Image
+										src="/assets/otiru_milltina.png"
+										alt="おてぃるのメインビジュアル"
+										width={800}
+										height={450}
+										className={styles.heroImage}
+										priority
+									/>
 								</div>
-							</motion.section>
+								<div className={styles.heroTextOverlay}>
+									<h1 className={styles.heroTitle}>HAPPY BIRTHDAY</h1>
+									<h2 className={styles.heroName}>おてぃる</h2>
+									<time className={styles.heroDate} dateTime="2025-01-15">2025.01.15</time>
+								</div>
+							</section>
 
 							{/* Profile Section */}
-							<motion.section
-								className={styles.profileSection}
-								initial={{ opacity: 0, y: 30 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ default: { duration: 0.8, delay: 3.2 } }}
-							>
-								<h3 className={styles.sectionTitle} id="profile-heading">今日の主役</h3>
-								<div className={styles.profileCard}>
-									<h4 className={styles.profileName}>おてぃる</h4>
-									<p className={styles.profileDescription}>
-										VRChatの世界で輝く金髪碧眼の美少女。
-										イベントキャストとしての活躍、配信での可愛らしい魅力、
-										フレンドから愛される理由がある素晴らしい存在。
-									</p>
-								</div>
-							</motion.section>
-
-							{/* Mosaic Art Section */}
-							<motion.section
-								className={styles.mosaicSection}
-								initial={{ opacity: 0, y: 30 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ default: { duration: 0.8, delay: 3.8 } }}
-							>
-								<h3 className={styles.sectionTitle} id="mosaic-heading">みんなでつくったモザイクアート</h3>
-								<div className={styles.mosaicContainer}>
-									<div className={styles.mosaicPlaceholder}>
-										<p className={styles.mosaicDescription}>
-											たくさんの人の愛が込められた美しいモザイクアート。
-											あなたが愛されている証拠です。
-										</p>
+							<section className={styles.profileSection}>
+								<div className={styles.profileLayout}>
+									<div className={styles.profileImageContainer}>
+										<Image
+											src="/assets/otiru_vertical.png"
+											alt="おてぃるのプロフィール画像"
+											width={300}
+											height={533}
+											className={styles.profileImage}
+										/>
+									</div>
+									<div className={styles.profileContent}>
+										<h3 className={styles.sectionTitle} id="profile-heading">今日の主役</h3>
+										<div className={styles.profileCard}>
+											<h4 className={styles.profileName}>おてぃる</h4>
+											<p className={styles.profileDescription}>
+												VRChatの世界で輝く金髪碧眼の美少女。
+												イベントキャストとしての活躍、配信での可愛らしい魅力、
+												フレンドから愛される理由がある素晴らしい存在。
+											</p>
+										</div>
 									</div>
 								</div>
-							</motion.section>
+							</section>
+
+							{/* Mosaic Art Section */}
+							<section className={styles.mosaicSection}>
+								<h3 className={styles.sectionTitle} id="mosaic-heading">みんなでつくったモザイクアート</h3>
+								<div className={styles.mosaicContainer}>
+									<Image
+										src="/assets/yoko_mosaic_db.png"
+										alt="みんなで作ったモザイクアート"
+										width={800}
+										height={450}
+										className={styles.mosaicImage}
+									/>
+									<p className={styles.mosaicDescription}>
+										たくさんの人の愛が込められた美しいモザイクアート。
+										あなたが愛されている証拠です。
+									</p>
+								</div>
+							</section>
 
 							{/* Growth Timeline Section */}
-							<motion.section
-								className={styles.growthSection}
-								initial={{ opacity: 0, y: 30 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ default: { duration: 0.8, delay: 4.4 } }}
-							>
+							<section className={styles.growthSection}>
 								<h3 className={styles.sectionTitle} id="growth-heading">歩んできた軌跡</h3>
 								<p className={styles.growthSubtitle}>2024年7月7日からのキャストとしての成長</p>
 								<div className={styles.growthTimeline}>
@@ -159,15 +136,10 @@ export const PhotoFrame = () => {
 										<div className={styles.growthDesc}>継続した成長の記録</div>
 									</div>
 								</div>
-							</motion.section>
+							</section>
 
 							{/* Letter Navigation Section */}
-							<motion.section
-								className={styles.letterSection}
-								initial={{ opacity: 0, y: 30 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ default: { duration: 0.8, delay: 5.0 } }}
-							>
+							<section className={styles.letterSection}>
 								<h3 className={styles.sectionTitle}>特別な手紙</h3>
 								<div className={styles.letterInvitation}>
 									<h4 className={styles.letterTitle}>おてぃるへ、フレンドからの特別な手紙</h4>
@@ -179,15 +151,10 @@ export const PhotoFrame = () => {
 										手紙を読む
 									</button>
 								</div>
-							</motion.section>
+							</section>
 
 							{/* Message Section */}
-							<motion.section
-								className={styles.messageSection}
-								initial={{ opacity: 0, y: 30 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ default: { duration: 0.6, delay: 5.6 } }}
-							>
+							<section className={styles.messageSection}>
 								<h3 className={styles.sectionTitle} id="message-heading">心からのメッセージ</h3>
 								<div className={styles.letterCard} role="region" aria-labelledby="message-heading">
 									<h4 className={styles.letterCardTitle}>おてぃるへ</h4>
@@ -205,7 +172,7 @@ export const PhotoFrame = () => {
 										お誕生日おめでとう。
 									</p>
 								</div>
-							</motion.section>
+							</section>
 						</main>
 					</div>
 				</div>
