@@ -166,74 +166,101 @@ export const photoContent = style({
 	},
 });
 
-// Hero Section
+// Hero Section - Typography MV Style
 export const heroSection = style({
 	textAlign: "center",
-	padding: "2rem 0",
-	borderBottom: "1px solid rgba(139, 69, 19, 0.1)",
+	padding: "4rem 0",
+	minHeight: "50vh",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	position: "relative",
 });
 
-export const mainTitle = style({
-	fontSize: "clamp(1.8rem, 4vw, 2.5rem)",
-	fontWeight: "300",
-	letterSpacing: "-0.01em",
-	lineHeight: 1.2,
-	background: `
-		linear-gradient(135deg, 
-			#c9a96b 0%, 
-			#daa520 25%, 
-			#f4d03f 50%, 
-			#2980b9 75%, 
-			#1abc9c 100%
-		)
-	`,
-	backgroundClip: "text",
-	WebkitBackgroundClip: "text",
-	color: "transparent",
-	margin: "0 0 1rem 0",
-	fontFamily: "'Inter', 'Segoe UI', sans-serif",
+export const typographyContainer = style({
+	position: "relative",
+	width: "100%",
+	height: "100%",
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "center",
+	justifyContent: "center",
+	gap: "1rem",
 });
 
-export const subTitle = style({
-	fontSize: "clamp(1.3rem, 3vw, 1.8rem)",
-	fontWeight: "500",
-	color: "#2c5aa0",
-	margin: "0 0 0.75rem 0",
-	fontFamily: "'Inter', 'Segoe UI', sans-serif",
-});
-
-export const dateText = style({
-	fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
-	fontWeight: "400",
+export const titleLayer1 = style({
+	fontSize: "clamp(3rem, 8vw, 6rem)",
+	fontWeight: "700",
 	letterSpacing: "0.1em",
+	color: "#c9a96b",
+	fontFamily: "var(--font-playfair, 'Playfair Display'), serif",
+	textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
+	position: "relative",
+	zIndex: 2,
+});
+
+export const titleLayer2 = style({
+	fontSize: "clamp(2.5rem, 7vw, 5rem)",
+	fontWeight: "400",
+	letterSpacing: "0.15em",
+	color: "#2980b9",
+	fontFamily: "var(--font-playfair, 'Playfair Display'), serif",
+	textShadow: "1px 1px 3px rgba(0, 0, 0, 0.1)",
+	marginTop: "-1rem",
+	position: "relative",
+	zIndex: 3,
+});
+
+export const nameDisplay = style({
+	fontSize: "clamp(2rem, 6vw, 4rem)",
+	fontWeight: "500",
+	letterSpacing: "0.1em",
+	color: "#2c5aa0",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+	marginTop: "2rem",
+	position: "relative",
+	zIndex: 4,
+	textShadow: "1px 1px 2px rgba(0, 0, 0, 0.05)",
+});
+
+export const dateDisplay = style({
+	fontSize: "clamp(1rem, 2.5vw, 1.5rem)",
+	fontWeight: "300",
+	letterSpacing: "0.2em",
 	color: "#8b7355",
-	fontFamily: "'JetBrains Mono', 'Courier New', monospace",
-	margin: "0 0 0.5rem 0",
+	fontFamily: "var(--font-inter, 'Inter'), sans-serif",
+	marginTop: "1rem",
 	opacity: 0.8,
 });
 
-export const conceptText = style({
-	fontSize: "clamp(1rem, 2.2vw, 1.2rem)",
-	fontWeight: "400",
-	letterSpacing: "0.005em",
-	color: "#34495e",
-	fontStyle: "italic",
-	margin: 0,
-	opacity: 0.9,
-	fontFamily: "'Inter', 'Segoe UI', sans-serif",
-});
+
+
+
 
 // Section Styles
-export const memoriesSection = style({
+export const profileSection = style({
 	width: "100%",
+	padding: "3rem 0",
 });
 
-export const timelineSection = style({
+export const mosaicSection = style({
 	width: "100%",
+	padding: "3rem 0",
+});
+
+export const growthSection = style({
+	width: "100%",
+	padding: "3rem 0",
+});
+
+export const letterSection = style({
+	width: "100%",
+	padding: "3rem 0",
 });
 
 export const messageSection = style({
 	width: "100%",
+	padding: "3rem 0",
 });
 
 export const sectionTitle = style({
@@ -457,13 +484,168 @@ export const letterTitle = style({
 	fontFamily: "'Inter', 'Segoe UI', sans-serif",
 });
 
+// Profile Styles
+export const profileCard = style({
+	background: "rgba(255, 255, 255, 0.8)",
+	padding: "2rem",
+	borderRadius: "8px",
+	textAlign: "center",
+});
+
+export const profileName = style({
+	fontSize: "clamp(1.3rem, 3vw, 1.8rem)",
+	fontWeight: "500",
+	color: "#2c5aa0",
+	margin: "0 0 1rem 0",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+});
+
+export const profileDescription = style({
+	fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+	lineHeight: 1.7,
+	color: "#34495e",
+	margin: 0,
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+});
+
+// Mosaic Styles
+export const mosaicContainer = style({
+	width: "100%",
+	display: "flex",
+	justifyContent: "center",
+});
+
+export const mosaicPlaceholder = style({
+	width: "100%",
+	maxWidth: "400px",
+	height: "300px",
+	background: "rgba(255, 255, 255, 0.8)",
+	borderRadius: "8px",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	padding: "2rem",
+});
+
+export const mosaicDescription = style({
+	fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+	lineHeight: 1.6,
+	color: "#34495e",
+	margin: 0,
+	textAlign: "center",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+});
+
+// Growth Timeline Styles
+export const growthSubtitle = style({
+	fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+	color: "#7f8c8d",
+	margin: "0 0 2rem 0",
+	textAlign: "center",
+	fontFamily: "var(--font-inter, 'Inter'), sans-serif",
+});
+
+export const growthTimeline = style({
+	display: "flex",
+	flexDirection: "column",
+	gap: "2rem",
+	alignItems: "center",
+});
+
+export const growthItem = style({
+	background: "rgba(255, 255, 255, 0.8)",
+	padding: "1.5rem",
+	borderRadius: "8px",
+	width: "100%",
+	maxWidth: "400px",
+	textAlign: "center",
+});
+
+export const growthDate = style({
+	fontSize: "clamp(0.8rem, 1.8vw, 1rem)",
+	fontWeight: "600",
+	color: "#c9a96b",
+	margin: "0 0 0.5rem 0",
+	fontFamily: "var(--font-inter, 'Inter'), sans-serif",
+});
+
+export const growthTitle = style({
+	fontSize: "clamp(1rem, 2.2vw, 1.3rem)",
+	fontWeight: "500",
+	color: "#2c5aa0",
+	margin: "0 0 0.5rem 0",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+});
+
+export const growthDesc = style({
+	fontSize: "clamp(0.8rem, 1.8vw, 1rem)",
+	color: "#7f8c8d",
+	margin: 0,
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+});
+
+// Letter Styles
+export const letterInvitation = style({
+	background: "linear-gradient(135deg, rgba(201, 169, 107, 0.1), rgba(41, 128, 185, 0.1))",
+	padding: "2rem",
+	borderRadius: "12px",
+	textAlign: "center",
+	border: "1px solid rgba(201, 169, 107, 0.2)",
+});
+
+export const letterTitle = style({
+	fontSize: "clamp(1.1rem, 2.5vw, 1.4rem)",
+	fontWeight: "500",
+	color: "#2c5aa0",
+	margin: "0 0 1rem 0",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+});
+
+export const letterDescription = style({
+	fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+	lineHeight: 1.6,
+	color: "#34495e",
+	margin: "0 0 1.5rem 0",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+});
+
+export const letterButton = style({
+	background: "linear-gradient(135deg, #c9a96b, #2980b9)",
+	color: "white",
+	border: "none",
+	padding: "0.8rem 1.5rem",
+	borderRadius: "8px",
+	fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+	fontWeight: "500",
+	cursor: "pointer",
+	transition: "all 0.3s ease",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+
+	selectors: {
+		"&:hover": {
+			transform: "translateY(-2px)",
+			boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+		},
+	},
+});
+
+export const letterCardTitle = style({
+	fontSize: "clamp(1rem, 2.5vw, 1.3rem)",
+	fontWeight: "500",
+	letterSpacing: "0.01em",
+	color: "#2c3e50",
+	margin: "0 0 1.5rem 0",
+	textAlign: "center",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
+});
+
 export const birthdayMessage = style({
-	fontSize: "clamp(0.8rem, 1.8vw, 0.95rem)",
+	fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
 	lineHeight: 1.7,
 	color: "#34495e",
 	margin: 0,
 	fontWeight: "400",
 	letterSpacing: "0.005em",
-	fontFamily: "'Inter', 'Segoe UI', sans-serif",
+	fontFamily: "var(--font-noto-serif-jp, 'Noto Serif JP'), serif",
 	textAlign: "center",
 });
