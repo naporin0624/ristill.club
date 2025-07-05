@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Script from "next/script";
 
 import * as styles from "./layout.css";
 
@@ -11,6 +12,7 @@ type Props = {
 const Layout = async ({ children }: Props) => {
 	return (
 		<>
+			<Script src="/2025/font.js" strategy="afterInteractive" />
 			<main className={styles.main}>{children}</main>
 			<footer className={styles.footer}>
 				<Link
@@ -19,7 +21,7 @@ const Layout = async ({ children }: Props) => {
 					rel="noopener noreferrer"
 					className={styles.copyright}
 				>
-					©napochaan
+					©napochaan 2025{new Date().getFullYear() === 2025 ? "" : ` - ${new Date().getFullYear()}`}
 				</Link>
 			</footer>
 		</>

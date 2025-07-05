@@ -34,6 +34,7 @@ const config = [
 			"types",
 			"**/*.open-next/**",
 			".tsbuildinfo",
+			"public",
 		],
 	},
 	{

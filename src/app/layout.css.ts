@@ -5,5 +5,5 @@ export const html = style({
 });
 
 export const body = style({
-	//
+	isolation: "isolate",
 });

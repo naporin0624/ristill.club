@@ -1,9 +1,47 @@
-import { style } from "@vanilla-extract/css";
+import { globalStyle, style } from "@vanilla-extract/css";
+
+import { breakpoints } from "@themes/styles.css";
 
 export const main = style({
-	//
+	minHeight: "100svh",
+	width: "100%",
 });
 
-export const footer = style({});
+globalStyle(main, {
+	color: "#2d2d2d",
+	background: "#ffffff",
+	fontSize: 14,
+	lineHeight: "125%",
+	fontFamily: "var(--noto-sans-jp)",
+	fontWeight: 500,
+	letterSpacing: "0.03em",
 
-export const copyright = style({});
+	// @ts-ignore
+	wordBreak: "auto-phrase",
+
+	"@media": {
+		[breakpoints.desktop]: {
+			fontSize: 20,
+		},
+	},
+});
+
+export const footer = style({
+	width: "100%",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	background: "#ffffff",
+	padding: 8,
+	textTransform: "uppercase",
+
+	"@media": {
+		[breakpoints.desktop]: {
+			padding: 16,
+		},
+	},
+});
+
+export const copyright = style({
+	color: "#2d2d2d",
+});

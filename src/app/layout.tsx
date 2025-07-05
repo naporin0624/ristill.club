@@ -1,4 +1,7 @@
+import { Noto_Sans_JP } from "next/font/google";
+
 import { ThemeProvider } from "@themes/provider";
+import { clsx } from "@utils/clsx";
 
 import * as styles from "./layout.css";
 
@@ -7,6 +10,12 @@ import type { ReactNode } from "react";
 
 import "@adapters/date";
 import "@acab/reset.css";
+
+const notosansjp = Noto_Sans_JP({
+	weight: ["500", "700"],
+	subsets: ["latin"],
+	variable: "--noto-sans-jp",
+});
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://ristill.club"),
@@ -62,7 +71,7 @@ const Layout = ({ children }: Props) => {
 	return (
 		<html lang="ja" className={styles.html}>
 			<ThemeProvider asChild>
-				<body className={styles.body}>{children}</body>
+				<body className={clsx(styles.body, notosansjp.variable)}>{children}</body>
 			</ThemeProvider>
 		</html>
 	);
