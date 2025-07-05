@@ -1,18 +1,9 @@
-import { globalStyle } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
-export const globalStyles = "";
-
-globalStyle("html, body", {
-	margin: 0,
-	padding: 0,
-	minHeight: "100vh",
-	fontFamily: "var(--font-inter)",
+export const html = style({
+	//
 });
 
-globalStyle("*", {
-	boxSizing: "border-box",
-});
-
-globalStyle("#__next", {
-	minHeight: "100vh",
+export const body = style({
+	//
 });

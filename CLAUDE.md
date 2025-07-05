@@ -1,33 +1,45 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # RISTILL ANNIVERSARY 2025 - Implementation Guidelines and Rules
 
 This document outlines the implementation guidelines and coding conventions for this project.
 
 ## 🔧 Tech Stack
 
-- **Framework**: Next.js (App Router)
+- **Framework**: Next.js 15.3.3 (App Router)
+- **React**: 19.1.0 (Latest with React 19 features)
 - **Styling**: Vanilla Extract CSS
 - **Testing**: Vitest
 - **Package Manager**: pnpm
-- **Type System**: TypeScript
+- **Type System**: TypeScript 5.5.2
+- **Deployment**: Cloudflare Workers with OpenNext
+- **Domain**: `ristill.club`
 
 ## 📦 Project Structure
 
 ```
 src/
 ├── app/                    # Next.js App Router pages
+│   ├── (birthday)/        # Route groups for birthday celebration
+│   │   └── 2025/          # 2025 anniversary content
 │   ├── page.tsx           # Home page
-│   ├── layout.tsx         # Layout (with timezone configuration)
+│   ├── layout.tsx         # Root layout (with timezone configuration)
+│   ├── layout.css.ts      # Layout styles
+│   ├── styles.css.ts      # Page-specific styles
 │   └── _components/       # Page-specific components
 ├── components/            # Reusable components
+│   └── image/             # Custom Next.js Image wrapper with loading states
+│       ├── index.tsx      # Enhanced Image component
+│       └── styles.css.ts  # Image component styles
 ├── themes/                # Global styling and theme system
-│   ├── tokens/            # Design tokens (colors, spacing, typography)
-│   ├── contracts/         # Theme contracts for switching
-│   ├── providers/         # ThemeProvider and context
-│   ├── reset.css.ts       # CSS reset styles
-│   └── global.css.ts      # Global styles
+│   ├── provider.tsx       # ThemeProvider component
+│   ├── styles.css.ts      # Theme-specific styles
+│   └── global.css.ts      # Global application styles
 ├── adapters/              # External library adapters
-│   └── date.ts            # dayjs adapter with timezone support
-├── utils/                 # Pure utility functions
+│   └── date.ts            # dayjs adapter with timezone support (Asia/Tokyo)
+├── utils/                 # Pure utility functions (TDD required)
 │   ├── date/              # Date manipulation utilities (using dayjs)
 │   │   ├── index.ts       # Main exports
 │   │   └── date.test.ts   # TDD tests (required)
@@ -1413,7 +1425,9 @@ import { HeroSection } from "./_components/hero-section";
 import { Button } from "../../../components/button";
 ```
 
-## 📦 Package Management
+## 📦 Package Management & Development Commands
+
+### Core Development Commands
 
 ```bash
 # Installation
@@ -1422,11 +1436,38 @@ pnpm install
 # Development server
 pnpm dev
 
-# Testing
-pnpm test
-
-# Build
+# Production build
 pnpm build
+
+# Production server
+pnpm start
+
+# Testing
+pnpm test                    # Run all tests
+pnpm test:watch             # Run tests in watch mode
+pnpm exec vitest run <file> # Run specific test file
+pnpm exec vitest <file> --watch # Watch specific test file
+
+# Quality checks (CRITICAL - Always run after changes)
+pnpm lint                   # ESLint + Prettier check
+pnpm fmt                    # Auto-format code
+pnpm typecheck              # TypeScript type checking
+
+# Deployment
+pnpm deploy                 # Deploy to Cloudflare
+pnpm preview                # Preview deployment locally
+```
+
+### Quality Assurance Workflow
+
+**MANDATORY: Run these commands after completing any work:**
+
+```bash
+# Full quality check sequence
+pnpm lint && pnpm typecheck && pnpm test
+
+# If lint fails, try auto-formatting first
+pnpm fmt && pnpm lint && pnpm typecheck && pnpm test
 ```
 
 ## ⚡ Quality Management & Testing
@@ -1531,3 +1572,41 @@ This language separation ensures clear communication and proper documentation st
 6. **Violating language rules** - This is a critical requirement
 
 Following these conventions ensures a maintainable, type-safe, and testable codebase.
+
+## 🚀 Project-Specific Architecture Notes
+
+### Current Implementation Status
+
+The project is currently in development with the following key components implemented:
+
+1. **Enhanced Image Component** (`src/components/image/index.tsx`):
+
+   - Client-side wrapper around Next.js Image
+   - Built-in loading state management
+   - Custom placeholder handling with blur effects
+   - Follows strict ESLint rules with useCallback patterns
+
+2. **Theme System** (`src/themes/`):
+
+   - Simple ThemeProvider with optional asChild prop using Radix Slot
+   - Global CSS imports through provider
+   - Clean theme architecture ready for expansion
+
+3. **Route Structure**:
+   - Home page at root (`/`)
+   - Birthday celebration content in route group `(birthday)/2025/`
+   - Clean separation of concerns
+
+### Key Dependencies
+
+- **@radix-ui/react-slot**: Used for composable component patterns
+- **@acab/reset.css**: CSS reset library
+- **dayjs**: Date/time manipulation (configured for Asia/Tokyo timezone)
+- **motion**: Animation library (when used, must follow motion transition rules)
+
+### Development Notes
+
+- The project uses React 19 features and Next.js 15
+- All components follow strict immutability patterns
+- TDD is mandatory for all utility functions
+- Quality checks are automated and must pass before commits

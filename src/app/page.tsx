@@ -1,11 +1,7 @@
-import { HeroSection } from "./_components/hero-section";
+import * as styles from "./styles.css";
 
-const Home = () => {
-	return (
-		<main>
-			<HeroSection />
-		</main>
-	);
+const Page = async () => {
+	return <div className={styles.root}>hogehoge</div>;
 };
 
-export default Home;
+export default Page;

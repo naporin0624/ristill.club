@@ -1,14 +1,14 @@
 # For more details on how to configure Wrangler, refer to:
 # https://developers.cloudflare.com/workers/wrangler/configuration/
 
-name = "ristill_anniversary"
+name = "ristill_club"
 main = ".open-next/worker.js"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 workers_dev = false
 
 [[routes]]
-pattern = "anniversary.ristill.club"
+pattern = "ristill.club"
 custom_domain = true
 
 [observability]
@@ -37,26 +37,3 @@ binding = "ASSETS"
 # [[services]]
 # binding = "MY_SERVICE"
 # service = "my-service"
-
-# Production environment configuration
-[env.production]
-name = "ristill_anniversary-production"
-main = ".open-next/worker.js"
-compatibility_date = "2024-09-23"
-compatibility_flags = ["nodejs_compat"]
-workers_dev = false
-
-[[env.production.routes]]
-pattern = "anniversary.ristill.club"
-custom_domain = true
-
-[env.production.observability]
-enabled = true
-
-[env.production.assets]
-directory = ".open-next/assets"
-binding = "ASSETS"
-
-# You can override any configuration for production environment here
-# [env.production.vars]
-# MY_VARIABLE = "production_specific_value" 
