@@ -9,8 +9,8 @@ import { Figure } from "./_components/figure";
 import { Heading } from "./_components/heading";
 import AboutText from "./about.txt";
 import ConclusionText from "./conclusion.txt";
-import ContributorsIntroText from "./contributors-intro.txt";
 import { contributors } from "./contributors";
+import ContributorsIntroText from "./contributors-intro.txt";
 import MosaicIntroText from "./mosaic-intro.txt";
 import * as styles from "./styles.css";
 
