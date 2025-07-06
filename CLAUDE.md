@@ -192,7 +192,8 @@ When adding new utils, follow strict TDD:
 - **Testing**: Vitest
 - **Package Manager**: pnpm
 - **TypeScript**: 5.5.2
-- **Deployment**: Cloudflare Workers
+- **Deployment**: Cloudflare Workers with OpenNext
+- **Domain**: `ristill.club`
 
 ## 📁 Project Structure Key Points
 
@@ -207,5 +208,31 @@ src/
 ├── adapters/            # External library adapters
 └── assets/              # Static resources
 ```
+
+## 🌐 Project Context
+
+This is a Next.js fan website celebrating the 2025 birthday of "おてぃる" (Otille/Ristill), a VRChat character. The site features:
+
+- **Mosaic Art**: 24,000-tile mosaic created from 3,000 community-submitted images
+- **Community Focus**: VRChat group promotion and social features
+- **Performance Optimized**: Serverless architecture with global CDN
+- **Accessibility**: Mobile-first responsive design with proper semantics
+
+## 📋 Additional Development Notes
+
+### Image Handling
+- Custom `Image` component wraps Next.js Image with loading states
+- AVIF/WebP optimization configured
+- Blur placeholders for smooth loading experience
+
+### Animation System
+- Complex CSS wave animations using masks
+- Motion.js integration for interactive elements
+- Performance-first animation approach
+
+### Build & Deployment
+- Automatic deployment to Cloudflare Workers
+- OpenNext for serverless Next.js compatibility
+- Static asset optimization and caching
 
 For complete details on any topic, refer to the specific documentation files in @docs/.
