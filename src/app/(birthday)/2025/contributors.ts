@@ -2,7 +2,7 @@ type Contributor = {
 	id: string;
 	name: string;
 	href: string;
-}
+};
 
 export const contributors: Contributor[] = [
 	{ id: "napochaan_vrc2", name: "napochaan", href: "https://x.com/napochaan_vrc2" },
@@ -23,5 +23,5 @@ export const contributors: Contributor[] = [
 	{ id: "sayu_anpan2024", name: "山田さゆ", href: "https://x.com/sayu_anpan2024" },
 	{ id: "yugosanwes", name: "宵雨うぇす", href: "https://x.com/yugosanwes" },
 	{ id: "nago_vrc", name: "nago", href: "https://x.com/nago_vrc" },
-	{ id: "kizuna_kozue", name: "烽梨(ふうり)", href: "https://x.com/kizuna_kozue" }
-]
+	{ id: "kizuna_kozue", name: "烽梨(ふうり)", href: "https://x.com/kizuna_kozue" },
+];

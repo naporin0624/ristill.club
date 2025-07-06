@@ -1,6 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
-import { breakpoints } from "@themes/styles.css";
+import { breakpoints, linkWithFocusRing } from "@themes/styles.css";
 
 export const main = style({
 	minHeight: "100svh",
@@ -42,6 +42,14 @@ export const footer = style({
 	},
 });
 
-export const copyright = style({
-	color: "#2d2d2d",
+export const copyright = style([
+	linkWithFocusRing,
+	{
+		color: "#2d2d2d",
+		fontWeight: 500,
+	},
+]);
+
+export const bubbleRoot = style({
+	zIndex: 2,
 });

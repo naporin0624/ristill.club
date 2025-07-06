@@ -1,15 +1,26 @@
-import Image from "@components/image";
-import MosaicArtImage from "./_assets/mosaic_24000.png";
-import BannerImage from "./_assets/banner.png";
-
-import { Heading } from "./_components/heading";
-import * as styles from "./styles.css";
 import Link from "next/link";
+
+import Image from "@components/image";
+
+import BannerImage from "./_assets/banner.png";
+import KVImage from "./_assets/kv.png";
+import MosaicArtImage from "./_assets/mosaic_24000.png";
+import { Figure } from "./_components/figure";
+import { Heading } from "./_components/heading";
 import { contributors } from "./contributors";
+import * as styles from "./styles.css";
 
 const Page = async () => {
 	return (
 		<section className={styles.root}>
+			<div className={styles.decoration}>
+				<Image
+					src={KVImage}
+					alt="金髪ツインテールの女の子キャラクター「おてぃる」の誕生日を祝うキービジュアル。青いメイド服を着た可愛らしいキャラクターが笑顔でポーズを取り、周りにはカラフルなリボンやケーキなどの誕生日アイテムが散りばめられている。"
+					className={styles.kv}
+				/>
+			</div>
+
 			<div className={styles.screen}>
 				<div className={styles.welcome}>
 					<h1 className={styles.title}>
@@ -21,7 +32,7 @@ const Page = async () => {
 			</div>
 
 			<div className={styles.screen}>
-				<section className={styles.section}>
+				<section className={styles.section} id="about">
 					<div className={styles.contents}>
 						<Heading level={2}>このサイトについて</Heading>
 						<p className={styles.text}>
@@ -42,7 +53,7 @@ const Page = async () => {
 			</div>
 
 			<div className={styles.screen}>
-				<section className={styles.section}>
+				<section className={styles.section} id="mosaic_art">
 					<div className={styles.contents}>
 						<Heading level={2}>みんなで作ったモザイクアート</Heading>
 
@@ -56,18 +67,18 @@ const Page = async () => {
 							].join("\n")}
 						</p>
 
-						<figure>
-							<Image src={MosaicArtImage} alt="" />
-							<figcaption>おてぃるbirthdayモザイクアート24000タイル</figcaption>
-						</figure>
+						<Figure
+							src={MosaicArtImage}
+							alt="おてぃるの誕生日を祝うモザイクアート。24000個のタイルで構成され、中央に「RISTILL BIRTHDAY 2025/07/07」のテキストが表示されている。背景は様々な色とりどりのVRChatの写真で構成されている。"
+							caption="おてぃるbirthdayモザイクアート24000タイル"
+						/>
 
 						<section className={styles.subSection}>
 							<Heading level={3}>参加者</Heading>
 							<p className={styles.text}>
 								{[
 									"たくさんの方に協力していただき、3000 枚もの画像が集まりました。ありがとうございます！",
-									"",
-									"恐縮ではございますが、人数が多いので敬称略とさせていただきます。",
+									"人数が多いため、敬称略とさせていただきます。",
 								].join("\n")}
 							</p>
 
@@ -75,7 +86,12 @@ const Page = async () => {
 								{contributors.map(({ href, name, id }) => (
 									<li key={href} className={styles.contributor}>
 										{name}
-										<Link href={href} target="_blank" rel="noopener noreferrer">{`(@${id})`}</Link>
+										<Link
+											href={href}
+											target="_blank"
+											rel="noopener"
+											className={styles.contributorLink}
+										>{`(@${id})`}</Link>
 									</li>
 								))}
 							</ul>
@@ -85,30 +101,34 @@ const Page = async () => {
 			</div>
 
 			<div className={styles.screen}>
-				<section className={styles.section}>
+				<section className={styles.section} id="join_fangroup">
 					<div className={styles.contents}>
 						<Heading level={2}>おてぃるのfangroupに入ろう！</Heading>
-						<figure>
-							<Image src={BannerImage} alt="" />
-							<figcaption>おてぃるふぁんくらぶ！バナー</figcaption>
-						</figure>
 
+						<Figure
+							src={BannerImage}
+							alt="おてぃるふぁんくらぶの宣伝バナー。青い背景に「おてぃる」と「ふぁんくらぶ!!」の文字が表示され、様々なVRChatアバターの女の子キャラクターたちが描かれている。カラフルで楽しい雰囲気のイラスト。"
+							caption="おてぃるふぁんくらぶ！バナー"
+						/>
 						<p className={styles.text}>
-							<Link href="https://x.com/napochaan_vrc2" target="_blank" rel="noopener noreferrer">
+							<Link href="https://x.com/napochaan_vrc2" target="_blank" rel="noopener" className={styles.profileLink}>
 								@napochaan_vrc2
 							</Link>
 							が運営している、おてぃる公認の非公式ファングループがあります。
 							おてぃるのキャスト日の告知やキャスト情報などをまとめているので、ぜひ入ってみてください。
 							おてぃるのことをたくさんの人に知ってもらって、たくさんの人が入っている巨大グループにしましょう！
 						</p>
+						<Link href="https://vrc.group/RISTIL.1680" target="_blank" rel="noopener" className={styles.joinButton}>
+							おてぃるふぁんくらぶに入る
+						</Link>
 					</div>
 				</section>
 			</div>
 
 			<div className={styles.screen}>
-				<section className={styles.section}>
+				<section className={styles.section} id="conclusion">
 					<div className={styles.contents}>
-						<Heading level={2}>さいご</Heading>
+						<Heading level={2}>さいごに</Heading>
 						<p className={styles.text}>
 							ぼくの推しであるりすてぃること、おてぃるの誕生日を祝うために作られたウェブサイトです。 naporitan
 							がどうにかしておてぃるの誕生日を盛大に祝いたい！という思いの結晶をウェブサイトという形にしてみました。

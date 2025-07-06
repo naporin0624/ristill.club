@@ -1,5 +1,8 @@
+import dayjs from "dayjs";
 import Link from "next/link";
 import Script from "next/script";
+
+import { BubbleAnimation } from "@components/bubble-animation";
 
 import * as styles from "./layout.css";
 
@@ -9,11 +12,20 @@ type Props = {
 	children: ReactNode;
 };
 
+const getCopyrightYear = () => {
+	const currentYear = dayjs().year();
+
+	return currentYear === 2025 ? "2025" : `2025 - ${currentYear}`;
+};
+
 const Layout = async ({ children }: Props) => {
 	return (
 		<>
 			<Script src="/2025/font.js" strategy="afterInteractive" />
-			<main className={styles.main}>{children}</main>
+			<main className={styles.main}>
+				<BubbleAnimation className={styles.bubbleRoot} />
+				{children}
+			</main>
 			<footer className={styles.footer}>
 				<Link
 					href="https://twitter.com/napochaan_vrc2"
@@ -21,7 +33,7 @@ const Layout = async ({ children }: Props) => {
 					rel="noopener noreferrer"
 					className={styles.copyright}
 				>
-					©napochaan 2025{new Date().getFullYear() === 2025 ? "" : ` - ${new Date().getFullYear()}`}
+					©napochaan {getCopyrightYear()}
 				</Link>
 			</footer>
 		</>
