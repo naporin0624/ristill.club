@@ -10,7 +10,7 @@ import * as styles from "./styles.css";
 type FontLoadingState = "loading" | "active" | "inactive" | "idle";
 
 // Animation phases for the loading sequence
-type AnimationPhase = "initial" | "understanding" | "scaling" | "brightening" | "complete";
+type AnimationPhase = "initial" | "understanding" | "scaling" | "complete";
 
 // Custom hook for typekit font loading state
 const useTypeKitState = (): FontLoadingState => {
@@ -95,16 +95,10 @@ const useAnimationPhases = (
 			}, 2500);
 			timersRef.current.push(scalingTimer);
 
-			// Phase 3: Brightening phase after 4000ms
-			const brighteningTimer = setTimeout(() => {
-				setPhase("brightening");
-			}, 4000);
-			timersRef.current.push(brighteningTimer);
-
 			// Phase 4: Complete after 6500ms (after brightening animation completes)
 			const completeTimer = setTimeout(() => {
 				setPhase("complete");
-			}, 6500);
+			}, 5000);
 			timersRef.current.push(completeTimer);
 		}
 
@@ -121,8 +115,6 @@ const useAnimationPhases = (
 				return 40;
 			case "scaling":
 				return 60;
-			case "brightening":
-				return 80;
 			case "complete":
 				return 100;
 			default:
@@ -132,8 +124,7 @@ const useAnimationPhases = (
 
 	return {
 		phase,
-		showUnderstanding:
-			phase === "understanding" || phase === "scaling" || phase === "brightening" || phase === "complete",
+		showUnderstanding: phase === "understanding" || phase === "scaling" || phase === "complete",
 		isComplete: phase === "complete",
 		progressValue,
 	};
@@ -148,8 +139,6 @@ const getLoadingMessage = (phase: AnimationPhase): string => {
 			return "おてぃるわかったっ！表示準備中です";
 		case "scaling":
 			return "画面を準備中です";
-		case "brightening":
-			return "もうすぐ表示されます";
 		case "complete":
 			return "読み込み完了しました";
 		default:
@@ -171,16 +160,13 @@ export const Loading = () => {
 	const sameVariants = {
 		initial: {
 			scale: 1,
-			filter: "brightness(1)",
 		},
 		scaling: {
 			// Anticipation (0.92) → Overshoot (126) → Final (120)
 			scale: [1, 0.92, 126, 120],
-			filter: "brightness(1)",
 		},
 		brightening: {
 			scale: 120,
-			filter: ["brightness(1)", "brightness(2)", "brightness(3)", "brightness(1.5)"],
 		},
 	};
 
@@ -199,7 +185,7 @@ export const Loading = () => {
 
 	// Get current animation state
 	const getCurrentVariant = () => {
-		if (phase === "scaling" || phase === "brightening") return phase;
+		if (phase === "scaling") return phase;
 
 		return "initial";
 	};

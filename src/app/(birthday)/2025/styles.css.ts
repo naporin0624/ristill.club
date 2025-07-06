@@ -199,6 +199,7 @@ export const decoration = style({
 	height: "100%",
 	pointerEvents: "none",
 	zIndex: 3,
+	overflow: "hidden",
 });
 
 const kvMaxWidth = createVar();
