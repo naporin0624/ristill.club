@@ -57,6 +57,7 @@
 		"src/**/*.ts",
 		"src/**/*.tsx",
 		"worker-configuration.d.ts",
-		".next/types/**/*.ts"
+		".next/types/**/*.ts",
+		"types.d.ts"
 	]
 }

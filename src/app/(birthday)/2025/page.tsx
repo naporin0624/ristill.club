@@ -7,6 +7,7 @@ import KVImage from "./_assets/kv.webp";
 import MosaicArtImage from "./_assets/mosaic_24000.webp";
 import { Figure } from "./_components/figure";
 import { Heading } from "./_components/heading";
+import ConclusionText from "./conclusion.txt";
 import { contributors } from "./contributors";
 import * as styles from "./styles.css";
 
@@ -15,11 +16,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
 	title: "RISTILL BIRTHDAY 2025",
 	description:
-		"VRChatで活動するりすてぃる（おてぃる）の2025年誕生日を祝う特設サイト。みんなで作ったモザイクアート、ファンからのメッセージを掲載。",
+		"VRChatで活動するりすてぃる（おてぃる）の2025年誕生日を祝う特設サイト。みんなで作ったモザイクアートやファングループを掲載。",
 	openGraph: {
 		title: "RISTILL BIRTHDAY 2025",
 		description:
-			"VRChatで活動するりすてぃる（おてぃる）の2025年誕生日を祝う特設サイト。みんなで作ったモザイクアート、ファンからのメッセージを掲載。",
+			"VRChatで活動するりすてぃる（おてぃる）の2025年誕生日を祝う特設サイト。みんなで作ったモザイクアートやファングループを掲載。",
 		url: "https://ristill.club/2025",
 		type: "website",
 		images: [
@@ -173,13 +174,7 @@ const Page = async () => {
 				<section className={styles.section} id="conclusion">
 					<div className={styles.contents}>
 						<Heading level={2}>さいごに</Heading>
-						<p className={styles.text}>
-							ぼくの推しであるりすてぃること、おてぃるの誕生日を祝うために作られたウェブサイトです。
-							naporitanがどうにかしておてぃるの誕生日を盛大に祝いたい！という思いを形にしました。
-							たくさんの人のご協力があり、このウェブサイトを公開することができました。
-							特にイラストを描いてくれたメスガキリョナ太郎と、声かけにご協力いただいたねこぱんには感謝してもしきれません。
-							2025年のおてぃるの誕生日と今年がより良いものになることを願っています。
-						</p>
+						<p className={styles.text}>{ConclusionText}</p>
 					</div>
 				</section>
 			</div>

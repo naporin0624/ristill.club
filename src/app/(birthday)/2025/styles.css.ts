@@ -299,6 +299,8 @@ export const text = style({
 	lineHeight: "250%",
 	letterSpacing: "0.03em",
 	whiteSpace: "pre-wrap",
+	// @ts-ignore
+	wordBreak: "auto-phrase",
 
 	selectors: {
 		"&[data-bold]": {
