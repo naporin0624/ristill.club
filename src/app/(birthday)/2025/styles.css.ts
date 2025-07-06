@@ -91,6 +91,11 @@ export const screen = style({
 			animation: `${waveFlow3} 180s linear infinite`,
 			animationDelay: "-60s",
 		},
+
+		"&:nth-child(6)::before": {
+			animation: `${waveFlow} 280s linear infinite`,
+			animationDelay: "-120s",
+		},
 	},
 });
 
