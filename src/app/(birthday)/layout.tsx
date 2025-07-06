@@ -2,8 +2,9 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import Script from "next/script";
 
-import { BubbleAnimation } from "@components/bubble-animation";
+import { BubbleAnimation } from "@components/bubble";
 
+import { Loading } from "./2025/_components/loading";
 import * as styles from "./layout.css";
 
 import type { ReactNode } from "react";
@@ -22,6 +23,8 @@ const Layout = async ({ children }: Props) => {
 	return (
 		<>
 			<Script src="/2025/font.js" strategy="afterInteractive" />
+			<Loading />
+
 			<main className={styles.main}>
 				<BubbleAnimation className={styles.bubbleRoot} />
 				{children}

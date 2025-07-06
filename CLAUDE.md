@@ -221,16 +221,19 @@ This is a Next.js fan website celebrating the 2025 birthday of "おてぃる" (O
 ## 📋 Additional Development Notes
 
 ### Image Handling
+
 - Custom `Image` component wraps Next.js Image with loading states
 - AVIF/WebP optimization configured
 - Blur placeholders for smooth loading experience
 
 ### Animation System
+
 - Complex CSS wave animations using masks
 - Motion.js integration for interactive elements
 - Performance-first animation approach
 
 ### Build & Deployment
+
 - Automatic deployment to Cloudflare Workers
 - OpenNext for serverless Next.js compatibility
 - Static asset optimization and caching

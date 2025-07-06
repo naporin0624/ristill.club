@@ -38,10 +38,10 @@ export const BubbleAnimation = ({ bubbleCount = 12, className }: BubbleAnimation
 	const [bubbles] = useState<Bubble[]>(() => {
 		return Array.from({ length: bubbleCount }, (_, i) => ({
 			id: i,
-			x: Math.random() * 90 + 5,
-			size: Math.random() * 20 + 15,
-			animationType: (Math.floor(Math.random() * 4) + 1) as 1 | 2 | 3 | 4,
-			delay: -Math.random() * 15,
+			x: ((i * 7.5) % 90) + 5,
+			size: ((i * 3) % 20) + 15,
+			animationType: ((i % 4) + 1) as 1 | 2 | 3 | 4,
+			delay: -((i * 1.25) % 15),
 		}));
 	});
 

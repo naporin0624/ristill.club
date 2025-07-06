@@ -2,9 +2,15 @@ import { globalStyle, style } from "@vanilla-extract/css";
 
 import { breakpoints, linkWithFocusRing } from "@themes/styles.css";
 
+globalStyle("body", {
+	overflowX: "hidden",
+	overflowY: "auto",
+});
+
 export const main = style({
 	minHeight: "100svh",
 	width: "100%",
+	isolation: "isolate",
 });
 
 globalStyle(main, {
