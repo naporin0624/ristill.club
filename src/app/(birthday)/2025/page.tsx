@@ -117,6 +117,18 @@ const Page = async () => {
 							placeholder="blur"
 						/>
 
+						<p className={styles.text}>
+							ウェブサイトに掲載するにあたって画像を圧縮しています。オリジナルので高画質版は
+							<Link
+								href="https://storage.ristill.club/2025/mosaic_24000_3.png"
+								target="_blank"
+								className={styles.hightResolutionLink}
+							>
+								<span className={styles.text} data-strong>{`**ここから**`}</span>
+							</Link>
+							見ることができます。(20MB程度あるので回線が安定しているところで見ることをおすすめします。)
+						</p>
+
 						<section className={styles.subSection}>
 							<Heading level={3}>参加者</Heading>
 							<p className={styles.text}>

@@ -45,10 +45,10 @@ export const screen = style({
 	position: "relative",
 
 	selectors: {
-		"&:first-child, &:nth-child(2n)": {
+		"&:first-child, &:nth-child(2), &:nth-child(2n + 1)": {
 			background: "#5EC9FF",
 		},
-		"&:not(&:first-child):not(&:nth-child(2))::before": {
+		"&:not(&:first-child):not(&:nth-child(2)):not(&:nth-child(3))::before": {
 			vars: {
 				[waveHeight]: "100px",
 			},
@@ -73,11 +73,11 @@ export const screen = style({
 				},
 			},
 		},
-		"&:nth-child(2n + 1):not(&:first-child):not(&:nth-child(2))::before": {
-			backgroundColor: "#ffffff",
-		},
-		"&:nth-child(2n):not(&:first-child):not(&:nth-child(2))::before": {
+		"&:nth-child(2n + 1):not(&:first-child):not(&:nth-child(2)):not(&:nth-child(3))::before": {
 			backgroundColor: "#5EC9FF",
+		},
+		"&:nth-child(2n + 2):not(&:first-child):not(&:nth-child(2)):not(&:nth-child(3))::before": {
+			backgroundColor: "#ffffff",
 		},
 		"&:nth-child(3)::before": {
 			animation: `${waveFlow} 240s linear infinite`,
@@ -199,7 +199,12 @@ export const decoration = style({
 	height: "100%",
 	pointerEvents: "none",
 	zIndex: 3,
-	overflow: "hidden",
+
+	"@media": {
+		[breakpoints.mobile]: {
+			overflow: "hidden",
+		},
+	},
 });
 
 const kvMaxWidth = createVar();
@@ -309,6 +314,10 @@ export const text = style({
 		},
 		"&[data-small]": {
 			//
+		},
+		"&[data-strong]": {
+			fontSize: "1.2em",
+			fontWeight: "700",
 		},
 	},
 });
@@ -434,6 +443,13 @@ export const joinButton = style([
 				opacity: 1,
 			},
 		},
+	},
+]);
+
+export const hightResolutionLink = style([
+	linkWithFocusRing,
+	{
+		//
 	},
 ]);
 
