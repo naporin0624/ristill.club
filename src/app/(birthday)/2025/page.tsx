@@ -7,8 +7,11 @@ import KVImage from "./_assets/kv.webp";
 import MosaicArtImage from "./_assets/mosaic_24000.webp";
 import { Figure } from "./_components/figure";
 import { Heading } from "./_components/heading";
+import AboutText from "./about.txt";
 import ConclusionText from "./conclusion.txt";
+import ContributorsIntroText from "./contributors-intro.txt";
 import { contributors } from "./contributors";
+import MosaicIntroText from "./mosaic-intro.txt";
 import * as styles from "./styles.css";
 
 import type { Metadata } from "next";
@@ -79,13 +82,7 @@ const Page = async () => {
 					<div className={styles.contents}>
 						<Heading level={2}>このサイトについて</Heading>
 						<p className={styles.text}>
-							{[
-								"ぼくの推しであるりすてぃること、おてぃるの誕生日を祝うために作られたウェブサイトです。",
-								"naporitanがどうにかしておてぃるの誕生日を盛大に祝いたい！という思いを形にしました。",
-								"たくさんの人のご協力があり、このウェブサイトを公開することができました。",
-								"特にイラストを描いてくれたメスガキリョナ太郎と、声かけにご協力いただいたねこぱんには感謝してもしきれません。",
-								"2025年のおてぃるの誕生日と今年がより良いものになることを願っています。",
-							].join("\n")}
+							{AboutText}
 							<br />
 							<span data-bold className={styles.text}>
 								おてぃるお誕生日おめでと～～～～～～～！！！！
@@ -100,15 +97,7 @@ const Page = async () => {
 					<div className={styles.contents}>
 						<Heading level={2}>みんなで作ったモザイクアート</Heading>
 
-						<p className={styles.text}>
-							{[
-								"「個人の節目である誕生日に、歩んだ歴史からお祝いされる。」",
-								"そんな体験を目指していた時に、タイルアートが目に入った。",
-								"ああ、写真をたくさん撮るVRChatにぴったりな方法があるじゃないか！",
-								"",
-								"こんな経緯で始まったのが、このおてぃるモザイクアートプロジェクトです。",
-							].join("\n")}
-						</p>
+						<p className={styles.text}>{MosaicIntroText}</p>
 
 						<Figure
 							src={MosaicArtImage}
@@ -131,12 +120,7 @@ const Page = async () => {
 
 						<section className={styles.subSection}>
 							<Heading level={3}>参加者</Heading>
-							<p className={styles.text}>
-								{[
-									"たくさんの方に協力していただき、約3000枚もの画像が集まりました。ありがとうございます！",
-									"人数が多いため、敬称略とさせていただきます。",
-								].join("\n")}
-							</p>
+							<p className={styles.text}>{ContributorsIntroText}</p>
 
 							<ul className={styles.contributors}>
 								{contributors.map(({ href, name, id }) => (
