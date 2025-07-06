@@ -118,7 +118,7 @@ const Page = async () => {
 						/>
 
 						<p className={styles.text}>
-							ウェブサイトに掲載するにあたって画像を圧縮しています。オリジナルので高画質版は
+							ウェブサイトに掲載するにあたって画像を圧縮しています。高画質版は
 							<Link
 								href="https://storage.ristill.club/2025/mosaic_24000_3.png"
 								target="_blank"
