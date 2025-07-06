@@ -115,7 +115,7 @@ const Page = async () => {
 							>
 								<span className={styles.text} data-strong>{`**ここから**`}</span>
 							</Link>
-							見ることができます。(20MB程度あるので回線が安定しているところで見ることをおすすめします。)
+							見ることができます。（20MB程度あるので回線が安定しているところで見ることをおすすめします。）
 						</p>
 
 						<section className={styles.subSection}>
