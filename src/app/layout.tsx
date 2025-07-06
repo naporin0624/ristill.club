@@ -23,22 +23,24 @@ export const metadata: Metadata = {
 		template: "%s | おてぃるふぁんくらぶ！",
 		default: "おてぃるふぁんくらぶ！",
 	},
-	description: "",
+	description:
+		"VRChatで活動するりすてぃる（おてぃる）のファンサイト。おてぃるの活動情報、ファンアート、イベント情報などを掲載しています。",
 	openGraph: {
 		title: {
 			template: "%s | おてぃるふぁんくらぶ！",
 			default: "おてぃるふぁんくらぶ！",
 		},
-		description: "",
+		description:
+			"VRChatで活動するりすてぃる（おてぃる）のファンサイト。おてぃるの活動情報、ファンアート、イベント情報などを掲載しています。",
 		url: "https://ristill.club",
 		type: "website",
 		siteName: "おてぃるふぁんくらぶ！",
 		images: [
 			{
-				url: "https://ristill.club/ogp.png",
+				url: "https://ristill.club/ogp.jpg",
 				width: 1200,
 				height: 630,
-				alt: "おてぃるふぁんくらぶ！のOGP画像",
+				alt: "おてぃるふぁんくらぶ！",
 			},
 		],
 	},
@@ -47,7 +49,8 @@ export const metadata: Metadata = {
 			template: "%s | おてぃるふぁんくらぶ！",
 			default: "おてぃるふぁんくらぶ！",
 		},
-		description: "",
+		description:
+			"VRChatで活動するりすてぃる（おてぃる）のファンサイト。おてぃるの活動情報、ファンアート、イベント情報などを掲載しています。",
 		creatorId: "@napochaan_vrc2",
 		creator: "napochaan",
 		card: "summary_large_image",

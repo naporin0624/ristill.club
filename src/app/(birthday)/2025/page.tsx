@@ -2,13 +2,54 @@ import Link from "next/link";
 
 import Image from "@components/image";
 
-import BannerImage from "./_assets/banner.png";
-import KVImage from "./_assets/kv.png";
-import MosaicArtImage from "./_assets/mosaic_24000.png";
+import BannerImage from "./_assets/banner.webp";
+import KVImage from "./_assets/kv.webp";
+import MosaicArtImage from "./_assets/mosaic_24000.webp";
 import { Figure } from "./_components/figure";
 import { Heading } from "./_components/heading";
 import { contributors } from "./contributors";
 import * as styles from "./styles.css";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "RISTILL BIRTHDAY 2025",
+	description:
+		"VRChatで活動するりすてぃる（おてぃる）の2025年誕生日を祝う特設サイト。みんなで作ったモザイクアート、ファンからのメッセージを掲載。",
+	openGraph: {
+		title: "RISTILL BIRTHDAY 2025",
+		description:
+			"VRChatで活動するりすてぃる（おてぃる）の2025年誕生日を祝う特設サイト。みんなで作ったモザイクアート、ファンからのメッセージを掲載。",
+		url: "https://ristill.club/2025",
+		type: "website",
+		images: [
+			{
+				url: "https://ristill.club/2025/ogp.jpg",
+				width: 1200,
+				height: 630,
+				alt: "RISTILL BIRTHDAY 2025/07/07",
+			},
+		],
+	},
+	twitter: {
+		title: "RISTILL BIRTHDAY 2025",
+		description:
+			"VRChatで活動するりすてぃる（おてぃる）の2025年誕生日を祝う特設サイト。みんなで作ったモザイクアート、ファンからのメッセージを掲載。",
+		card: "summary_large_image",
+		images: ["https://ristill.club/2025/ogp.jpg"],
+	},
+	keywords: [
+		"ristill_vr",
+		"おてぃる",
+		"りすてぃる",
+		"リスティル",
+		"VRChat",
+		"誕生日",
+		"2025",
+		"モザイクアート",
+		"ファンアート",
+	],
+};
 
 const Page = async () => {
 	return (
@@ -72,6 +113,7 @@ const Page = async () => {
 							src={MosaicArtImage}
 							alt="おてぃるの誕生日を祝うモザイクアート。24000個のタイルで構成され、中央に「RISTILL BIRTHDAY 2025/07/07」のテキストが表示されている。背景は様々な色とりどりのVRChatの写真で構成されている。"
 							caption="おてぃるbirthdayモザイクアート24000タイル"
+							placeholder="blur"
 						/>
 
 						<section className={styles.subSection}>
@@ -110,6 +152,7 @@ const Page = async () => {
 							src={BannerImage}
 							alt="おてぃるふぁんくらぶの宣伝バナー。青い背景に「おてぃる」と「ふぁんくらぶ!!」の文字が表示され、様々なVRChatアバターの女の子キャラクターたちが描かれている。カラフルで楽しい雰囲気のイラスト。"
 							caption="おてぃるふぁんくらぶ！バナー"
+							placeholder="blur"
 						/>
 						<p className={styles.text}>
 							<Link href="https://x.com/napochaan_vrc2" target="_blank" rel="noopener" className={styles.profileLink}>

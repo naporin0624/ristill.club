@@ -132,6 +132,9 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
+      sharp:
+        specifier: ^0.34.2
+        version: 0.34.2
       typescript:
         specifier: ^5.5.2
         version: 5.8.3
@@ -10002,7 +10005,6 @@ snapshots:
       '@img/sharp-win32-arm64': 0.34.2
       '@img/sharp-win32-ia32': 0.34.2
       '@img/sharp-win32-x64': 0.34.2
-    optional: true
 
   shebang-command@1.2.0:
     dependencies:
