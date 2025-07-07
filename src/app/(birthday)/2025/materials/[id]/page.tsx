@@ -68,6 +68,9 @@ const Page = async ({ params }: Props) => {
 	}
 
 	const material = materials[currentIndex];
+	if (!material) {
+		notFound();
+	}
 	const prevMaterial = currentIndex > 0 ? materials[currentIndex - 1] : null;
 	const nextMaterial = currentIndex < materials.length - 1 ? materials[currentIndex + 1] : null;
 

@@ -42,7 +42,7 @@ export const RelatedMaterials = ({ materials, currentId, count = 25 }: Props) =>
 			const material = materials[nextIndex];
 
 			// Skip the current material
-			if (material.id !== currentId) {
+			if (material && material.id !== currentId) {
 				related.push(material);
 			}
 

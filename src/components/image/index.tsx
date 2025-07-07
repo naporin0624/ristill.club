@@ -9,7 +9,7 @@ const Image = (props: Props) => {
 	const handleLoad = useCallback(
 		(event: SyntheticEvent<HTMLImageElement, Event>) => {
 			setLoading(false);
-			props?.onLoad?.(event);
+			props.onLoad?.(event);
 		},
 		[props],
 	);

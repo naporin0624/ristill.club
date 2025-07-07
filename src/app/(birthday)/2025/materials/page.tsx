@@ -4,7 +4,6 @@ import { ProgressBar } from "@components/progress-bar";
 
 import { Heading } from "../_components/heading";
 
-import { FloatingTopButtonWrapper } from "./_components/floating-top-button-wrapper";
 import { MaterialsGridWrapper } from "./_components/materials-grid-wrapper";
 import { ScrollProvider } from "./_components/scroll-context";
 import materialsData from "./materials.json";
@@ -83,7 +82,6 @@ const Page = async () => {
 						</div>
 					</section>
 				</div>
-				<FloatingTopButtonWrapper />
 			</div>
 		</ScrollProvider>
 	);

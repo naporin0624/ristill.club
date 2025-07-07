@@ -21,7 +21,7 @@ export const useScrollRestoration = () => {
 	const getSavedState = useCallback((): MultiColumnScrollState => {
 		if (typeof window === "undefined") return {};
 
-		return (window.history.state?.[STORAGE_KEY] as MultiColumnScrollState) ?? {};
+		return (window.history.state?.[STORAGE_KEY] as MultiColumnScrollState | null) ?? {};
 	}, []);
 
 	// Save current scroll state to history
@@ -31,13 +31,11 @@ export const useScrollRestoration = () => {
 		const state: MultiColumnScrollState = {};
 
 		for (const [columnId, virtualizer] of virtualizerRefs.current.entries()) {
-			if (virtualizer) {
-				state[columnId] = {
-					offset: window.scrollY,
-					cache: virtualizer.cache,
-					count: 0, // Will be set by component
-				};
-			}
+			state[columnId] = {
+				offset: window.scrollY,
+				cache: virtualizer.cache,
+				count: 0, // Will be set by component
+			};
 		}
 
 		window.history.replaceState(
@@ -133,9 +131,7 @@ export const useScrollRestoration = () => {
 	const scrollToTop = useCallback(() => {
 		// Scroll all virtualizers to index 0
 		for (const virtualizer of virtualizerRefs.current.values()) {
-			if (virtualizer && virtualizer.scrollToIndex) {
-				virtualizer.scrollToIndex(0, { align: "start", smooth: true });
-			}
+			virtualizer.scrollToIndex(0, { align: "start", smooth: true });
 		}
 
 		// Also scroll the main window to top
