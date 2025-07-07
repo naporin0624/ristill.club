@@ -24,15 +24,35 @@ type Props = {
 	count?: number;
 };
 
-export const RelatedMaterials = ({ materials, currentId, count = 20 }: Props) => {
+export const RelatedMaterials = ({ materials, currentId, count = 25 }: Props) => {
 	const relatedMaterials = useMemo(() => {
-		// Exclude current material
-		const filtered = materials.filter((material) => material.id !== currentId);
+		// Find current material index
+		const currentIndex = materials.findIndex((material) => material.id === currentId);
 
-		// Get random selection
-		const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+		if (currentIndex === -1) {
+			return materials.slice(0, count);
+		}
 
-		return shuffled.slice(0, count);
+		// Get consecutive materials starting from the next one, wrapping around if needed
+		const related: MaterialData[] = [];
+		const totalMaterials = materials.length;
+
+		for (let i = 1; related.length < count; i++) {
+			const nextIndex = (currentIndex + i) % totalMaterials;
+			const material = materials[nextIndex];
+
+			// Skip the current material
+			if (material.id !== currentId) {
+				related.push(material);
+			}
+
+			// Prevent infinite loop in case there's only one material
+			if (i >= totalMaterials) {
+				break;
+			}
+		}
+
+		return related;
 	}, [materials, currentId, count]);
 
 	// Create masonry columns with balanced heights
@@ -66,15 +86,17 @@ export const RelatedMaterials = ({ materials, currentId, count = 20 }: Props) =>
 	}, [relatedMaterials]);
 
 	return (
-		<section className={styles.root}>
-			<h2 className={styles.title}>その他の画像</h2>
+		<section className={styles.root} aria-labelledby="related-materials-heading">
+			<h2 id="related-materials-heading" className={styles.title}>
+				その他の画像
+			</h2>
 			<div className={styles.container}>
-				<div className={styles.masonryGrid}>
+				<div className={styles.masonryGrid} role="list" aria-label={`関連する画像 ${relatedMaterials.length}枚`}>
 					{gridItems.map((column) => (
 						<div key={column.id} className={styles.column}>
 							<WindowVirtualizer>
 								{column.items.map((material) => (
-									<div key={material.id} className={styles.gridItem}>
+									<div key={material.id} className={styles.gridItem} role="listitem">
 										<MaterialItem material={material} />
 									</div>
 								))}

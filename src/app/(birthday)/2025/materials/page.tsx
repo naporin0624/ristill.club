@@ -1,20 +1,24 @@
 import { Link } from "next-view-transitions";
 
+import { ProgressBar } from "@components/progress-bar";
+
 import { Heading } from "../_components/heading";
 
-import { MaterialsGrid } from "./_components/materials-grid";
+import { FloatingTopButtonWrapper } from "./_components/floating-top-button-wrapper";
+import { MaterialsGridWrapper } from "./_components/materials-grid-wrapper";
+import { ScrollProvider } from "./_components/scroll-context";
 import materialsData from "./materials.json";
 import * as styles from "./styles.css";
 
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "モザイクアート材料 - RISTILL BIRTHDAY 2025",
+	title: "MosaicArt Materials - RISTILL BIRTHDAY 2025",
 	description:
-		"おてぃるの2025年誕生日を祝うモザイクアートに使用された材料画像の一覧ページ。3,000枚の画像から作られた24,000タイルのモザイクアート。",
+		"おてぃるの2025年誕生日を祝うモザイクアートに使用された画像の一覧ページ。3,000枚の画像から作られた24,000タイルのモザイクアート。",
 	openGraph: {
-		title: "モザイクアート材料 - RISTILL BIRTHDAY 2025",
-		description: "おてぃるの2025年誕生日を祝うモザイクアートに使用された材料画像の一覧ページ。",
+		title: "MosaicArt Materials - RISTILL BIRTHDAY 2025",
+		description: "おてぃるの2025年誕生日を祝うモザイクアートに使用された画像の一覧ページ。",
 		url: "https://ristill.club/2025/materials",
 		type: "website",
 		images: [
@@ -27,8 +31,8 @@ export const metadata: Metadata = {
 		],
 	},
 	twitter: {
-		title: "モザイクアート材料 - RISTILL BIRTHDAY 2025",
-		description: "おてぃるの2025年誕生日を祝うモザイクアートに使用された材料画像の一覧ページ。",
+		title: "MosaicArt Materials - RISTILL BIRTHDAY 2025",
+		description: "おてぃるの2025年誕生日を祝うモザイクアートに使用された画像の一覧ページ。",
 		card: "summary_large_image",
 		images: ["https://ristill.club/2025/ogp.jpg"],
 	},
@@ -49,33 +53,39 @@ const Page = async () => {
 	const materials: MaterialData[] = materialsData;
 
 	return (
-		<div className={styles.root}>
-			<div className={styles.screen}>
-				<section className={styles.section}>
-					<div className={styles.contents}>
-						<Link href="/2025" className={styles.backLink}>
-							← メインページに戻る
-						</Link>
+		<ScrollProvider>
+			<div className={styles.root}>
+				<ProgressBar />
+				<div className={styles.screen}>
+					<section className={styles.section} aria-labelledby="materials-heading">
+						<div className={styles.contents}>
+							<Link href="/2025" className={styles.backLink} aria-label="メインページに戻る">
+								← メインページに戻る
+							</Link>
 
-						<Heading level={1}>Mosaic Art Materials</Heading>
+							<Heading level={1} id="materials-heading">
+								Mosaic Art Materials
+							</Heading>
 
-						<p className={styles.text}>
-							おてぃるの誕生日を祝うモザイクアートに使用された材料画像です。
-							{"\n"}
-							みなさんからご提供いただいた大切な写真やイラストを使って、24,000タイルの素敵なモザイクアートが完成しました。
-						</p>
+							<p className={styles.text}>
+								おてぃるの誕生日を祝うモザイクアートに使用された画像です。
+								{"\n"}
+								みなさんからご提供いただいた大切な写真やイラストを使って、24,000タイルの素敵なモザイクアートが完成しました。
+							</p>
 
-						<MaterialsGrid materials={materials} />
+							<MaterialsGridWrapper materials={materials} />
 
-						<p className={styles.text}>
-							すべての材料を提供してくださったみなさまに心から感謝いたします。
-							{"\n"}
-							おてぃるお誕生日おめでとう！🎉
-						</p>
-					</div>
-				</section>
+							<p className={styles.text}>
+								すべての素材を提供してくださったみなさまに心から感謝いたします。
+								{"\n"}
+								おてぃるお誕生日おめでとう！🎉
+							</p>
+						</div>
+					</section>
+				</div>
+				<FloatingTopButtonWrapper />
 			</div>
-		</div>
+		</ScrollProvider>
 	);
 };
 

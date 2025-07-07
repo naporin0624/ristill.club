@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import Script from "next/script";
 import { Link } from "next-view-transitions";
 
-
 import { Loading } from "./2025/_components/loading";
 import * as styles from "./layout.css";
 

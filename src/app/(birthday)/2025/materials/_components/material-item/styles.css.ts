@@ -33,12 +33,14 @@ export const imageContainer = style({
 	position: "relative",
 	overflow: "hidden",
 	backgroundColor: "#f5f5f5",
+	width: "100%",
 });
 
 export const image = style({
 	display: "block",
 	width: "100%",
-	height: "auto",
+	height: "100%",
+	objectFit: "cover",
 	transition: "transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)",
 
 	selectors: {

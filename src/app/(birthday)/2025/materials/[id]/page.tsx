@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		description: `おてぃるの2025年誕生日モザイクアートに使用された${material.displayName}の詳細ページ。`,
 		openGraph: {
 			title: `${material.displayName} - RISTILL BIRTHDAY 2025`,
-			description: `おてぃるの2025年誕生日モザイクアートに使用された材料画像`,
+			description: `おてぃるの2025年誕生日モザイクアートに使用された素材画像`,
 			url: `https://ristill.club/2025/materials/${id}`,
 			type: "website",
 			images: [
@@ -77,8 +77,8 @@ const Page = async ({ params }: Props) => {
 			<div className={styles.container}>
 				{/* Header */}
 				<header className={styles.header}>
-					<Link href="/2025/materials" className={styles.backButton} aria-label="材料一覧に戻る">
-						← 材料一覧に戻る
+					<Link href="/2025/materials" className={styles.backButton} aria-label="素材一覧に戻る">
+						← 素材一覧に戻る
 					</Link>
 					<nav className={styles.navigation} aria-label="画像ナビゲーション">
 						{prevMaterial ? (
@@ -103,12 +103,12 @@ const Page = async ({ params }: Props) => {
 				</header>
 
 				{/* Main Content */}
-				<main className={styles.main}>
+				<article className={styles.main} aria-labelledby="material-title">
 					<div className={styles.imageSection}>
 						<div className={styles.imageContainer}>
 							<Image
 								src={material.url}
-								alt={material.displayName}
+								alt={`MosaicArt Material「${material.displayName}」（全${materials.length}枚中${currentIndex + 1}番目）`}
 								width={material.width}
 								height={material.height}
 								className={styles.image}
@@ -124,9 +124,11 @@ const Page = async ({ params }: Props) => {
 					</div>
 
 					<aside className={styles.sidebar}>
-						<div className={styles.imageInfo}>
-							<Heading level={1}>{material.displayName}</Heading>
-							<dl className={styles.metadataList}>
+						<div className={styles.imageInfo} role="region" aria-labelledby="material-title">
+							<Heading level={1} id="material-title">
+								{material.displayName}
+							</Heading>
+							<dl className={styles.metadataList} aria-label="画像詳細情報">
 								<div className={styles.metadataItem}>
 									<dt>画像番号</dt>
 									<dd>{material.id}</dd>
@@ -134,7 +136,9 @@ const Page = async ({ params }: Props) => {
 								<div className={styles.metadataItem}>
 									<dt>全体での位置</dt>
 									<dd>
-										{currentIndex + 1} / {materials.length}
+										<span aria-label={`全${materials.length}枚中${currentIndex + 1}番目`}>
+											{currentIndex + 1} / {materials.length}
+										</span>
 									</dd>
 								</div>
 							</dl>
@@ -161,7 +165,7 @@ const Page = async ({ params }: Props) => {
 							</dl>
 						</div>
 					</aside>
-				</main>
+				</article>
 
 				{/* Related Materials */}
 				<RelatedMaterials materials={materials} currentId={material.id} />

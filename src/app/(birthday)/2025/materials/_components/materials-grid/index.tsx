@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
-import { WindowVirtualizer } from "virtua";
+import { forwardRef, useImperativeHandle, useMemo } from "react";
 
-import { MaterialItem } from "../material-item";
+import { useScrollRestoration } from "../../_hooks/use-scroll-restoration";
+import { ColumnVirtualizer } from "../column-virtualizer";
 
 import * as styles from "./styles.css";
 
@@ -22,7 +22,21 @@ type Props = {
 	materials: MaterialData[];
 };
 
-export const MaterialsGrid = ({ materials }: Props) => {
+export type MaterialsGridHandle = {
+	scrollToTop: () => void;
+};
+
+export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials }, ref) => {
+	const { registerVirtualizer, getInitialState, scrollToTop } = useScrollRestoration();
+
+	useImperativeHandle(
+		ref,
+		() => ({
+			scrollToTop,
+		}),
+		[scrollToTop],
+	);
+
 	// Create responsive grid layout data for masonry effect with balanced heights
 	const gridItems = useMemo(() => {
 		// Responsive column count based on screen size
@@ -57,19 +71,25 @@ export const MaterialsGrid = ({ materials }: Props) => {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.masonryGrid}>
-				{gridItems.map((column) => (
-					<div key={column.id} className={styles.column}>
-						<WindowVirtualizer>
-							{column.items.map((material) => (
-								<div key={material.id} className={styles.gridItem}>
-									<MaterialItem material={material} />
-								</div>
-							))}
-						</WindowVirtualizer>
-					</div>
-				))}
+			<div className={styles.masonryGrid} role="list" aria-label={`モザイクアート素材画像 ${materials.length}枚`}>
+				{gridItems.map((column, columnIndex) => {
+					const columnId = `column-${columnIndex}`;
+					const { initialCache } = getInitialState(columnId, column.items.length);
+
+					return (
+						<div key={column.id} className={styles.column}>
+							<ColumnVirtualizer
+								columnId={columnId}
+								items={column.items}
+								initialCache={initialCache}
+								onRegisterVirtualizer={registerVirtualizer}
+							/>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);
-};
+});
+
+MaterialsGrid.displayName = "MaterialsGrid";

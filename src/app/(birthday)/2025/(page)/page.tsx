@@ -120,7 +120,7 @@ const Page = async () => {
 						</p>
 
 						<p className={styles.text}>
-							モザイクアートに使用された材料画像は
+							モザイクアートに使用された画像は
 							<Link href="/2025/materials" className={styles.hightResolutionLink}>
 								<span className={styles.text} data-strong>{`**こちら**`}</span>
 							</Link>

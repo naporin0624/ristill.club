@@ -25,13 +25,16 @@ type Props = {
 export const MaterialItem = ({ material, className }: Props) => {
 	const { id, displayName, url, width, height } = material;
 
+	// Calculate aspect ratio to prevent layout shift
+	const aspectRatio = width / height;
+
 	return (
 		<Link
 			href={`/2025/materials/${id}`}
 			className={clsx(styles.root, className)}
 			aria-label={`${displayName}を拡大表示`}
 		>
-			<div className={styles.imageContainer} aria-hidden="true">
+			<div className={styles.imageContainer} aria-hidden="true" style={{ aspectRatio }}>
 				<Image
 					src={url}
 					alt=""
