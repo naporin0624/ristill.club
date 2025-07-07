@@ -2,11 +2,12 @@ import { Link } from "next-view-transitions";
 
 import Image from "@components/image";
 
+import { Figure } from "../_components/figure";
+import { Heading } from "../_components/heading";
+
 import BannerImage from "./_assets/banner.webp";
 import KVImage from "./_assets/kv.webp";
 import MosaicArtImage from "./_assets/mosaic_24000_4.webp";
-import { Figure } from "./_components/figure";
-import { Heading } from "./_components/heading";
 import AboutText from "./about.txt";
 import ConclusionText from "./conclusion.txt";
 import { contributors } from "./contributors";

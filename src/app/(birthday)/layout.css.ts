@@ -55,7 +55,3 @@ export const copyright = style([
 		fontWeight: 500,
 	},
 ]);
-
-export const bubbleRoot = style({
-	zIndex: 2,
-});

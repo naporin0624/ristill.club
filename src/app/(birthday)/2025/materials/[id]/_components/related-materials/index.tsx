@@ -67,7 +67,7 @@ export const RelatedMaterials = ({ materials, currentId, count = 20 }: Props) =>
 
 	return (
 		<section className={styles.root}>
-			<h2 className={styles.title}>他の材料画像</h2>
+			<h2 className={styles.title}>その他の画像</h2>
 			<div className={styles.container}>
 				<div className={styles.masonryGrid}>
 					{gridItems.map((column) => (
