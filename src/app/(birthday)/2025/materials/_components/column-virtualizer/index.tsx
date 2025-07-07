@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { WindowVirtualizer } from "virtua";
 
 import { MaterialItem } from "../material-item";
@@ -25,9 +25,10 @@ type Props = {
 	items: MaterialData[];
 	initialCache?: CacheSnapshot;
 	onRegisterVirtualizer: (columnId: string, virtualizer: WindowVirtualizerHandle | null, itemCount: number) => void;
+	onScrollEnd?: () => void; // New prop for scroll end handling
 };
 
-export const ColumnVirtualizer = ({ columnId, items, initialCache, onRegisterVirtualizer }: Props) => {
+export const ColumnVirtualizer = ({ columnId, items, initialCache, onRegisterVirtualizer, onScrollEnd }: Props) => {
 	const [visibleRange, setVisibleRange] = useState<{ start: number; end: number } | null>(null);
 
 	const handleRef = useCallback(
@@ -36,6 +37,8 @@ export const ColumnVirtualizer = ({ columnId, items, initialCache, onRegisterVir
 		},
 		[columnId, onRegisterVirtualizer, items.length],
 	);
+
+	const scrollTimeoutRef = useRef<number | null>(null);
 
 	const handleScroll = useCallback(() => {
 		// Update loading state and visible range for screen readers
@@ -48,11 +51,31 @@ export const ColumnVirtualizer = ({ columnId, items, initialCache, onRegisterVir
 				setVisibleRange({ start: start + 1, end: end + 1 }); // 1-indexed for screen readers
 			}
 		}
-	}, [columnId]);
+
+		// Handle scroll end detection for state saving
+		if (onScrollEnd) {
+			// Clear existing timeout
+			if (scrollTimeoutRef.current !== null) {
+				window.clearTimeout(scrollTimeoutRef.current);
+			}
+
+			// Set new timeout for scroll end detection
+			scrollTimeoutRef.current = window.setTimeout(() => {
+				onScrollEnd();
+				scrollTimeoutRef.current = null;
+			}, 150); // Same debounce time as in the hook
+		}
+	}, [columnId, onScrollEnd]);
 
 	// Cleanup on unmount
 	useEffect(() => {
 		return () => {
+			// Clear scroll timeout
+			if (scrollTimeoutRef.current !== null) {
+				window.clearTimeout(scrollTimeoutRef.current);
+				scrollTimeoutRef.current = null;
+			}
+			// Unregister virtualizer
 			onRegisterVirtualizer(columnId, null, 0);
 		};
 	}, [columnId, onRegisterVirtualizer]);

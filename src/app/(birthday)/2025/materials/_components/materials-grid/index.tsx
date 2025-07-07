@@ -27,7 +27,7 @@ export type MaterialsGridHandle = {
 };
 
 export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials }, ref) => {
-	const { registerVirtualizer, getInitialState, scrollToTop } = useScrollRestoration();
+	const { registerVirtualizer, getInitialState, scrollToTop, createScrollEndHandler } = useScrollRestoration();
 
 	useImperativeHandle(
 		ref,
@@ -75,6 +75,7 @@ export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials
 				{gridItems.map((column, columnIndex) => {
 					const columnId = `column-${columnIndex}`;
 					const { initialCache } = getInitialState(columnId, column.items.length);
+					const handleScrollEnd = createScrollEndHandler(columnId);
 
 					return (
 						<div key={column.id} className={styles.column}>
@@ -83,6 +84,7 @@ export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials
 								items={column.items}
 								initialCache={initialCache}
 								onRegisterVirtualizer={registerVirtualizer}
+								onScrollEnd={handleScrollEnd}
 							/>
 						</div>
 					);
