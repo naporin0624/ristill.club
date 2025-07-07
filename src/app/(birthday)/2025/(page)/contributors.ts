@@ -25,4 +25,5 @@ export const contributors: Contributor[] = [
 	{ id: "nago_vrc", name: "nago", href: "https://x.com/nago_vrc" },
 	{ id: "kizuna_kozue", name: "烽梨(ふうり)", href: "https://x.com/kizuna_kozue" },
 	{ id: "C_Lateness", name: "ちこく_Lateness", href: "https://x.com/C_Lateness" },
+	{ id: "Pika_1237", name: "ぴか", href: "https://x.com/Pika_1237" },
 ];
