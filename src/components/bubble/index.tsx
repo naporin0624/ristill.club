@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
 
 import { clsx } from "@utils/clsx";
 
@@ -35,7 +35,7 @@ type BubbleAnimationProps = {
 };
 
 export const BubbleAnimation = ({ bubbleCount = 12, className }: BubbleAnimationProps) => {
-	const [bubbles] = useState<Bubble[]>(() => {
+	const bubbles = useMemo<Bubble[]>(() => {
 		return Array.from({ length: bubbleCount }, (_, i) => ({
 			id: i,
 			x: ((i * 7.5) % 90) + 5,
@@ -43,7 +43,7 @@ export const BubbleAnimation = ({ bubbleCount = 12, className }: BubbleAnimation
 			animationType: ((i % 4) + 1) as 1 | 2 | 3 | 4,
 			delay: -((i * 1.25) % 15),
 		}));
-	});
+	}, [bubbleCount]);
 
 	return (
 		<div className={clsx(styles.root, className)}>
