@@ -35,6 +35,7 @@ const config = [
 			"**/*.open-next/**",
 			".tsbuildinfo",
 			"public",
+			"scripts/**",
 		],
 	},
 	{

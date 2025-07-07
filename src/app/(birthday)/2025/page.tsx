@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 import Image from "@components/image";
 
@@ -116,6 +116,14 @@ const Page = async () => {
 								<span className={styles.text} data-strong>{`**ここから**`}</span>
 							</Link>
 							見ることができます。（20MB程度あるので回線が安定しているところで見ることをおすすめします。）
+						</p>
+
+						<p className={styles.text}>
+							モザイクアートに使用された材料画像は
+							<Link href="/2025/materials" className={styles.hightResolutionLink}>
+								<span className={styles.text} data-strong>{`**こちら**`}</span>
+							</Link>
+							から見ることができます。
 						</p>
 
 						<section className={styles.subSection}>

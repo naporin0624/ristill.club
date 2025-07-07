@@ -1,4 +1,5 @@
 import { Noto_Sans_JP } from "next/font/google";
+import { ViewTransitions } from "next-view-transitions";
 
 import { ThemeProvider } from "@themes/provider";
 import { clsx } from "@utils/clsx";
@@ -72,11 +73,13 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
 	return (
-		<html lang="ja" className={styles.html}>
-			<ThemeProvider asChild>
-				<body className={clsx(styles.body, notosansjp.variable)}>{children}</body>
-			</ThemeProvider>
-		</html>
+		<ViewTransitions>
+			<html lang="ja" className={styles.html}>
+				<ThemeProvider asChild>
+					<body className={clsx(styles.body, notosansjp.variable)}>{children}</body>
+				</ThemeProvider>
+			</html>
+		</ViewTransitions>
 	);
 };
 
