@@ -46,9 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			description: `おてぃるの2025年誕生日モザイクアートに使用された素材画像`,
 			url: `https://ristill.club/2025/materials/${id}`,
 			type: "website",
-		},
-		twitter: {
-			card: "summary_large_image",
+			images: [
+				{
+					url: material.url,
+					width: 1200,
+					height: 630,
+					alt: material.displayName,
+				},
+			],
 		},
 	};
 }
