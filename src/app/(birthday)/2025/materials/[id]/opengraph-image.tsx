@@ -40,7 +40,15 @@ async function urlToDataUri(url: string): Promise<string> {
 		const contentType = response.headers.get("content-type") ?? "image/png";
 		const arrayBuffer = await response.arrayBuffer();
 		const uint8Array = new Uint8Array(arrayBuffer);
-		const base64 = btoa(String.fromCharCode(...uint8Array));
+
+		// Convert to base64 in chunks to avoid stack overflow with large images
+		let binary = "";
+		const chunkSize = 0x8000; // 32KB chunks
+		for (let i = 0; i < uint8Array.length; i += chunkSize) {
+			const chunk = uint8Array.subarray(i, i + chunkSize);
+			binary += String.fromCharCode(...chunk);
+		}
+		const base64 = btoa(binary);
 
 		return `data:${contentType};base64,${base64}`;
 	} catch (error) {
