@@ -8,40 +8,26 @@ export const container = style({
 	containerType: "inline-size",
 });
 
-// Pure CSS Pinterest-style masonry layout using CSS Multi-Column
+// Masonic grid container
 export const masonryGrid = style({
-	// CSS Multi-Column Layout (universal browser support)
-	columnWidth: "280px", // Mobile: 1-2 columns
-	columnGap: "16px",
-	padding: "0",
 	width: "100%",
+	height: "100vh", // Full viewport height for virtual scrolling
+	overflowY: "auto",
+	overflowX: "hidden",
+	position: "relative",
 
-	// Container queries using Vanilla Extract syntax
-	"@container": {
-		[`${gridContainer} (min-width: 640px)`]: {
-			columnGap: "20px",
-			columnWidth: "300px", // Tablet: 2-3 columns
-		},
-		[`${gridContainer} (min-width: 1024px)`]: {
-			columnGap: "24px",
-			columnWidth: "280px", // Desktop: 4 columns (smaller width = more columns)
-		},
-		[`${gridContainer} (min-width: 1440px)`]: {
-			columnGap: "32px",
-			columnWidth: "320px", // Large desktop: 4 columns with more spacing
-		},
-	},
+	// Smooth scrolling
+	scrollBehavior: "smooth",
+
+	// Performance optimizations
+	willChange: "scroll-position",
+	contain: "layout paint",
 });
 
-// Additional class for grid enhancement (can be combined with masonryGrid)
-export const masonryGridLarge = style({});
-
-// Individual item styling
+// Individual item styling for masonic grid
 export const gridItem = style({
-	// Multi-column layout properties
-	breakInside: "avoid", // Prevent items from breaking across columns
-	marginBottom: "16px", // Space between items in columns
 	width: "100%", // Full width within column
+	display: "block",
 
 	// Performance optimizations
 	contain: "layout paint",
@@ -58,19 +44,6 @@ export const gridItem = style({
 		},
 		"&:focus-within": {
 			boxShadow: "0 0 0 3px rgba(94, 201, 255, 0.5), 0 8px 32px rgba(0, 0, 0, 0.15)",
-		},
-	},
-
-	// Container query responsive spacing
-	"@container": {
-		[`${gridContainer} (min-width: 640px)`]: {
-			marginBottom: "20px",
-		},
-		[`${gridContainer} (min-width: 1024px)`]: {
-			marginBottom: "24px",
-		},
-		[`${gridContainer} (min-width: 1440px)`]: {
-			marginBottom: "32px",
 		},
 	},
 });
