@@ -1,7 +1,5 @@
 import { Link } from "next-view-transitions";
 
-import { ProgressBar } from "@components/progress-bar";
-
 import { Heading } from "../_components/heading";
 
 import { MaterialsGridWrapper } from "./_components/materials-grid-wrapper";
@@ -54,7 +52,6 @@ const Page = async () => {
 	return (
 		<ScrollProvider>
 			<div className={styles.root}>
-				<ProgressBar />
 				<div className={styles.screen}>
 					<section className={styles.section} aria-labelledby="materials-heading">
 						<div className={styles.contents}>
