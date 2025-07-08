@@ -4,15 +4,18 @@ type StoredScrollState = {
 	index: number;
 	scrollY: number;
 	timestamp: number;
+	positionerData?: unknown; // Store positioner cache data
 };
 
 const STORAGE_KEY = "masonic-materials-scroll";
+const POSITIONER_CACHE_KEY = "masonic-materials-positioner";
 const STORAGE_EXPIRY = 1000 * 60 * 30; // 30 minutes
 
 export const useMasonicScrollRestoration = () => {
 	const firstVisibleIndex = useRef<number>(0);
 	const isRestoring = useRef<boolean>(false);
 	const hasRestoredOnce = useRef<boolean>(false);
+	const positionerRef = useRef<unknown>(null); // Store reference to positioner
 	const [scrollToIndex, setScrollToIndex] = useState<number | undefined>(undefined);
 
 	// Get stored scroll state
@@ -43,6 +46,77 @@ export const useMasonicScrollRestoration = () => {
 		}
 	}, []);
 
+	// Save positioner cache data
+	const savePositionerCache = useCallback((positioner: unknown) => {
+		if (typeof window === "undefined" || positioner === null || positioner === undefined) return;
+
+		try {
+			// Store reference to positioner for later cache export
+			positionerRef.current = positioner;
+
+			// Export positioner data if it has an export method
+			if (typeof positioner === "object" && "export" in positioner) {
+				const positionerData = (positioner as { export: () => unknown }).export();
+				const cacheData = {
+					data: positionerData,
+					timestamp: Date.now(),
+				};
+
+				window.sessionStorage.setItem(POSITIONER_CACHE_KEY, JSON.stringify(cacheData));
+
+				if (process.env.NODE_ENV === "development") {
+					// eslint-disable-next-line no-console
+					console.log("[MasonicScrollRestoration] Saved positioner cache");
+				}
+			}
+		} catch (error) {
+			if (process.env.NODE_ENV === "development") {
+				// eslint-disable-next-line no-console
+				console.warn("[MasonicScrollRestoration] Failed to save positioner cache:", error);
+			}
+		}
+	}, []);
+
+	// Restore positioner cache data
+	const restorePositionerCache = useCallback((positioner: unknown) => {
+		if (typeof window === "undefined" || positioner === null || positioner === undefined) return false;
+
+		try {
+			const stored = window.sessionStorage.getItem(POSITIONER_CACHE_KEY);
+			if (stored === null || stored === "") return false;
+
+			const cacheData = JSON.parse(stored) as { data: unknown; timestamp: number };
+
+			// Check if cache has expired
+			if (Date.now() - cacheData.timestamp > STORAGE_EXPIRY) {
+				window.sessionStorage.removeItem(POSITIONER_CACHE_KEY);
+
+				return false;
+			}
+
+			// Import cached data if positioner has an import method
+			if (typeof positioner === "object" && "import" in positioner) {
+				(positioner as { import: (data: unknown) => void }).import(cacheData.data);
+
+				if (process.env.NODE_ENV === "development") {
+					// eslint-disable-next-line no-console
+					console.log("[MasonicScrollRestoration] Restored positioner cache");
+				}
+
+				return true;
+			}
+
+			return false;
+		} catch (error) {
+			if (process.env.NODE_ENV === "development") {
+				// eslint-disable-next-line no-console
+				console.warn("[MasonicScrollRestoration] Failed to restore positioner cache:", error);
+			}
+
+			return false;
+		}
+	}, []);
+
 	// Save current scroll state
 	const saveState = useCallback(() => {
 		if (typeof window === "undefined" || isRestoring.current) return;
@@ -56,6 +130,11 @@ export const useMasonicScrollRestoration = () => {
 		try {
 			window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 
+			// Also save positioner cache if available
+			if (positionerRef.current !== null) {
+				savePositionerCache(positionerRef.current);
+			}
+
 			if (process.env.NODE_ENV === "development") {
 				// eslint-disable-next-line no-console
 				console.log("[MasonicScrollRestoration] Saved state:", state);
@@ -66,7 +145,7 @@ export const useMasonicScrollRestoration = () => {
 				console.warn("[MasonicScrollRestoration] Failed to save state:", error);
 			}
 		}
-	}, []);
+	}, [savePositionerCache]);
 
 	// Restore scroll position using masonic's scrollToIndex prop
 	const restoreScrollPosition = useCallback((state: StoredScrollState) => {
@@ -195,9 +274,10 @@ export const useMasonicScrollRestoration = () => {
 	const clearStoredState = useCallback(() => {
 		try {
 			window.sessionStorage.removeItem(STORAGE_KEY);
+			window.sessionStorage.removeItem(POSITIONER_CACHE_KEY);
 			if (process.env.NODE_ENV === "development") {
 				// eslint-disable-next-line no-console
-				console.log("[MasonicScrollRestoration] Cleared stored state");
+				console.log("[MasonicScrollRestoration] Cleared stored state and positioner cache");
 			}
 		} catch (error) {
 			if (process.env.NODE_ENV === "development") {
@@ -212,5 +292,7 @@ export const useMasonicScrollRestoration = () => {
 		scrollToTop,
 		scrollToIndex,
 		clearStoredState,
+		savePositionerCache,
+		restorePositionerCache,
 	};
 };

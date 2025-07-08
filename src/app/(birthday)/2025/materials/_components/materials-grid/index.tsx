@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { forwardRef, useCallback, useImperativeHandle, type ComponentType } from "react";
+import { forwardRef, useCallback, useImperativeHandle, useRef, useEffect, type ComponentType } from "react";
 
 import { useMasonicScrollRestoration } from "../../_hooks/use-masonic-scroll-restoration";
 import { useResponsiveMasonry } from "../../_hooks/use-responsive-masonry";
@@ -36,8 +36,10 @@ export type MaterialsGridHandle = {
 };
 
 export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials }, ref) => {
-	const { handleRender, scrollToTop, scrollToIndex } = useMasonicScrollRestoration();
-	const { columnWidth, columnGutter, rowGutter } = useResponsiveMasonry();
+	const { handleRender, scrollToTop, scrollToIndex, savePositionerCache, restorePositionerCache } =
+		useMasonicScrollRestoration();
+	const { columnWidth, columnGutter, rowGutter, itemHeightEstimate } = useResponsiveMasonry();
+	const positionerRef = useRef<unknown>(null);
 
 	useImperativeHandle(
 		ref,
@@ -46,6 +48,25 @@ export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials
 		}),
 		[scrollToTop],
 	);
+
+	// Initialize positioner cache on mount
+	useEffect(() => {
+		if (positionerRef.current !== null) {
+			restorePositionerCache(positionerRef.current);
+			savePositionerCache(positionerRef.current);
+		}
+	}, [restorePositionerCache, savePositionerCache]);
+
+	// Save positioner cache when component unmounts or materials change
+	useEffect(() => {
+		return () => {
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+			const currentPositioner = positionerRef.current;
+			if (currentPositioner !== null) {
+				savePositionerCache(currentPositioner);
+			}
+		};
+	}, [savePositionerCache]);
 
 	const renderItem = useCallback(
 		({ data: material, width, index }: { data: MaterialData; width: number; index: number }) => (
@@ -70,13 +91,15 @@ export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials
 				columnWidth={columnWidth}
 				columnGutter={columnGutter}
 				rowGutter={rowGutter}
-				overscanBy={2}
+				itemHeightEstimate={itemHeightEstimate}
+				overscanBy={1} // Reduced from 2 to 1 for better performance
 				className={styles.masonryGrid}
 				role="list"
 				aria-label={`モザイクアート素材画像 ${materials.length}枚`}
 				onRender={handleRender}
 				scrollToIndex={scrollToIndex}
 				render={renderItem}
+				resizeObserver={undefined} // Disable ResizeObserver since we have pre-calculated dimensions
 			/>
 		</div>
 	);

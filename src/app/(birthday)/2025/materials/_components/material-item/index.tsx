@@ -1,4 +1,5 @@
 import { Link } from "next-view-transitions";
+import { memo } from "react";
 
 import Image from "@components/image";
 import { formatBlurURL } from "@components/image/helper";
@@ -22,7 +23,7 @@ type Props = {
 	className?: string;
 };
 
-export const MaterialItem = ({ material, className }: Props) => {
+const MaterialItemComponent = ({ material, className }: Props) => {
 	const { id, displayName, url, width, height } = material;
 
 	// Calculate aspect ratio to prevent layout shift
@@ -55,3 +56,6 @@ export const MaterialItem = ({ material, className }: Props) => {
 		</Link>
 	);
 };
+
+// Memoize component to prevent unnecessary re-renders
+export const MaterialItem = memo(MaterialItemComponent);
