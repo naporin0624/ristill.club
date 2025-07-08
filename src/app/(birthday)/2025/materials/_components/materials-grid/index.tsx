@@ -29,13 +29,14 @@ const Masonry = dynamic(() => import("masonic").then((mod) => mod.Masonry), { ss
 
 type Props = {
 	materials: MaterialData[];
+	height?: string;
 };
 
 export type MaterialsGridHandle = {
 	scrollToTop: () => void;
 };
 
-export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials }, ref) => {
+export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials, height }, ref) => {
 	const { handleRender, scrollToTop, scrollToIndex, savePositionerCache, restorePositionerCache } =
 		useMasonicScrollRestoration();
 	const { columnWidth, columnGutter, rowGutter, itemHeightEstimate } = useResponsiveMasonry();
@@ -84,6 +85,9 @@ export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials
 		[materials.length],
 	);
 
+	const gridHeight = height !== undefined && height !== "auto" ? height : "100vh";
+	const useCustomStyle = height !== undefined;
+	
 	return (
 		<div className={styles.container}>
 			<Masonry
@@ -93,7 +97,8 @@ export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials
 				rowGutter={rowGutter}
 				itemHeightEstimate={itemHeightEstimate}
 				overscanBy={1} // Reduced from 2 to 1 for better performance
-				className={styles.masonryGrid}
+				className={useCustomStyle ? styles.masonryGridCustom : styles.masonryGrid}
+				style={useCustomStyle ? { height: gridHeight } : undefined}
 				role="list"
 				aria-label={`モザイクアート素材画像 ${materials.length}枚`}
 				onRender={handleRender}

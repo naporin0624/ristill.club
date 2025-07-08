@@ -4,7 +4,6 @@ import materialsData from "../materials.json";
 
 import notoSansJPFont from "./_assets/NotoSansJP-Medium.ttf";
 
-export const runtime = "edge";
 export const contentType = "image/png";
 export const size = { width: 1200, height: 630 };
 
@@ -23,15 +22,44 @@ type Props = {
 	params: Promise<{ id: string }>;
 };
 
+// Helper function to convert image URL to data URI for Cloudflare Workers compatibility
+async function urlToDataUri(url: string): Promise<string> {
+	try {
+		const response = await fetch(url, {
+			headers: {
+				Accept: "image/png,image/jpeg;q=0.9,*/*;q=0.1",
+				"User-Agent":
+					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
+			},
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to fetch image: ${response.status}`);
+		}
+
+		const contentType = response.headers.get("content-type") ?? "image/png";
+		const arrayBuffer = await response.arrayBuffer();
+		const uint8Array = new Uint8Array(arrayBuffer);
+		const base64 = btoa(String.fromCharCode(...uint8Array));
+
+		return `data:${contentType};base64,${base64}`;
+	} catch (error) {
+		// eslint-disable-next-line no-console
+		console.error("Error converting image to data URI:", error);
+		throw error;
+	}
+}
+
 export default async function OGImage({ params }: Props) {
 	const { id } = await params;
 
 	// Get the base URL for absolute image paths
-	const baseUrl = process.env.VERCEL_URL
-		? `https://${process.env.VERCEL_URL}`
-		: process.env.NODE_ENV === "production"
-			? "https://ristill.club"
-			: "http://localhost:3000";
+	const baseUrl =
+		process.env.VERCEL_URL !== undefined
+			? `https://${process.env.VERCEL_URL}`
+			: process.env.NODE_ENV === "production"
+				? "https://ristill.club"
+				: "http://localhost:3000";
 
 	if (id === "") {
 		return new Response("Missing id parameter", { status: 400 });
@@ -77,6 +105,10 @@ export default async function OGImage({ params }: Props) {
 
 	const imageDisplaySize = getImageDisplaySize();
 
+	// Convert images to data URIs for Cloudflare Workers compatibility
+	const backgroundImageDataUri = await urlToDataUri(`${baseUrl}/images/mosaic_24000_6.jpg`);
+	const materialImageDataUri = await urlToDataUri(material.url);
+
 	try {
 		return new ImageResponse(
 			(
@@ -95,7 +127,7 @@ export default async function OGImage({ params }: Props) {
 				>
 					{/* Blurred background image */}
 					<img
-						src={`${baseUrl}/images/mosaic_24000_6.jpg`}
+						src={backgroundImageDataUri}
 						alt=""
 						style={{
 							position: "absolute",
@@ -118,7 +150,7 @@ export default async function OGImage({ params }: Props) {
 						}}
 					>
 						<img
-							src={material.url}
+							src={materialImageDataUri}
 							alt={material.displayName}
 							style={{
 								width: imageDisplaySize.width,

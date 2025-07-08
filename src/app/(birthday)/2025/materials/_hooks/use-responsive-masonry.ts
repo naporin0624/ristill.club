@@ -35,22 +35,22 @@ const breakpointConfigs: BreakpointConfig = {
 		itemHeightEstimate: calculateItemHeightEstimate(280),
 	},
 	tablet: {
-		columnWidth: 300,
+		columnWidth: 280,
 		columnGutter: 20,
 		rowGutter: 20,
-		itemHeightEstimate: calculateItemHeightEstimate(300),
-	},
-	desktop: {
-		columnWidth: 280,
-		columnGutter: 24,
-		rowGutter: 24,
 		itemHeightEstimate: calculateItemHeightEstimate(280),
 	},
+	desktop: {
+		columnWidth: 240,
+		columnGutter: 24,
+		rowGutter: 24,
+		itemHeightEstimate: calculateItemHeightEstimate(240),
+	},
 	largeDesktop: {
-		columnWidth: 320,
+		columnWidth: 280,
 		columnGutter: 32,
 		rowGutter: 32,
-		itemHeightEstimate: calculateItemHeightEstimate(320),
+		itemHeightEstimate: calculateItemHeightEstimate(280),
 	},
 };
 

@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 
-import { MaterialItem } from "../../../_components/material-item";
+import { MaterialsGrid } from "../../../_components/materials-grid";
 
 import * as styles from "./styles.css";
 
@@ -59,24 +59,8 @@ export const RelatedMaterials = ({ materials, currentId, count = 25 }: Props) =>
 			<h2 id="related-materials-heading" className={styles.title}>
 				その他の画像
 			</h2>
-			<div className={styles.container}>
-				<div
-					className={`${styles.masonryGrid} ${styles.masonryGridLarge}`}
-					role="list"
-					aria-label={`関連する画像 ${relatedMaterials.length}枚`}
-				>
-					{relatedMaterials.map((material, index) => (
-						<div
-							key={material.id}
-							className={styles.gridItem}
-							role="listitem"
-							aria-setsize={relatedMaterials.length}
-							aria-posinset={index + 1}
-						>
-							<MaterialItem material={material} />
-						</div>
-					))}
-				</div>
+			<div className={styles.gridContainer}>
+				<MaterialsGrid materials={relatedMaterials} height="auto" />
 			</div>
 		</section>
 	);

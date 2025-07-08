@@ -24,6 +24,15 @@ export const masonryGrid = style({
 	contain: "layout paint",
 });
 
+// Masonic grid container with custom height
+export const masonryGridCustom = style({
+	width: "100%",
+	position: "relative",
+
+	// Performance optimizations
+	contain: "layout paint",
+});
+
 // Individual item styling for masonic grid
 export const gridItem = style({
 	width: "100%", // Full width within column
