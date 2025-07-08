@@ -7,7 +7,7 @@ import { Heading } from "../_components/heading";
 
 import BannerImage from "./_assets/banner.webp";
 import KVImage from "./_assets/kv.webp";
-import MosaicArtImage from "./_assets/mosaic_24000_4.webp";
+import MosaicArtImage from "./_assets/mosaic_24000_6.jpg";
 import AboutText from "./about.txt";
 import ConclusionText from "./conclusion.txt";
 import { contributors } from "./contributors";
@@ -110,7 +110,7 @@ const Page = async () => {
 						<p className={styles.text}>
 							ウェブサイトに掲載するにあたって画像を圧縮しています。高画質版は
 							<Link
-								href="https://storage.ristill.club/2025/mosaic_24000_4.png"
+								href="https://storage.ristill.club/2025/mosaic_24000_6.png"
 								target="_blank"
 								className={styles.hightResolutionLink}
 							>

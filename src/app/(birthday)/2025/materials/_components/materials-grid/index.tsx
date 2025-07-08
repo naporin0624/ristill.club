@@ -1,11 +1,15 @@
 "use client";
 
-import { forwardRef, useImperativeHandle, useMemo } from "react";
+import dynamic from "next/dynamic";
+import { forwardRef, useCallback, useImperativeHandle, type ComponentType } from "react";
 
-import { useScrollRestoration } from "../../_hooks/use-scroll-restoration";
-import { ColumnVirtualizer } from "../column-virtualizer";
+import { useMasonicScrollRestoration } from "../../_hooks/use-masonic-scroll-restoration";
+import { useResponsiveMasonry } from "../../_hooks/use-responsive-masonry";
+import { MaterialItem } from "../material-item";
 
 import * as styles from "./styles.css";
+
+import type { MasonryProps } from "masonic";
 
 type MaterialData = {
 	id: string;
@@ -18,6 +22,11 @@ type MaterialData = {
 	height: number;
 };
 
+// Dynamic import for Masonry to avoid SSR issues with ResizeObserver
+const Masonry = dynamic(() => import("masonic").then((mod) => mod.Masonry), { ssr: false }) as ComponentType<
+	MasonryProps<MaterialData>
+>;
+
 type Props = {
 	materials: MaterialData[];
 };
@@ -27,7 +36,8 @@ export type MaterialsGridHandle = {
 };
 
 export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials }, ref) => {
-	const { registerVirtualizer, getInitialState, scrollToTop, createScrollEndHandler } = useScrollRestoration();
+	const { handleRender, scrollToTop, scrollToIndex } = useMasonicScrollRestoration();
+	const { columnWidth, columnGutter, rowGutter } = useResponsiveMasonry();
 
 	useImperativeHandle(
 		ref,
@@ -37,59 +47,37 @@ export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials
 		[scrollToTop],
 	);
 
-	// Create responsive grid layout data for masonry effect with balanced heights
-	const gridItems = useMemo(() => {
-		// Responsive column count based on screen size
-		// This will be updated based on actual viewport, but start with 4 for SSR
-		const columnCount = 4;
-		const columns = Array.from({ length: columnCount }, (_, index) => ({
-			id: `column-${index}`,
-			items: [] as MaterialData[],
-			height: 0, // Track cumulative height
-		}));
-
-		// Approximate column width for height calculation (will be adjusted by CSS)
-		const approxColumnWidth = 300;
-
-		for (const material of materials) {
-			// Calculate the height this image would have in the column
-			const aspectRatio = material.height / material.width;
-			const calculatedHeight = approxColumnWidth * aspectRatio;
-
-			// Find the column with the smallest height
-			const shortestColumn = columns.reduce((shortest, column) =>
-				column.height < shortest.height ? column : shortest,
-			);
-
-			// Add the material to the shortest column
-			shortestColumn.items.push(material);
-			shortestColumn.height += calculatedHeight + 20; // Add gap size
-		}
-
-		return columns;
-	}, [materials]);
+	const renderItem = useCallback(
+		({ data: material, width, index }: { data: MaterialData; width: number; index: number }) => (
+			<div
+				key={material.id}
+				className={styles.gridItem}
+				role="listitem"
+				aria-setsize={materials.length}
+				aria-posinset={index + 1}
+				style={{ width }}
+			>
+				<MaterialItem material={material} />
+			</div>
+		),
+		[materials.length],
+	);
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.masonryGrid} role="list" aria-label={`モザイクアート素材画像 ${materials.length}枚`}>
-				{gridItems.map((column, columnIndex) => {
-					const columnId = `column-${columnIndex}`;
-					const { initialCache } = getInitialState(columnId, column.items.length);
-					const handleScrollEnd = createScrollEndHandler(columnId);
-
-					return (
-						<div key={column.id} className={styles.column}>
-							<ColumnVirtualizer
-								columnId={columnId}
-								items={column.items}
-								initialCache={initialCache}
-								onRegisterVirtualizer={registerVirtualizer}
-								onScrollEnd={handleScrollEnd}
-							/>
-						</div>
-					);
-				})}
-			</div>
+			<Masonry
+				items={materials}
+				columnWidth={columnWidth}
+				columnGutter={columnGutter}
+				rowGutter={rowGutter}
+				overscanBy={2}
+				className={styles.masonryGrid}
+				role="list"
+				aria-label={`モザイクアート素材画像 ${materials.length}枚`}
+				onRender={handleRender}
+				scrollToIndex={scrollToIndex}
+				render={renderItem}
+			/>
 		</div>
 	);
 });

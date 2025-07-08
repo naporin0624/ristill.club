@@ -7,20 +7,19 @@ export const root = style({
 	background: "#ffffff",
 	borderRadius: 12,
 	overflow: "hidden",
-	boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)",
 	transition: "all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)",
 	textDecoration: "none",
 	color: "inherit",
 	cursor: "pointer",
+	width: "100%",
+	height: "100%",
 
 	selectors: {
 		"&:hover": {
 			transform: "translateY(-4px)",
-			boxShadow: "0 8px 32px rgba(0, 0, 0, 0.15)",
 		},
 		"&:focus-visible": {
 			outline: "none",
-			boxShadow: "0 0 0 3px rgba(94, 201, 255, 0.5), 0 8px 32px rgba(0, 0, 0, 0.15)",
 			transform: "translateY(-4px)",
 		},
 		"&:active": {
