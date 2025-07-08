@@ -31,6 +31,12 @@ const nextConfig: NextConfig = {
 			use: "raw-loader",
 		});
 
+		config.module.rules.push({
+			test: /\.(ttf|otf|woff|woff2)$/,
+			type: "javascript/auto",
+			use: "arraybuffer-loader",
+		});
+
 		return config;
 	},
 };
