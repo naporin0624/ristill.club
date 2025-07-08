@@ -117,7 +117,7 @@ export const main = style({
 });
 
 export const imageSection = style({
-	order: 1,
+	order: 0,
 
 	"@media": {
 		[breakpoints.desktop]: {
@@ -144,7 +144,7 @@ export const image = style({
 });
 
 export const sidebar = style({
-	order: 0,
+	order: 1,
 	display: "flex",
 	flexDirection: "column",
 	gap: 24,
@@ -191,6 +191,13 @@ export const shortcuts = style({
 	padding: 20,
 	borderRadius: 16,
 	boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
+	display: "none",
+
+	"@media": {
+		[breakpoints.desktop]: {
+			display: "block",
+		},
+	},
 });
 
 export const shortcutsTitle = style({
@@ -226,4 +233,61 @@ export const shortcutKey = style({
 
 export const shortcutDescription = style({
 	color: "#666",
+});
+
+export const postButton = style([
+	focusRing,
+	{
+		display: "inline-flex",
+		alignItems: "center",
+		justifyContent: "center",
+		width: "100%",
+		padding: "12px 24px",
+		borderRadius: 24,
+		backgroundColor: "#000000",
+		color: "#ffffff",
+		fontSize: "0.9rem",
+		fontWeight: "600",
+		textDecoration: "none",
+		cursor: "pointer",
+		transition: "all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)",
+		gap: 8,
+
+		"@media": {
+			[breakpoints.desktop]: {
+				padding: "14px 28px",
+				fontSize: "1rem",
+			},
+		},
+
+		selectors: {
+			"&:hover": {
+				backgroundColor: "#333333",
+				transform: "translateY(-2px)",
+			},
+		},
+	},
+]);
+
+export const postIcon = style({
+	width: 16,
+	height: 16,
+	background: "currentColor",
+	mask: "url(/x/logo.svg) no-repeat center",
+	maskSize: "contain",
+	WebkitMask: "url(/x/logo.svg) no-repeat center",
+	WebkitMaskSize: "contain",
+	flexShrink: 0,
+});
+
+export const srOnly = style({
+	position: "absolute",
+	width: 1,
+	height: 1,
+	padding: 0,
+	margin: -1,
+	overflow: "hidden",
+	clip: "rect(0, 0, 0, 0)",
+	whiteSpace: "nowrap",
+	borderWidth: 0,
 });

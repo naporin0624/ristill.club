@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { id } = await params;
 	const material = (materialsData as MaterialData[]).find((m) => m.id === id);
 
-	if (!material) {
+	if (material === undefined) {
 		return {
 			title: "画像が見つかりません - RISTILL BIRTHDAY 2025",
 		};
@@ -67,8 +67,8 @@ const Page = async ({ params }: Props) => {
 		notFound();
 	}
 
-	const material = materials[currentIndex];
-	if (!material) {
+	const material = materials.at(currentIndex);
+	if (material === undefined) {
 		notFound();
 	}
 	const prevMaterial = currentIndex > 0 ? materials[currentIndex - 1] : null;
@@ -84,7 +84,7 @@ const Page = async ({ params }: Props) => {
 						← 素材一覧に戻る
 					</Link>
 					<nav className={styles.navigation} aria-label="画像ナビゲーション">
-						{prevMaterial ? (
+						{prevMaterial !== null && prevMaterial !== undefined ? (
 							<Link
 								href={`/2025/materials/${prevMaterial.id}`}
 								className={styles.navButton}
@@ -93,7 +93,7 @@ const Page = async ({ params }: Props) => {
 								← 前
 							</Link>
 						) : null}
-						{nextMaterial ? (
+						{nextMaterial !== null && nextMaterial !== undefined ? (
 							<Link
 								href={`/2025/materials/${nextMaterial.id}`}
 								className={styles.navButton}
@@ -147,22 +147,50 @@ const Page = async ({ params }: Props) => {
 							</dl>
 						</div>
 
+						{/* Post Button */}
+						<a
+							href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+								`おてぃる2025年誕生日モザイクアートに使用された素材「${material.displayName}」\n\n#RISTILL #おてぃる誕生日2025 #VRChat`,
+							)}&url=${encodeURIComponent(`https://ristill.club/2025/materials/${material.id}`)}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className={styles.postButton}
+							aria-label={`${material.displayName}をXにポストする`}
+						>
+							<span className={styles.postIcon} aria-hidden="true" />
+							ポスト
+						</a>
+
 						{/* Keyboard shortcuts info */}
-						<div className={styles.shortcuts} role="complementary" aria-labelledby="shortcuts-heading">
+						<div
+							className={styles.shortcuts}
+							role="complementary"
+							aria-labelledby="shortcuts-heading"
+							aria-describedby="shortcuts-description"
+						>
 							<h2 id="shortcuts-heading" className={styles.shortcutsTitle}>
 								キーボードショートカット
 							</h2>
-							<dl className={styles.shortcutsList}>
-								<div className={styles.shortcutItem}>
-									<dt className={styles.shortcutKey}>←</dt>
+							<p id="shortcuts-description" className={styles.srOnly}>
+								キーボードを使用して画像を素早く操作できます。
+							</p>
+							<dl className={styles.shortcutsList} role="list">
+								<div className={styles.shortcutItem} role="listitem">
+									<dt className={styles.shortcutKey} aria-label="左矢印キー">
+										←
+									</dt>
 									<dd className={styles.shortcutDescription}>前の画像</dd>
 								</div>
-								<div className={styles.shortcutItem}>
-									<dt className={styles.shortcutKey}>→</dt>
+								<div className={styles.shortcutItem} role="listitem">
+									<dt className={styles.shortcutKey} aria-label="右矢印キー">
+										→
+									</dt>
 									<dd className={styles.shortcutDescription}>次の画像</dd>
 								</div>
-								<div className={styles.shortcutItem}>
-									<dt className={styles.shortcutKey}>Esc</dt>
+								<div className={styles.shortcutItem} role="listitem">
+									<dt className={styles.shortcutKey} aria-label="エスケープキー">
+										Esc
+									</dt>
 									<dd className={styles.shortcutDescription}>一覧に戻る</dd>
 								</div>
 							</dl>

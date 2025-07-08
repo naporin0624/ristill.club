@@ -51,9 +51,6 @@ export const MaterialItem = ({ material, className }: Props) => {
 			</div>
 			<div className={styles.metadata}>
 				<div className={styles.name}>{displayName}</div>
-				<div className={styles.viewHint} aria-hidden="true">
-					クリックして拡大表示
-				</div>
 			</div>
 		</Link>
 	);

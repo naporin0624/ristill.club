@@ -74,18 +74,3 @@ export const size = style({
 	fontSize: "0.75rem",
 	color: "#999",
 });
-
-export const viewHint = style({
-	fontSize: "0.75rem",
-	color: "#5EC9FF",
-	fontWeight: "500",
-	marginTop: 4,
-	opacity: 0.8,
-	transition: "opacity 0.3s ease",
-
-	selectors: {
-		"&:hover": {
-			opacity: 1,
-		},
-	},
-});
