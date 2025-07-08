@@ -180,6 +180,19 @@ const Page = async () => {
 					<div className={styles.contents}>
 						<Heading level={2}>さいごに</Heading>
 						<p className={styles.text}>{ConclusionText}</p>
+						
+						<p className={styles.text}>
+							このサイトのソースコードは
+							<Link 
+								href="https://github.com/naporin0624/RISTILL_ANIVERSARY_2025" 
+								target="_blank" 
+								rel="noopener" 
+								className={styles.hightResolutionLink}
+							>
+								<span className={styles.text} data-strong>{`**GitHub**`}</span>
+							</Link>
+							で公開されています。
+						</p>
 					</div>
 				</section>
 			</div>
