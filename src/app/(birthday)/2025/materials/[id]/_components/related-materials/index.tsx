@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 
-import { MaterialsGrid } from "../../../_components/materials-grid";
+import { SimpleGrid } from "../../../_components/simple-grid";
 
 import * as styles from "./styles.css";
 
@@ -60,7 +60,7 @@ export const RelatedMaterials = ({ materials, currentId, count = 25 }: Props) =>
 				その他の画像
 			</h2>
 			<div className={styles.gridContainer}>
-				<MaterialsGrid materials={relatedMaterials} height="auto" />
+				<SimpleGrid materials={relatedMaterials} />
 			</div>
 		</section>
 	);

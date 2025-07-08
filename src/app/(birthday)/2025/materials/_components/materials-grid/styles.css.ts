@@ -27,9 +27,15 @@ export const masonryGrid = style({
 // Masonic grid container with custom height
 export const masonryGridCustom = style({
 	width: "100%",
+	overflowY: "auto",
+	overflowX: "hidden",
 	position: "relative",
 
+	// Smooth scrolling
+	scrollBehavior: "smooth",
+
 	// Performance optimizations
+	willChange: "scroll-position",
 	contain: "layout paint",
 });
 

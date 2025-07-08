@@ -87,7 +87,7 @@ export const MaterialsGrid = forwardRef<MaterialsGridHandle, Props>(({ materials
 
 	const gridHeight = height !== undefined && height !== "auto" ? height : "100vh";
 	const useCustomStyle = height !== undefined;
-	
+
 	return (
 		<div className={styles.container}>
 			<Masonry
