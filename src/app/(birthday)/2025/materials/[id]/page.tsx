@@ -150,7 +150,7 @@ const Page = async ({ params }: Props) => {
 						{/* Post Button */}
 						<a
 							href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-								`おてぃる2025年誕生日モザイクアートに使用された素材「${material.displayName}」\n\n#RISTILL #おてぃる誕生日2025 #VRChat`,
+								`おてぃる2025年誕生日モザイクアートに使用された素材「${material.displayName}」`,
 							)}&url=${encodeURIComponent(`https://ristill.club/2025/materials/${material.id}`)}`}
 							target="_blank"
 							rel="noopener noreferrer"
