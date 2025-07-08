@@ -12,7 +12,7 @@ export const title = style({
 	fontSize: "1.5rem",
 	fontWeight: "600",
 	marginBottom: "1.5rem",
-	color: "#333",
+	color: "#2d2d2d",
 	textAlign: "center",
 });
 

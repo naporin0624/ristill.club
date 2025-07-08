@@ -77,7 +77,7 @@ export const navButton = style([
 		alignItems: "center",
 		padding: "10px 16px",
 		backgroundColor: "#ffffff",
-		color: "#333",
+		color: "#2d2d2d",
 		textDecoration: "none",
 		borderRadius: 20,
 		fontSize: "0.875rem",
@@ -203,7 +203,7 @@ export const shortcuts = style({
 export const shortcutsTitle = style({
 	fontSize: "1rem",
 	fontWeight: "600",
-	color: "#333",
+	color: "#2d2d2d",
 	marginBottom: 16,
 });
 
@@ -232,7 +232,7 @@ export const shortcutKey = style({
 });
 
 export const shortcutDescription = style({
-	color: "#666",
+	color: "#2d2d2d",
 });
 
 export const postButton = style([

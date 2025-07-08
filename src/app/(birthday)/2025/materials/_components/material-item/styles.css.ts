@@ -51,26 +51,30 @@ export const image = style({
 });
 
 export const metadata = style({
-	padding: 12,
-	fontSize: "0.875rem",
-	color: "#666",
+	padding: 8,
+	fontSize: "0.75rem",
+	color: "#2d2d2d",
 	lineHeight: "1.4",
 
 	"@media": {
 		[breakpoints.desktop]: {
-			padding: 16,
+			padding: 12,
+			fontSize: "0.875rem",
 		},
 	},
 });
 
 export const name = style({
 	fontWeight: "600",
-	color: "#333",
+	color: "#2d2d2d",
 	marginBottom: 4,
-	wordBreak: "break-word",
+	overflow: "hidden",
+	textOverflow: "ellipsis",
+	whiteSpace: "nowrap",
+	display: "block",
 });
 
 export const size = style({
 	fontSize: "0.75rem",
-	color: "#999",
+	color: "#2d2d2d",
 });
